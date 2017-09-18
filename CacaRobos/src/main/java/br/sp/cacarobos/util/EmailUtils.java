@@ -2,11 +2,10 @@ package br.sp.cacarobos.util;
 import java.util.List;
 
 import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
+import org.apache.commons.mail.HtmlEmail;
 public class EmailUtils{
-	private Email email;
+	private HtmlEmail email;
 	private final String HOST_NAME="smtp.gmail.com";
 	private final int SMTP_PORT=465;
 	private final String USERNAME="senaimt4project";
@@ -15,7 +14,7 @@ public class EmailUtils{
 	private final boolean SSL_ON_CONNECT=true;
 	
 	public EmailUtils() throws EmailException{
-		email=new SimpleEmail();
+		email=new HtmlEmail();
 		email.setHostName(HOST_NAME);
 		email.setSmtpPort(SMTP_PORT);
 		email.setAuthenticator(new DefaultAuthenticator(USERNAME, PASSWORD));
@@ -44,6 +43,17 @@ public class EmailUtils{
 			email.send();
 		}catch(EmailException e){
 			throw new RuntimeException("Error in EmailUtils(Send Email): "+e.getMessage());
+		}
+	}
+	
+	public void sendHtmlEmail(String subject, EmailTamplate emailTemplate){
+		try{
+			email.setSubject(subject);
+			email.setHtmlMsg(emailTemplate.emailTamplate);
+			email.setTextMsg("Email não suporta uma mensagem HTML");
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send forgot password html email): "+e.getMessage());
 		}
 	}
 }
