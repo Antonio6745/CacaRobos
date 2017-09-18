@@ -7,7 +7,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.sp.cacarobos</groupId>
-	<artifactId>CacaRobos</artifactId>
+	<artifactId>cacarobos</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cacarobos Maven Webapp</name>
