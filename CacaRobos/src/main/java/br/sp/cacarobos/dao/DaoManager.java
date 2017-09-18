@@ -40,11 +40,11 @@ public class DaoManager implements GenericDao<Manager>{
 			ResultSet rs=command.getGeneratedKeys();
 			rs.next();
 			t.getLogin().setId(rs.getLong(1));
-			command=connection.prepareStatement("INSERT INTO manager (name, cpf, loginId, birthdate, profilePicture) VALUES (?,?,?,?,?)");
+			command=connection.prepareStatement("INSERT INTO manager (name, cpf, loginId, profilePicture) VALUES (?,?,?,?)");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
 			command.setLong(3, t.getLogin().getId());
-			command.setBlob(5, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setBlob(4, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
 			command.execute();
 			rs.close();
 			command.close();
