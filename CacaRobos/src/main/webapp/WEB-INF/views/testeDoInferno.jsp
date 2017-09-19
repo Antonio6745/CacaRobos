@@ -7,11 +7,11 @@
 <title>Teste</title>
 </head>
 <body>
-<form action="sigin">
-	<!-- <label></label><input name="nickname">-->
+<form action="add">
+	<label></label><input name="nickname">
 	<label></label><input name="username">
 	<label></label><input name="password">
-	<input type="submit" value="Realizar Action">
+	<input type="submit" value="Enviar">
 </form>
 </body>
 </html>
