@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.Status;
+import br.sp.cacarobos.model.User;
 
 @Repository
 public class DaoReport implements GenericDao<Report>{
@@ -62,7 +63,7 @@ public class DaoReport implements GenericDao<Report>{
 						break;
 					}
 				}
-				r.setUserId(rs.getLong("userId"));
+				r.setUser(retriveUser(rs.getLong("userId")));
 				r.setValuerId(rs.getLong("valuerId"));
 				r.setApproveReport(rs.getBoolean("approveReport"));
 				r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
@@ -79,6 +80,26 @@ public class DaoReport implements GenericDao<Report>{
 		return null;
 	}
 
+	private User retriveUser(Long t){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM user WHERE id=?");
+			command.setLong(1, t);
+			ResultSet rs=command.executeQuery();
+			User u=null;
+			if(rs.next()){
+				u=new User();
+				u.setId(t);
+				u.setNickname(rs.getString("nickname"));
+				u.setProfilePicture(rs.getBytes("profilePicture"));
+			}
+			rs.close();
+			command.close();
+			return u;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoCommenatry(Retrive User): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void update(Report t) {
 		try {

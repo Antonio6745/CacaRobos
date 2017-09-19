@@ -5,14 +5,15 @@ public class Commentary {
 	private String description;
 	private User user;
 	private Report report;
+	public Commentary() {
+		user=new User();
+		report=new Report();
+	}
 	public User getUser() {
 		return user;
 	}
 	public void setUser(User user) {
 		this.user = user;
-	}
-	public void setUserId(Long id) {
-		user.setId(id);
 	}
 	public Long getId() {
 		return id;
@@ -31,9 +32,6 @@ public class Commentary {
 	}
 	public void setReport(Report report) {
 		this.report = report;
-	}
-	public void setReportId(Long l){
-		report.setId(l);
 	}
 	@Override
 	public String toString() {

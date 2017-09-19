@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Commentary;
+import br.sp.cacarobos.model.User;
 
 @Repository
 public class DaoCommentary implements GenericDao<Commentary>{
@@ -53,8 +54,8 @@ public class DaoCommentary implements GenericDao<Commentary>{
 				c=new Commentary();
 				c.setId(rs.getLong("id"));
 				c.setDescription(rs.getString("description"));
-				c.setReportId(rs.getLong("reportId"));
-				c.setUserId(rs.getLong("userId"));
+				c.getReport().setId(rs.getLong("reportId"));
+				c.setUser(retriveUser(rs.getLong("userId")));
 			}
 			rs.close();
 			command.close();
@@ -63,6 +64,26 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			new RuntimeException("Error in DaoComment(Read): "+e.getMessage());
 		}
 		return null;
+	}
+	
+	private User retriveUser(Long t){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM user WHERE id=?");
+			command.setLong(1, t);
+			ResultSet rs=command.executeQuery();
+			User u=null;
+			if(rs.next()){
+				u=new User();
+				u.setId(t);
+				u.setNickname(rs.getString("nickname"));
+				u.setProfilePicture(rs.getBytes("profilePicture"));
+			}
+			rs.close();
+			command.close();
+			return u;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoCommenatry(Retrive User): "+e.getMessage());
+		}
 	}
 	
 	@Override
@@ -95,8 +116,8 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			Commentary c=new Commentary();
 			c.setId(rs.getLong("id"));
 			c.setDescription(rs.getString("description"));
-			c.setReportId(rs.getLong("reportId"));
-			c.setUserId(rs.getLong("userId"));
+			c.getReport().setId(rs.getLong("reportId"));
+			c.getUser().setId(rs.getLong("userId"));
 			return c;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoCommentary(Retrive data): "+e.getMessage());

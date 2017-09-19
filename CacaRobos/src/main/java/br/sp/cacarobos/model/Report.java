@@ -43,17 +43,11 @@ public class Report {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public void setUserId(Long id) {
-		user.setId(id);
-	}
 	public Valuer getValuer() {
 		return valuer;
 	}
 	public void setValuer(Valuer valuer) {
 		this.valuer = valuer;
-	}
-	public void setValuerId(Long id) {
-		valuer.setId(id);
 	}
 	public Boolean getApproveReport() {
 		return approveReport;
