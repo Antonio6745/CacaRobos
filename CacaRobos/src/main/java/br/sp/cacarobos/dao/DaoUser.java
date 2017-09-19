@@ -61,7 +61,7 @@ public class DaoUser implements GenericDao<User>{
 				u=new User();
 				u.setId(rs.getLong("id"));
 				u.setNickname(rs.getString("nickname"));
-				u.setLoginId(rs.getLong("loginId"));
+				u.getLogin().setId(rs.getLong("loginId"));
 				u.setProfilePicture(rs.getBytes("profilePicture"));
 			}
 			rs.close();
@@ -108,7 +108,7 @@ public class DaoUser implements GenericDao<User>{
 				User u=new User();
 				u.setId(rs.getLong("id"));
 				u.setNickname(rs.getString("nickname"));
-				u.setLoginId(rs.getLong("loginId"));
+				u.getLogin().setId(rs.getLong("loginId"));
 				u.setProfilePicture(rs.getBytes("profilePicture"));
 				list.add(u);
 			}

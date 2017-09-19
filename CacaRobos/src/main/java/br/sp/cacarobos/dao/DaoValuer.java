@@ -66,7 +66,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
-				v.setLoginId(rs.getLong("loginId"));
+				v.getLogin().setId(rs.getLong("loginId"));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
 			}
@@ -128,7 +128,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
-				v.setLoginId(rs.getLong("loginId"));
+				v.getLogin().setId(rs.getLong("loginId"));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
 				list.add(v);

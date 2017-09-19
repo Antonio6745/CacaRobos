@@ -64,7 +64,7 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 		return null;
 	}
-
+	
 	@Override
 	public void update(Commentary t) {
 		try {

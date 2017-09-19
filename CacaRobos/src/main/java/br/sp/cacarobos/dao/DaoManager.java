@@ -65,7 +65,7 @@ public class DaoManager implements GenericDao<Manager>{
 				m.setId(rs.getLong("id"));
 				m.setName(rs.getString("name"));
 				m.setCpf(rs.getString("cpf"));
-				m.setLoginId(rs.getLong("loginId"));
+				m.getLogin().setId(rs.getLong("loginId"));
 				m.setProfilePicture(rs.getBytes("profilePictures"));
 			}
 			rs.close();
@@ -114,7 +114,7 @@ public class DaoManager implements GenericDao<Manager>{
 				m.setId(rs.getLong("id"));
 				m.setName(rs.getString("name"));
 				m.setCpf(rs.getString("cpf"));
-				m.setLoginId(rs.getLong("loginId"));
+				m.getLogin().setId(rs.getLong("loginId"));
 				m.setProfilePicture(rs.getBytes("profilePicture"));
 				list.add(m);
 			}

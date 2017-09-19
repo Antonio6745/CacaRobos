@@ -37,17 +37,23 @@ public class ControllerLogin {
 		if(l!=null){
 			if(l.getUserType().equals(UserType.ADM.userType)){
 				Manager t=bdLogin.retriveInfoManager(l);
-				//t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				/*if(t.getProfilePicture()==null){
+					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				}*/
 				session.setAttribute("managerLoggedIn", t);
 				return "mainPageManager";
 			}else if(l.getUserType().equals(UserType.USR.userType)){
 				User t=bdLogin.retriveInfoUser(l);
-				//t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				/*if(t.getProfilePicture()==null){
+					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				}*/
 				session.setAttribute("userLoggedIn", t);
 				return "mainPageUser";
 			}else if(l.getUserType().equals(UserType.VLR.userType)){
 				Valuer t=bdLogin.retriveInfoValuer(l);
-				//t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				/*if(t.getProfilePicture()==null){
+					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
+				}*/
 				session.setAttribute("valuerLoggedIn", t);
 				return "mainPageValuer";
 			}

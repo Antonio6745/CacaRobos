@@ -14,9 +14,6 @@ public class User {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-	public void setLoginId(Long id){
-		login.setId(id);
-	}
 	public Long getId() {
 		return id;
 	}

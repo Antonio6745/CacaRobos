@@ -35,9 +35,6 @@ public abstract class Person {
 	public void setLogin(Login login) {
 		this.login = login;
 	}
-	public void setLoginId(Long id) {
-		login.setId(id);
-	}
 	public byte[] getProfilePicture() {
 		return profilePicture;
 	}
