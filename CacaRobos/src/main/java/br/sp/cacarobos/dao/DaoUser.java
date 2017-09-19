@@ -108,8 +108,11 @@ public class DaoUser implements GenericDao<User>{
 				User u=new User();
 				u.setId(rs.getLong("id"));
 				u.setNickname(rs.getString("nickname"));
+<<<<<<< HEAD
 				u.getLogin().setId(rs.getLong("loginId"));
 				u.setProfilePicture(rs.getBytes("profilePicture"));
+=======
+>>>>>>> Samuel
 				list.add(u);
 			}
 			rs.close();
