@@ -16,6 +16,8 @@ public class Report {
 	
 	public Report() {
 		voteCounting=new VoteCounting();
+		user=new User();
+		valuer=new Valuer();
 	}
 	
 	public Long getId() {

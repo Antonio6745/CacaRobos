@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.model.Valuer;
 
 @Repository
 public class DaoReport implements GenericDao<Report>{
@@ -64,7 +65,7 @@ public class DaoReport implements GenericDao<Report>{
 					}
 				}
 				r.setUser(retriveUser(rs.getLong("userId")));
-				r.setValuerId(rs.getLong("valuerId"));
+				r.setValuer(retriveValuer(rs.getLong("valuerId")));
 				r.setApproveReport(rs.getBoolean("approveReport"));
 				r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
 				r.setActiveReport(rs.getBoolean("activeReport"));
@@ -80,6 +81,28 @@ public class DaoReport implements GenericDao<Report>{
 		return null;
 	}
 
+	private Valuer retriveValuer(Long t){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+			command.setLong(1, t);
+			ResultSet rs=command.executeQuery();
+			Valuer v=null;
+			if(rs.next()){
+				v=new Valuer();
+				v.setId(t);
+				v.setName(rs.getString("name"));
+				v.setCpf(rs.getString("cpf"));
+				v.setActiveAccount(rs.getBoolean("activeAccount"));
+				v.setProfilePicture(rs.getBytes("profilePicture"));
+			}
+			rs.close();
+			command.close();
+			return v;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Retrive valuer): "+e.getMessage());
+		}
+	}
+	
 	private User retriveUser(Long t){
 		try{
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM user WHERE id=?");
@@ -96,7 +119,7 @@ public class DaoReport implements GenericDao<Report>{
 			command.close();
 			return u;
 		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoCommenatry(Retrive User): "+e.getMessage());
+			throw new RuntimeException("Error in DaoReport(Retrive User): "+e.getMessage());
 		}
 	}
 	
@@ -192,8 +215,8 @@ public class DaoReport implements GenericDao<Report>{
 					break;
 				}
 			}
-			r.setUserId(rs.getLong("userId"));
-			r.setValuerId(rs.getLong("valuerId"));
+			r.setUser(retriveUser(rs.getLong("userId")));
+			r.setValuer(retriveValuer(rs.getLong("valuerId")));
 			r.setApproveReport(rs.getBoolean("approveReport"));
 			r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
 			r.setActiveReport(rs.getBoolean("activeReport"));
