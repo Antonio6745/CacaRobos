@@ -12,14 +12,16 @@
 	<table>
 	<tr>
 		<th>Id</th>
-		<th>Nickname</th>
+		<th>Name</th>
+		<th>Cpf</th>
 
 	</tr>
-	<c:forEach items="${us }" var="us">
+	<c:forEach items="${man }" var="man">
 		<tr>
-			<td>${us.id }</td>
-			<td>${us.nickname }</td>
-			<td><a href="deleteUser?id=${us.id }"><button>X</button></a></td>
+			<td>${man.id }</td>
+			<td>${man.name }</td>
+			<td>${man.cpf }</td>
+			<td><a href="deleteManager?id=${man.id }"><button>X</button></a></td>
 		</tr>
 	</c:forEach>
 </table>

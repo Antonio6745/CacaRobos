@@ -27,9 +27,14 @@ public class ControllerUser {
 		return "testeDoInferno";
 	}
 	@RequestMapping("listAllUser")
-	public String listAllClients(Model model){
-		System.out.println();
+	public String listAllClients(Model model,User u){
+		System.out.println(u);
 		model.addAttribute("us", bdUser.listAll());
 		return "listUser";
+	}
+	@RequestMapping("deleteUser")
+	public String del(User u) {
+		bdUser.delete(u.getId());
+		return "redirect:listAllUser";
 	}
 }
