@@ -1,6 +1,8 @@
 # CacaRobos
 
-Plataforma Web de denúncias e monitoramento de robôs em atuações políticas, pois devemos utilizar a tecnologia a favor de uma mudança politica, mas não de forma negativa (utilizando robôs para influência politica em redes sociais).
+<img src="https://github.com/Antonio6745/CacaRobos/blob/master/CacaRobos-Logo.jpeg"/>
+
+Plataforma Web de denúncias e monitoramento de robôs em atuações políticas realizada por alunos do <a href="https://informatica.sp.senai.br/">Senai Informática</a> para a empresa <a href="https://appcivico.com/pt/">AppCívico</a>, para que utilizemos a tecnologia a favor de uma mudança politica, mas não de forma negativa (como utilizando robôs para influência politica em redes sociais).
 
 
 <b>Equipe de desenvolvimento:</b>
