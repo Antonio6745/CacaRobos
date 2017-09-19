@@ -23,6 +23,8 @@ Plataforma Web de denúncias e monitoramento de robôs em atuações políticas 
 
 - Samuel Monteiro - Desenvolvedor do Banco de Dados
 
+
+
 Para entender melhor sobre o propósito do projeto, o idealizador <b><a href="https://br.linkedin.com/in/thiagorondon">Thiago Rondon</a></b>, publicou um texto acompanhado de um video falando sobre o assunto:
 
 <a>https://medium.com/app-civico/tse-vamos-nos-preparar-para-as-elei%C3%A7%C3%B5es-presidenciais-de-2018-no-mundo-digital-3426c5077f37</a>
