@@ -20,9 +20,10 @@ import br.sp.cacarobos.model.Valuer;
 @Controller
 public class ControllerLogin {
 	private final DaoLogin bdLogin;
+	/*
 	@Autowired
 	ServletContext context;
-	
+	*/
 	@Autowired
 	public ControllerLogin(DaoLogin bdLogin){
 		this.bdLogin=bdLogin;

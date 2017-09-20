@@ -7,23 +7,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoManager;
-import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Manager;
 import br.sp.cacarobos.util.HttpError;
 @RestController
+@RequestMapping("/manager")
 public class ControllerRestManager {
-	private DaoManager bdManager;
+	
+	private final DaoManager bdManager;
 	
 	@Autowired
 	public ControllerRestManager(DaoManager bdManager) {
 		this.bdManager=bdManager;
 	}
 	
-	public ResponseEntity<Object> create(@RequestBody Manager m, @RequestBody Login l){
+	public ResponseEntity<Object> create(@RequestBody Manager m){
 		try{
-			m.setLogin(l);
 			bdManager.create(m);
 			return ResponseEntity.created(URI.create("/manager/"+m.getId())).body(m);
 		}catch(Exception e){

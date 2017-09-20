@@ -4,26 +4,29 @@ import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoUser;
-import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.util.HttpError;
 @RestController
+@RequestMapping("/user")
 public class ControllerRestUser {
-	private DaoUser bdUser;
+	private final DaoUser bdUser;
 	
 	@Autowired
 	public ControllerRestUser(DaoUser bdUser) {
 		this.bdUser=bdUser;
 	}
 	
-	public ResponseEntity<Object> create(@RequestBody User u, @RequestBody Login l){
+	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> create(@RequestBody User u){
 		try{
-			u.setLogin(l);
 			bdUser.create(u);
 			return ResponseEntity.created(URI.create("/user/"+u.getId())).body(u);
 		}catch(Exception e){

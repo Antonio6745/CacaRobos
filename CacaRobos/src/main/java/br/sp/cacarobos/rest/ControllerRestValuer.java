@@ -6,23 +6,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoValuer;
-import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.util.HttpError;
+
 @RestController
+@RequestMapping("/valuer")
 public class ControllerRestValuer {
-	private DaoValuer bdValuer;
+	
+	private final DaoValuer bdValuer;
 	
 	@Autowired
 	public ControllerRestValuer(DaoValuer bdValuer) {
 		this.bdValuer=bdValuer;
 	}
 	
-	public ResponseEntity<Object> create(@RequestBody Valuer v, @RequestBody Login l){
+	
+	public ResponseEntity<Object> create(@RequestBody Valuer v){
 		try{
-			v.setLogin(l);
 			bdValuer.create(v);
 			return ResponseEntity.created(URI.create("/valuer/"+v.getId())).body(v);
 		}catch(Exception e){
