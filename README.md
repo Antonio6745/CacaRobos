@@ -1,6 +1,6 @@
 # Caça Robos (CacaRobos)
 
-<img src="https://github.com/Antonio6745/CacaRobos/blob/master/CacaRobos-Logo.jpeg"/>
+<img src="https://github.com/Antonio6745/CacaRobos/blob/master/M%C3%ADdia/CacaRobos-Logo.jpeg"/>
 
 <p>Plataforma Web de denúncias e monitoramento de robôs em atuações políticas realizada por alunos do <a href="https://informatica.sp.senai.br/">Senai Informática</a> para a empresa <a href="https://appcivico.com/pt/">AppCívico</a>, para que utilizemos a tecnologia a favor de uma mudança politica, mas não de forma negativa (como utilizando robôs para influência politica em redes sociais).</p>
 <br/>
@@ -27,4 +27,4 @@
 
 <a>https://medium.com/app-civico/tse-vamos-nos-preparar-para-as-elei%C3%A7%C3%B5es-presidenciais-de-2018-no-mundo-digital-3426c5077f37</a>
 <br/>
-<p align="center"><img src="https://github.com/Antonio6745/CacaRobos/blob/master/appcivico-logo.png"/><img src="https://github.com/Antonio6745/CacaRobos/blob/master/espc.png"/><img src="https://github.com/Antonio6745/CacaRobos/blob/master/Senai-Logo.png"/></p>
+<p align="center"><img src="https://github.com/Antonio6745/CacaRobos/blob/master/M%C3%ADdia/appcivico-logo.png"/><img src="https://github.com/Antonio6745/CacaRobos/blob/master/M%C3%ADdia/espc.png"/><img src="https://github.com/Antonio6745/CacaRobos/blob/master/M%C3%ADdia/Senai-Logo.png"/></p>
