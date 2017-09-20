@@ -37,7 +37,8 @@ create table if not exists valuer(
     loginId int not null,
     foreign key (loginId) references login(id) on delete cascade,
     activeAccount boolean null default 0,
-    profilePicture mediumblob
+    profilePicture mediumblob,
+    reason varchar(255)
 );
 
 drop table if exists report;
