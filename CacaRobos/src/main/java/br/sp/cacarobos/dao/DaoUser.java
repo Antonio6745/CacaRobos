@@ -86,11 +86,28 @@ public class DaoUser implements GenericDao<User>{
 		}
 	}
 
+	private Long retiveLoginId(Long userId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM user WHERE id=?");
+			command.setLong(1, userId);
+			ResultSet rs=command.executeQuery();
+			Long l=null;
+			if(rs.next()){
+				l=rs.getLong("loginId");
+			}
+			rs.close();
+			command.close();
+			return l;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void delete(Long t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("DELETE FROM user WHERE id=?");
-			command.setLong(1, t);
+			PreparedStatement command=connection.prepareStatement("DELETE FROM login WHERE id=?");
+			command.setLong(1, retiveLoginId(t));
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -100,8 +117,9 @@ public class DaoUser implements GenericDao<User>{
 
 	@Override
 	public List<User> listAll() {
-		List<User> list=new ArrayList<>();
+		
 		try {
+			List<User> list=new ArrayList<>();
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM user");
 			ResultSet rs=command.executeQuery();
 			while(rs.next()){

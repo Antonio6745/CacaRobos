@@ -107,10 +107,31 @@ public class DaoValuer implements GenericDao<Valuer>{
 		}
 	}
 	
+	private Long retiveLoginId(Long userId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+			command.setLong(1, userId);
+			ResultSet rs=command.executeQuery();
+			Long l=null;
+			if(rs.next()){
+				l=rs.getLong("loginId");
+			}
+			rs.close();
+			command.close();
+			return l;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void delete(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("DELETE FROM valuer WHERE id=?");
+			command.setLong(1, t);
+			t=retiveLoginId(t);
+			command.execute();
+			command=connection.prepareStatement("DELETE FROM login WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();

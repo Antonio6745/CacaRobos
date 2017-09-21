@@ -1,6 +1,7 @@
 package br.sp.cacarobos.rest;
 import java.net.URI;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoUser;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.util.EmailUtils;
 import br.sp.cacarobos.util.HttpError;
 @RestController
 @RequestMapping("/user")
 public class ControllerRestUser {
 	private final DaoUser bdUser;
+	
+	
 	
 	@Autowired
 	public ControllerRestUser(DaoUser bdUser) {
@@ -28,6 +32,12 @@ public class ControllerRestUser {
 	public ResponseEntity<Object> create(@RequestBody User u){
 		try{
 			bdUser.create(u);
+			try {
+				EmailUtils email = new EmailUtils();
+				email.sendSubscribleEmailUser(u.getLogin().getUsername());
+			} catch (EmailException e) {
+				throw new RuntimeException("Error in ControllerRestUser(Create): "+e.getMessage());
+			}
 			return ResponseEntity.created(URI.create("/user/"+u.getId())).body(u);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestUser(Create): "+e.getMessage());
@@ -35,6 +45,7 @@ public class ControllerRestUser {
 		}
 	}
 	
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("userId") Long userId){
 		try{
 			return new ResponseEntity<Object>(bdUser.read(userId), HttpStatus.OK);
@@ -44,6 +55,7 @@ public class ControllerRestUser {
 		}
 	}
 	
+	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("userId") Long userId, @RequestBody User u){
 		try{
 			u.setId(userId);
@@ -57,6 +69,7 @@ public class ControllerRestUser {
 		}
 	}
 	
+	@RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable("userId") Long userId){
 		try{
 			bdUser.delete(userId);
@@ -67,6 +80,8 @@ public class ControllerRestUser {
 		}
 	}
 	
+	
+	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdUser.listAll(), HttpStatus.OK);

@@ -2,6 +2,7 @@ package br.sp.cacarobos.controller;
 
 import java.io.IOException;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.sp.cacarobos.dao.DaoValuer;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Valuer;
+import br.sp.cacarobos.util.EmailUtils;
 
 @Controller
 public class ControllerValuer {
@@ -23,7 +25,7 @@ public class ControllerValuer {
 	}
 	
 	//@RequestMapping("registerValuer")
-	public String registerValuer(Valuer t, Login l, MultipartFile file){
+	public String registerValuer(Valuer t, Login l, MultipartFile file) throws EmailException{
 		t.setLogin(l);
 		if(!file.isEmpty()){
 			try{
@@ -35,6 +37,8 @@ public class ControllerValuer {
 			
 		}
 		bdValuer.create(t);
+		EmailUtils email=new EmailUtils();
+		email.sendSubscribleEmailValuer(t.getLogin().getUsername());
 		return "";//add index page
 	}
 	
