@@ -35,7 +35,7 @@ public class ControllerRestValuer {
 				EmailUtils email = new EmailUtils();
 				email.sendSubscribleEmailUser(v.getLogin().getUsername());
 			} catch (EmailException e) {
-				throw new RuntimeException("Error in ControllerRestUser(Create): "+e.getMessage());
+				throw new RuntimeException("Error in ControllerRestValuer(Create): "+e.getMessage());
 			}
 			return ResponseEntity.created(URI.create("/valuer/"+v.getId())).body(v);
 		}catch(Exception e){
