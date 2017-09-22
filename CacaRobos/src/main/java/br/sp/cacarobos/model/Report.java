@@ -2,6 +2,8 @@ package br.sp.cacarobos.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import br.sp.cacarobos.util.CodeGenerator;
+
 public class Report {
 	private Long id;
 	private Status status;
@@ -13,11 +15,15 @@ public class Report {
 	private Boolean activeReport;
 	private VoteCounting voteCounting;
 	private List<Commentary> commentaryList;
+	private String trackingCode;
+	private CodeGenerator codeGenerator;
+	private String networkType;
 	
 	public Report() {
 		voteCounting=new VoteCounting();
 		user=new User();
 		valuer=new Valuer();
+		codeGenerator=new CodeGenerator();
 	}
 	
 	public Long getId() {
@@ -80,6 +86,21 @@ public class Report {
 	}
 	public void setCommentaryList(List<Commentary> commentaryList) {
 		this.commentaryList = commentaryList;
+	}
+	public String getTrackingCode() {
+		return trackingCode;
+	}
+	public void setTrackingCode(String trackingCode) {
+		this.trackingCode = trackingCode;
+	}
+	public void setTrackingCode() {
+		this.trackingCode = codeGenerator.generateCode();
+	}
+	public String getNetworkType() {
+		return networkType;
+	}
+	public void setNetworkType(String networkType) {
+		this.networkType = networkType;
 	}
 	@Override
 	public String toString() {

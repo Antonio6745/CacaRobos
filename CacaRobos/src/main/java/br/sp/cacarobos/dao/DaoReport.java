@@ -14,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Report;
+import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
+import br.sp.cacarobos.util.CodeGenerator;
 
 @Repository
 public class DaoReport implements GenericDao<Report>{
@@ -35,10 +37,16 @@ public class DaoReport implements GenericDao<Report>{
 	@Override
 	public void create(Report t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId) VALUES (?,?,?)");
+			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType) VALUES (?,?,?,?,?)");
 			command.setString(1, t.getStatus());
 			command.setString(2, Status.PROCESSING.status);
 			command.setLong(3, t.getUser().getId());
+			String codeGenerated=new CodeGenerator().generateCode();
+			while(trackingCodeAlreadyExists(codeGenerated)){
+				codeGenerated=new CodeGenerator().generateCode();
+			}
+			command.setString(4, codeGenerated);
+			command.setString(5, t.getNetworkType());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -46,6 +54,44 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 
+	private boolean trackingCodeAlreadyExists(String trackingCode){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE trackingCode=?");
+			command.setString(1, trackingCode);
+			ResultSet rs=command.executeQuery();
+			boolean alreadyExists;
+			if(rs.next()){
+				alreadyExists=true;
+			}else{
+				alreadyExists=false;
+			}
+			rs.close();
+			command.close();
+			return alreadyExists;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Tracking code already exists): "+e.getMessage());
+		}
+	}
+	
+	public boolean reportAlreadyExists(String link){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE link=?");
+			command.setString(1, link);
+			ResultSet rs=command.executeQuery();
+			boolean reportAlreadyExists;
+			if(rs.next()){
+				reportAlreadyExists=true;
+			}else{
+				reportAlreadyExists=false;
+			}
+			rs.close();
+			command.close();
+			return reportAlreadyExists;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Report already exists): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public Report read(Long t) {
 		try {
@@ -61,6 +107,13 @@ public class DaoReport implements GenericDao<Report>{
 				for(Status status : Status.values()){
 					if(status.status.equals(statusId)){
 						r.setStatus(status);
+						break;
+					}
+				}
+				String socialNetwork=rs.getString("socialNetworkType");
+				for(SocialNetworkType networkType: SocialNetworkType.values()){
+					if(networkType.socialNetworkType.equals(socialNetwork)){
+						r.setNetworkType(socialNetwork);
 						break;
 					}
 				}
@@ -126,9 +179,10 @@ public class DaoReport implements GenericDao<Report>{
 	@Override
 	public void update(Report t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("UPDATE report SET description=? WHERE id=?");
+			PreparedStatement command=connection.prepareStatement("UPDATE report SET description=?, socialNetworkType=? WHERE id=?");
 			command.setString(1, t.getDescription());
-			command.setLong(2, t.getId());
+			command.setString(2, t.getNetworkType());
+			command.setLong(3, t.getId());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -215,6 +269,13 @@ public class DaoReport implements GenericDao<Report>{
 					break;
 				}
 			}
+			String socialNetwork=rs.getString("socialNetworkType");
+			for(SocialNetworkType networkType: SocialNetworkType.values()){
+				if(networkType.socialNetworkType.equals(socialNetwork)){
+					r.setNetworkType(socialNetwork);
+					break;
+				}
+			}
 			r.setUser(retriveUser(rs.getLong("userId")));
 			r.setValuer(retriveValuer(rs.getLong("valuerId")));
 			r.setApproveReport(rs.getBoolean("approveReport"));
@@ -298,6 +359,24 @@ public class DaoReport implements GenericDao<Report>{
 			return list;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoReport(List all active reports): "+e.getMessage());
+		}
+	}
+	
+	public List<Report> listBySocialNetwork(String socialNetwork){
+		List<Report> list=new ArrayList<>();
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE socialNetworkType=?");
+			command.setString(1, socialNetwork);
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Report r=retriveData(rs);
+				list.add(r);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(List by social network): "+e.getMessage());
 		}
 	}
 	

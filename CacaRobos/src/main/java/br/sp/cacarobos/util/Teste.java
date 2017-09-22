@@ -2,6 +2,12 @@ package br.sp.cacarobos.util;
 
 public class Teste {
 	public static void main(String[] args) {
-		System.out.println(EmailTamplate.TK_FOR_SUBSCRIBLE_USR.emailTamplate);
+		CodeGenerator code;
+		int i=0;
+		while(i<=10){
+			code=new CodeGenerator();
+			System.out.println(code.generateCode());
+			i++;
+		}
 	}
 }

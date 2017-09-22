@@ -92,4 +92,26 @@ public class EmailUtils{
 			throw new RuntimeException("Error in EmailUtils(Send Subscrible email): "+e.getMessage());
 		}
 	}
+
+	public void sendApproveReportEmail(String username) {
+		try{
+			email.addTo(username);
+			email.setSubject("Denuncia aprovada no Caça Robos");
+			email.setHtmlMsg(EmailTamplate.APPROVE_REPORT_EMAIL.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send Approve report email): "+e.getMessage());
+		}
+	}
+
+	public void sendApproveAccountEmail(String username) {
+		try{
+			email.addTo(username);
+			email.setSubject("Sua conta foi aprovada!");
+			email.setHtmlMsg(EmailTamplate.APPROVE_ACCOUNT_EMAIL.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send approve account email): "+e.getMessage());
+		}
+	}
 }

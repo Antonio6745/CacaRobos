@@ -10,17 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.sp.cacarobos.dao.DaoManager;
+import br.sp.cacarobos.dao.DaoValuer;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Manager;
+import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.util.EmailUtils;
 
 @Controller
 public class ControllerManager {
 	private final DaoManager bdManager;
+	private final DaoValuer bdValuer;
 	
 	@Autowired
-	public ControllerManager(DaoManager bdManager) {
+	public ControllerManager(DaoManager bdManager, DaoValuer bdValuer) {
 		this.bdManager=bdManager;
+		this.bdValuer=bdValuer;
 	}
 	
 	//@RequestMapping("registerManager")
@@ -61,5 +65,13 @@ public class ControllerManager {
 	public String listAllManagers(Model model){
 		model.addAttribute("mamagerList",bdManager.listAll());
 		return "";//add page to use this method
+	}
+	
+	//@RequestMapping("approveReport")
+	public String approveValuerAccount(Valuer v)throws EmailException{
+		bdValuer.validateAccount(v.getId(), true);
+		EmailUtils email=new EmailUtils();
+		email.sendApproveAccountEmail(v.getLogin().getUsername());
+		return "";//add manager main page
 	}
 }

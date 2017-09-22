@@ -44,6 +44,7 @@ create table if not exists valuer(
 drop table if exists report;
 create table if not exists report(
 	id int primary key auto_increment,
+    link varchar(255) unique not null,
     status varchar(30) not null,
     description varchar(255),
     userId int not null,
@@ -54,7 +55,9 @@ create table if not exists report(
     dateReport datetime null default now(),
     activeReport boolean null default 1,
     isARobotVotes int,
-    isNotARobot int
+    isNotARobot int,
+    trackingCode varchar(20) unique,
+    socialNetworkType varchar(35) not null
 );
 
 drop event if exists deactivateReport;
