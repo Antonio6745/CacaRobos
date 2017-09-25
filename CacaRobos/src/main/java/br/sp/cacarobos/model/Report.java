@@ -6,6 +6,7 @@ import br.sp.cacarobos.util.CodeGenerator;
 
 public class Report {
 	private Long id;
+	private String link;
 	private Status status;
 	private String description;
 	private User user;
@@ -102,10 +103,18 @@ public class Report {
 	public void setNetworkType(String networkType) {
 		this.networkType = networkType;
 	}
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
 	@Override
 	public String toString() {
-		return "Report [id=" + id + ", status=" + status + ", description=" + description + ", user=" + user
-				+ ", valuer=" + valuer + ", approveReport=" + approveReport + ", dateReport=" + dateReport
-				+ ", activeReport=" + activeReport + ", voteCounting=" + voteCounting + "]";
+		return "Report [id=" + id + ", link=" + link + ", status=" + status + ", description=" + description + ", user="
+				+ user + ", valuer=" + valuer + ", approveReport=" + approveReport + ", dateReport=" + dateReport
+				+ ", activeReport=" + activeReport + ", voteCounting=" + voteCounting + ", commentaryList="
+				+ commentaryList + ", trackingCode=" + trackingCode + ", codeGenerator=" + codeGenerator
+				+ ", networkType=" + networkType + "]";
 	}
 }
