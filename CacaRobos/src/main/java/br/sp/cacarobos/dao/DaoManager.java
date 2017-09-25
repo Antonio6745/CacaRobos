@@ -40,7 +40,7 @@ public class DaoManager implements GenericDao<Manager>{
 			ResultSet rs=command.getGeneratedKeys();
 			rs.next();
 			t.getLogin().setId(rs.getLong(1));
-			command=connection.prepareStatement("INSERT INTO manager (name, cpf, loginId, profilePicture) VALUES (?,?,?,?)");
+			command=connection.prepareStatement("INSERT INTO manager (name, cpf, loginId, profilePicture) VALUES (?,?,?,?,?)");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
 			command.setLong(3, t.getLogin().getId());
@@ -79,11 +79,11 @@ public class DaoManager implements GenericDao<Manager>{
 	@Override
 	public void update(Manager t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("UPDATE manager SET name=?, cpf=?, birthdate=?, profilePicture=? WHERE id=?");
+			PreparedStatement command=connection.prepareStatement("UPDATE manager SET name=?, cpf=?, profilePicture=? WHERE id=?");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
-			command.setBlob(4, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
-			command.setLong(5, t.getId());
+			command.setBlob(3, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setLong(4, t.getId());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -91,10 +91,31 @@ public class DaoManager implements GenericDao<Manager>{
 		}
 	}
 
+	private Long retiveLoginId(Long userId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+			command.setLong(1, userId);
+			ResultSet rs=command.executeQuery();
+			Long l=null;
+			if(rs.next()){
+				l=rs.getLong("loginId");
+			}
+			rs.close();
+			command.close();
+			return l;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void delete(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("DELETE FROM manager WHERE id=?");
+			command.setLong(1, t);
+			t=retiveLoginId(t);
+			command.execute();
+			command=connection.prepareStatement("DELETE FROM login WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();

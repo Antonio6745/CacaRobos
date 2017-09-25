@@ -1,15 +1,11 @@
 package br.sp.cacarobos.controller;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 import br.sp.cacarobos.dao.DaoLogin;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Manager;
@@ -20,16 +16,19 @@ import br.sp.cacarobos.model.Valuer;
 @Controller
 public class ControllerLogin {
 	private final DaoLogin bdLogin;
+	/*
 	@Autowired
 	ServletContext context;
-	
+	*/
 	@Autowired
 	public ControllerLogin(DaoLogin bdLogin){
 		this.bdLogin=bdLogin;
 	}
 	
 	@RequestMapping("home")
-	public String home() {return "testeDoInferno";}
+	public String home() {
+		return "testeDoInferno";
+	}
 	
 	@RequestMapping("sigin")
 	public String sigin(Login l, HttpSession session) throws Base64DecodingException{

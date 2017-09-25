@@ -8,6 +8,10 @@ public class User {
 	private byte[] profilePicture;
 	private Login login;
 	
+	public User() {
+		login=new Login();
+	}
+	
 	public Login getLogin() {
 		return login;
 	}

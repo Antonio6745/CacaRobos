@@ -41,11 +41,12 @@ public class DaoValuer implements GenericDao<Valuer>{
 			ResultSet rs=command.getGeneratedKeys();
 			rs.next();
 			t.getLogin().setId(rs.getLong(1));
-			command=connection.prepareStatement("INSERT INTO valuer (name, cpf, loginId, profilePicture) VALUES (?,?,?,?)");
+			command=connection.prepareStatement("INSERT INTO valuer (name, cpf, loginId, profilePicture, reason) VALUES (?,?,?,?,?)");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
 			command.setLong(3, t.getLogin().getId());
 			command.setBlob(4, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setString(5, t.getReason());
 			command.execute();
 			rs.close();
 			command.close();
@@ -69,6 +70,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.getLogin().setId(rs.getLong("loginId"));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
+				v.setReason(rs.getString("reason"));
 			}
 			rs.close();
 			command.close();
@@ -81,11 +83,11 @@ public class DaoValuer implements GenericDao<Valuer>{
 	@Override
 	public void update(Valuer t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("UPDATE valuer SET name=?, cpf=?, birthdate=?, profilePicture=? WHERE id=?");
+			PreparedStatement command=connection.prepareStatement("UPDATE valuer SET name=?, cpf=?, profilePicture=? WHERE id=?");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
-			command.setBlob(4, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
-			command.setLong(5, t.getId());
+			command.setBlob(3, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setLong(4, t.getId());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -105,10 +107,31 @@ public class DaoValuer implements GenericDao<Valuer>{
 		}
 	}
 	
+	private Long retiveLoginId(Long userId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+			command.setLong(1, userId);
+			ResultSet rs=command.executeQuery();
+			Long l=null;
+			if(rs.next()){
+				l=rs.getLong("loginId");
+			}
+			rs.close();
+			command.close();
+			return l;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void delete(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("DELETE FROM valuer WHERE id=?");
+			command.setLong(1, t);
+			t=retiveLoginId(t);
+			command.execute();
+			command=connection.prepareStatement("DELETE FROM login WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();
@@ -131,6 +154,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.getLogin().setId(rs.getLong("loginId"));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
+				v.setReason(rs.getString("reason"));
 				list.add(v);
 			}
 			rs.close();

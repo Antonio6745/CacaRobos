@@ -2,6 +2,7 @@ package br.sp.cacarobos.controller;
 
 import java.io.IOException;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import br.sp.cacarobos.dao.DaoUser;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.util.EmailUtils;
 
 @Controller
 public class ControllerUser {
@@ -21,9 +23,8 @@ public class ControllerUser {
 		this.bdUser=bdUser;
 	}
 	
-<<<<<<< HEAD
 	//@RequestMapping("registerUser")
-	public String registerUser(User u, Login l, MultipartFile file){
+	public String registerUser(User u, Login l, MultipartFile file) throws EmailException{
 		u.setLogin(l);
 		if(!file.isEmpty()){
 			try{
@@ -32,14 +33,9 @@ public class ControllerUser {
 				throw new RuntimeException("Error in ControllerUser(Register user): "+e.getMessage());
 			}
 		}
-=======
-	@RequestMapping("add")
-	public String add(User u, Login l){
-	
-		u.setLogin(l);
-		System.out.println(u);
->>>>>>> Samuel
 		bdUser.create(u);
+		EmailUtils email=new EmailUtils();
+		email.sendSubscribleEmailUser(u.getLogin().getUsername());
 		return "";//add user register page
 	}
 	
@@ -54,7 +50,6 @@ public class ControllerUser {
 		bdUser.update(t);
 		return "";//add page to use this method
 	}
-<<<<<<< HEAD
 	
 	//@RequestMapping("deleteUser")
 	public String deleteUser(User t){
@@ -68,17 +63,4 @@ public class ControllerUser {
 		return "";//add user list page
 	}
 	
-=======
-	@RequestMapping("listAllUser")
-	public String listAllClients(Model model,User u){
-		System.out.println(u);
-		model.addAttribute("us", bdUser.listAll());
-		return "listUser";
-	}
-	@RequestMapping("deleteUser")
-	public String del(User u) {
-		bdUser.delete(u.getId());
-		return "redirect:listAllUser";
-	}
->>>>>>> Samuel
 }

@@ -22,10 +22,6 @@ public class EmailUtils{
 		email.setFrom(FROM_WHO);
 	}
 	
-	public void sentEmailToBeAddressedTo(String emailToBeAddressed) throws EmailException{
-		email.addTo(emailToBeAddressed);
-	}
-	
 	public void addEmailListToBeAddressed(List<String> emailList){
 		emailList.forEach(i->{
 			try{
@@ -34,6 +30,14 @@ public class EmailUtils{
 				throw new RuntimeException("Error in EmailUtils(Add email list to be addressed to): "+e.getMessage());
 			}
 		});
+	}
+	
+	public void setEmailAdress(String emailAdress){
+		try{
+			email.addTo(emailAdress);
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Set email adress): "+e.getMessage());
+		}
 	}
 	
 	public void sendEmail(String subject, String emailTextMenssage){
@@ -45,7 +49,6 @@ public class EmailUtils{
 			throw new RuntimeException("Error in EmailUtils(Send Email): "+e.getMessage());
 		}
 	}
-	
 	public void sendHtmlEmail(String subject, EmailTamplate emailTemplate){
 		try{
 			email.setSubject(subject);
@@ -54,6 +57,61 @@ public class EmailUtils{
 			email.send();
 		}catch(EmailException e){
 			throw new RuntimeException("Error in EmailUtils(Send forgot password html email): "+e.getMessage());
+		}
+	}
+	
+	public void sendSubscribleEmailUser(String emailToBeAdressed){
+		try{
+			email.addTo(emailToBeAdressed);
+			email.setSubject("Inscrição no Caça Robos!");
+			email.setHtmlMsg(EmailTamplate.TK_FOR_SUBSCRIBLE_USR.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send Subscrible email): "+e.getMessage());
+		}
+	}
+	
+	public void sendSubscribleEmailValuer(String emailToBeAdressed){
+		try{
+			email.addTo(emailToBeAdressed);
+			email.setSubject("Inscrição no Caça Robos!");
+			email.setHtmlMsg(EmailTamplate.TK_FOR_SUBSCRIBLE_VLR.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send Subscrible email): "+e.getMessage());
+		}
+	}
+	
+	public void sendSubscribleEmailManger(String emailToBeAdressed){
+		try{
+			email.addTo(emailToBeAdressed);
+			email.setSubject("Inscrição no Caça Robos!");
+			email.setHtmlMsg(EmailTamplate.TK_FOR_SUBSCRIBLE_ADM.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send Subscrible email): "+e.getMessage());
+		}
+	}
+
+	public void sendApproveReportEmail(String username) {
+		try{
+			email.addTo(username);
+			email.setSubject("Denuncia aprovada no Caça Robos");
+			email.setHtmlMsg(EmailTamplate.APPROVE_REPORT_EMAIL.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send Approve report email): "+e.getMessage());
+		}
+	}
+
+	public void sendApproveAccountEmail(String username) {
+		try{
+			email.addTo(username);
+			email.setSubject("Sua conta foi aprovada!");
+			email.setHtmlMsg(EmailTamplate.APPROVE_ACCOUNT_EMAIL.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send approve account email): "+e.getMessage());
 		}
 	}
 }

@@ -5,7 +5,7 @@ use CacaRobos;
 drop table if exists login;
 create table if not exists login(
 	id int primary key auto_increment,
-    username varchar(50) not null,
+    username varchar(50) unique not null,
     passcode varchar(32) not null,
     userType char(3) not null
 );
@@ -37,12 +37,14 @@ create table if not exists valuer(
     loginId int not null,
     foreign key (loginId) references login(id) on delete cascade,
     activeAccount boolean null default 0,
-    profilePicture mediumblob
+    profilePicture mediumblob,
+    reason varchar(255)
 );
 
 drop table if exists report;
 create table if not exists report(
 	id int primary key auto_increment,
+    link varchar(255) unique not null,
     status varchar(30) not null,
     description varchar(255),
     userId int not null,
@@ -53,7 +55,9 @@ create table if not exists report(
     dateReport datetime null default now(),
     activeReport boolean null default 1,
     isARobotVotes int,
-    isNotARobot int
+    isNotARobot int,
+    trackingCode varchar(20) unique,
+    socialNetworkType varchar(35) not null
 );
 
 drop event if exists deactivateReport;
