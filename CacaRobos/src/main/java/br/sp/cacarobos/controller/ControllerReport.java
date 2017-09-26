@@ -18,6 +18,13 @@ public class ControllerReport {
 		this.bdReport=bdReport;
 	}
 	
+	@RequestMapping("createReport")
+	public String createReport(Report r){
+		r.getUser().setId((long)1);;
+		bdReport.create(r);
+		return "testeDoInferno";
+	}
+	
 	//@RequestMapping("approveReport")
 	public String approveReport(Report r) throws EmailException{
 		bdReport.approveReport(r.getValuer().getId(), true);

@@ -17,7 +17,6 @@ import br.sp.cacarobos.model.Manager;
 import br.sp.cacarobos.util.EmailUtils;
 import br.sp.cacarobos.util.HttpError;
 @RestController
-@RequestMapping("/manager")
 public class ControllerRestManager {
 	
 	private final DaoManager bdManager;
@@ -27,13 +26,13 @@ public class ControllerRestManager {
 		this.bdManager=bdManager;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/manager", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> create(@RequestBody Manager m){
 		try{
 			bdManager.create(m);
 			try {
 				EmailUtils email = new EmailUtils();
-				email.sendSubscribleEmailUser(m.getLogin().getUsername());
+				email.sendSubscribleEmailManger(m.getLogin().getUsername());
 			} catch (EmailException e) {
 				throw new RuntimeException("Error in ControllerRestManager(Create): "+e.getMessage());
 			}
@@ -44,7 +43,7 @@ public class ControllerRestManager {
 		}
 	}
 	
-	@RequestMapping(value = "/{managerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/manager/{managerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("managerId") Long managerId){
 		try{
 			return new ResponseEntity<Object>(bdManager.read(managerId), HttpStatus.OK);
@@ -54,7 +53,7 @@ public class ControllerRestManager {
 		}
 	}
 	
-	@RequestMapping(value = "/{managerId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/manager/{managerId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("managerId") Long managerId, @RequestBody Manager m){
 		try{
 			m.setId(managerId);
@@ -68,7 +67,7 @@ public class ControllerRestManager {
 		}
 	}
 	
-	@RequestMapping(value = "/{managerId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/manager/{managerId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable("managerId") Long managerId){
 		try{
 			bdManager.delete(managerId);
@@ -79,7 +78,7 @@ public class ControllerRestManager {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/manager", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdManager.listAll(), HttpStatus.OK);

@@ -1,10 +1,11 @@
 package br.sp.cacarobos.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +38,10 @@ public class DaoReport implements GenericDao<Report>{
 	@Override
 	public void create(Report t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link) VALUES (?,?,?,?,?,?)");
-			command.setString(1, t.getStatus());
-			command.setString(2, Status.PROCESSING.status);
+			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link, dateReport) VALUES (?,?,?,?,?,?,?)");
+			System.out.println(t);
+			command.setString(1, Status.PROCESSING.getStatus());
+			command.setString(2, t.getDescription());
 			command.setLong(3, t.getUser().getId());
 			String codeGenerated=new CodeGenerator().generateCode();
 			while(trackingCodeAlreadyExists(codeGenerated)){
@@ -48,6 +50,8 @@ public class DaoReport implements GenericDao<Report>{
 			command.setString(4, codeGenerated);
 			command.setString(5, t.getNetworkType());
 			command.setString(6, t.getLink());
+			command.setDate(7, Date.valueOf(LocalDate.now()));
+			System.out.println(command);
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -107,7 +111,7 @@ public class DaoReport implements GenericDao<Report>{
 				String statusId=rs.getString("status");
 				for(Status status : Status.values()){
 					if(status.status.equals(statusId)){
-						r.setStatus(status);
+						r.setStatus(status.status);
 						break;
 					}
 				}
@@ -121,7 +125,7 @@ public class DaoReport implements GenericDao<Report>{
 				r.setUser(retriveUser(rs.getLong("userId")));
 				r.setValuer(retriveValuer(rs.getLong("valuerId")));
 				r.setApproveReport(rs.getBoolean("approveReport"));
-				r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
+				r.setDateReport(rs.getDate("dateReport").toLocalDate());
 				r.setActiveReport(rs.getBoolean("activeReport"));
 				r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
 				r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
@@ -268,7 +272,7 @@ public class DaoReport implements GenericDao<Report>{
 			String statusId=rs.getString("status");
 			for(Status status : Status.values()){
 				if(status.status.equals(statusId)){
-					r.setStatus(status);
+					r.setStatus(status.status);
 					break;
 				}
 			}
@@ -282,7 +286,7 @@ public class DaoReport implements GenericDao<Report>{
 			r.setUser(retriveUser(rs.getLong("userId")));
 			r.setValuer(retriveValuer(rs.getLong("valuerId")));
 			r.setApproveReport(rs.getBoolean("approveReport"));
-			r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
+			r.setDateReport(LocalDate.parse(rs.getDate("dateReport").toString()));
 			r.setActiveReport(rs.getBoolean("activeReport"));
 			r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
 			r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));

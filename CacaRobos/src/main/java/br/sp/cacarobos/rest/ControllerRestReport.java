@@ -22,10 +22,12 @@ public class ControllerRestReport {
 		this.bdReport=bdReport;
 	}
 	
-	@RequestMapping(value="/createReport", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> create(@RequestBody Report r){
 		try{
+			System.out.println("Antes de salvar a denuncia");
 			bdReport.create(r);
+			System.out.println("Depois de salvar a denuncia");
 			return ResponseEntity.created(URI.create("/report/"+r.getId())).body(r);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(Create): "+e.getMessage());
@@ -33,7 +35,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/readReport/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("reportId") Long reportId){
 		try{
 			return new ResponseEntity<Object>(bdReport.read(reportId), HttpStatus.OK);
@@ -43,7 +45,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/updateReport/{reportId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/{reportId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("reportId") Long reportId, @RequestBody Report r){
 		try{
 			r.setId(reportId);
@@ -57,7 +59,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/deleteReport/{reportId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/report/{reportId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable("reportId") Long reportId){
 		try{
 			bdReport.delete(reportId);
@@ -68,7 +70,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listAllReports", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdReport.listAll(), HttpStatus.OK);

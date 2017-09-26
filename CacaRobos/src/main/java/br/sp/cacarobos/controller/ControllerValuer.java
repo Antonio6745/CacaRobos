@@ -65,4 +65,12 @@ public class ControllerValuer {
 		model.addAttribute("", bdValuer.listAll());
 		return "";//add valuer page list
 	}
+	
+	//@RequestMapping("approveReport")
+	public String approveValuerAccount(Valuer v)throws EmailException{
+		bdValuer.validateAccount(v.getId(), true);
+		EmailUtils email=new EmailUtils();
+		email.sendApproveAccountEmail(v.getLogin().getUsername());
+		return "";//add manager main page
+	}
 }
