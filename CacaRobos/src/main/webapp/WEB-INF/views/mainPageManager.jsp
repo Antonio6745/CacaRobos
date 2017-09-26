@@ -10,7 +10,6 @@
 	<h3>${managerLoggedIn.id }</h3><br>
 	<h3>${managerLoggedIn.name }</h3><br>
 	<h3>${managerLoggedIn.cpf }</h3><br>
-	<h3>${managerLoggedIn.birthdate }</h3><br>
 	<h3>${managerLoggedIn.login }</h3><br>
 </body>
 </html>
