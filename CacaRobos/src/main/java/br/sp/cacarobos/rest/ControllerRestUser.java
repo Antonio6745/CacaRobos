@@ -17,7 +17,6 @@ import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.util.EmailUtils;
 import br.sp.cacarobos.util.HttpError;
 @RestController
-@RequestMapping("/user")
 public class ControllerRestUser {
 	private final DaoUser bdUser;
 	
@@ -28,7 +27,7 @@ public class ControllerRestUser {
 		this.bdUser=bdUser;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/user", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> create(@RequestBody User u){
 		try{
 			bdUser.create(u);
@@ -45,7 +44,7 @@ public class ControllerRestUser {
 		}
 	}
 	
-	@RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("userId") Long userId){
 		try{
 			return new ResponseEntity<Object>(bdUser.read(userId), HttpStatus.OK);
@@ -55,7 +54,7 @@ public class ControllerRestUser {
 		}
 	}
 	
-	@RequestMapping(value = "/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("userId") Long userId, @RequestBody User u){
 		try{
 			u.setId(userId);
@@ -69,7 +68,7 @@ public class ControllerRestUser {
 		}
 	}
 	
-	@RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable("userId") Long userId){
 		try{
 			bdUser.delete(userId);
@@ -81,7 +80,7 @@ public class ControllerRestUser {
 	}
 	
 	
-	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/user", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdUser.listAll(), HttpStatus.OK);
