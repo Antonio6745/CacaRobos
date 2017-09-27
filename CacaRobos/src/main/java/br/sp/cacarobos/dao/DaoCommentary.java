@@ -51,11 +51,8 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			ResultSet rs=command.executeQuery();
 			Commentary c=null;
 			if(rs.next()){
-				c=new Commentary();
-				c.setId(rs.getLong("id"));
-				c.setDescription(rs.getString("description"));
-				c.getReport().setId(rs.getLong("reportId"));
-				c.setUser(retriveUser(rs.getLong("userId")));
+				c=retriveData(rs);
+				c.setUser(retriveUser(c.getUser().getId()));
 			}
 			rs.close();
 			command.close();
@@ -132,6 +129,7 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			ResultSet rs=command.executeQuery();
 			while(rs.next()){
 				Commentary c=retriveData(rs);
+				c.setUser(retriveUser(c.getUser().getId()));
 				list.add(c);
 			}
 			rs.close();
@@ -142,15 +140,16 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 		return null;
 	}
-
+	
 	public List<Commentary> listCommentsByReportId(Long t){
 		List<Commentary> list=new ArrayList<>();
 		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE reportId=?");
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM commentary WHERE reportId=?");
 			command.setLong(1, t);
 			ResultSet rs=command.executeQuery();
 			while(rs.next()){
 				Commentary c=retriveData(rs);
+				c.setUser(retriveUser(c.getUser().getId()));
 				list.add(c);
 			}
 			rs.close();
