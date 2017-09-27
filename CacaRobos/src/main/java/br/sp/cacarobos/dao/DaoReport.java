@@ -39,7 +39,6 @@ public class DaoReport implements GenericDao<Report>{
 	public void create(Report t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link, dateReport) VALUES (?,?,?,?,?,?,?)");
-			System.out.println(t);
 			command.setString(1, Status.PROCESSING.getStatus());
 			command.setString(2, t.getDescription());
 			command.setLong(3, t.getUser().getId());
@@ -51,7 +50,6 @@ public class DaoReport implements GenericDao<Report>{
 			command.setString(5, t.getNetworkType());
 			command.setString(6, t.getLink());
 			command.setDate(7, Date.valueOf(LocalDate.now()));
-			System.out.println(command);
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -105,31 +103,7 @@ public class DaoReport implements GenericDao<Report>{
 			ResultSet rs=command.executeQuery();
 			Report r=null;
 			if(rs.next()){
-				r=new Report();
-				r.setId(rs.getLong("id"));
-				r.setDescription(rs.getString("description"));
-				String statusId=rs.getString("status");
-				for(Status status : Status.values()){
-					if(status.status.equals(statusId)){
-						r.setStatus(status.status);
-						break;
-					}
-				}
-				String socialNetwork=rs.getString("socialNetworkType");
-				for(SocialNetworkType networkType: SocialNetworkType.values()){
-					if(networkType.socialNetworkType.equals(socialNetwork)){
-						r.setNetworkType(socialNetwork);
-						break;
-					}
-				}
-				r.setUser(retriveUser(rs.getLong("userId")));
-				r.setValuer(retriveValuer(rs.getLong("valuerId")));
-				r.setApproveReport(rs.getBoolean("approveReport"));
-				r.setDateReport(rs.getDate("dateReport").toLocalDate());
-				r.setActiveReport(rs.getBoolean("activeReport"));
-				r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
-				r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
-				r.setLink(rs.getString("link"));
+				r=retriveData(rs);
 			}
 			rs.close();
 			command.close();
@@ -209,22 +183,10 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
-	public void approveReport(Long t, boolean answer){
-		try{
-			PreparedStatement command=connection.prepareStatement(
-					answer==true?"UPDATE report SET approveReport=1 WHERE id=?":"UPDATE report SET approveReport=0 WHERE id=?");
-			command.setLong(1, t);
-			command.execute();
-			command.close();
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoReport(Approve Report): "+e.getMessage());
-		}
-	}
-	
 	public void activeReport(Long t, boolean answer){
 		try{
 			PreparedStatement command=connection.prepareStatement(
-					answer==true?"UPDATE report SET activeReport=1 WHERE id=?":"UPDATE report SET activeReport=1 WHERE id=?");
+					answer==true?"UPDATE report SET activeReport=1 WHERE id=?":"UPDATE report SET activeReport=0 WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();
@@ -236,14 +198,16 @@ public class DaoReport implements GenericDao<Report>{
 	public void addIsARobotOrNotVote(Long t, boolean itIsARobot){
 		try{
 			Report r=read(t);
-			PreparedStatement command=connection.prepareStatement("UPDATE report SET isARobotVotes=?, isARobotVotes=? WHERE id=?");
+			PreparedStatement command=connection.prepareStatement("UPDATE report SET isARobotVotes=?, isNotARobotVotes=? WHERE id=?");
+			System.out.println(r);
 			if(itIsARobot){
-				command.setInt(1, r.getVoteCounting().getIsARobot()+1);
-				command.setInt(2, r.getVoteCounting().getIsNotARobot());
+				r.getVoteCounting().addIsARobotVote();
 			}else {
-				command.setInt(1, r.getVoteCounting().getIsARobot());
-				command.setInt(2, r.getVoteCounting().getIsNotARobot()+1);
+				r.getVoteCounting().addIsNotARobotVote();
 			}
+			System.out.println(r);
+			command.setInt(1, r.getVoteCounting().getIsARobot());
+			command.setInt(2, r.getVoteCounting().getIsNotARobot());
 			command.setLong(3, r.getId());
 			command.execute();
 			command.close();
@@ -285,7 +249,6 @@ public class DaoReport implements GenericDao<Report>{
 			}
 			r.setUser(retriveUser(rs.getLong("userId")));
 			r.setValuer(retriveValuer(rs.getLong("valuerId")));
-			r.setApproveReport(rs.getBoolean("approveReport"));
 			r.setDateReport(LocalDate.parse(rs.getDate("dateReport").toString()));
 			r.setActiveReport(rs.getBoolean("activeReport"));
 			r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));

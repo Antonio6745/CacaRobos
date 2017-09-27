@@ -51,11 +51,10 @@ create table if not exists report(
     foreign key (userId) references user(id),
     valuerId int,
     foreign key (valuerId) references valuer(id),
-    approveReport boolean null default 0,
     dateReport datetime null default now(),
     activeReport boolean null default 1,
-    isARobotVotes int,
-    isNotARobot int,
+    isARobotVotes int null default 0,
+    isNotARobotVotes int null default 0,
     trackingCode varchar(20) unique,
     socialNetworkType varchar(35) not null
 );

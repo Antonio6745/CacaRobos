@@ -11,9 +11,6 @@ public enum EmailTamplate {
 	TK_FOR_SUBSCRIBLE_VLR("<html><h1>Voce se candidatou a avalidador!</h1></br><h3>Obrigado por querer participar dessa mudança conosco!</h3></br>"
 			+ "<p>Sua conta foi enviada para analise, e um de nossos gestores logo provavelmente a aprovará!</p>"
 			+ "<a href='172.16.12.79/cacarobos/home'></a></html>"),
-	APPROVE_REPORT_EMAIL("<html><h1>Sua denucia foi aprovada!</h1></br><h3>Nossos avaliadores aprovaram que a votação de sua denuncia começe!</h3></br>"
-			+ "<p>Apartir de agora a votação está iniciada, que o povo decida o que é melhor!</p>"
-			+ "<a href='172.16.12.79/cacarobos/home'></a></html>"),
 	APPROVE_ACCOUNT_EMAIL("<html><h1></h1>Sua conta foi verificada</br><h3>Nossos gestores aprovaram sua conta!</h3></br>"
 			+ "<p>Voce ja pode começar a ajudar aprovando denuncias de usuarios!</p>"
 			+ "<a href=''></a></html>")

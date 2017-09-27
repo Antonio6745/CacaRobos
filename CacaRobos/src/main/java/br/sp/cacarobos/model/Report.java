@@ -9,7 +9,6 @@ public class Report {
 	private String description;
 	private User user;
 	private Valuer valuer;
-	private Boolean approveReport;
 	private LocalDate dateReport;
 	private Boolean activeReport;
 	private VoteCounting voteCounting;
@@ -53,12 +52,6 @@ public class Report {
 	}
 	public void setValuer(Valuer valuer) {
 		this.valuer = valuer;
-	}
-	public Boolean getApproveReport() {
-		return approveReport;
-	}
-	public void setApproveReport(Boolean approveReport) {
-		this.approveReport = approveReport;
 	}
 	public LocalDate getDateReport() {
 		return dateReport;
@@ -105,8 +98,8 @@ public class Report {
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", link=" + link + ", status=" + status + ", description=" + description + ", user="
-				+ user + ", valuer=" + valuer + ", approveReport=" + approveReport + ", dateReport=" + dateReport
-				+ ", activeReport=" + activeReport + ", voteCounting=" + voteCounting + ", commentaryList="
+				+ user + ", valuer=" + valuer + ", dateReport=" + dateReport+ ", activeReport=" + activeReport + ""
+				+ ", voteCounting=" + voteCounting + ", commentaryList="
 				+ commentaryList + ", trackingCode=" + trackingCode + ", networkType=" + networkType + "]";
 	}
 }
