@@ -93,17 +93,6 @@ public class EmailUtils{
 		}
 	}
 
-	public void sendApproveReportEmail(String username) {
-		try{
-			email.addTo(username);
-			email.setSubject("Denuncia aprovada no Caça Robos");
-			email.setHtmlMsg(EmailTamplate.APPROVE_REPORT_EMAIL.emailTamplate);
-			email.send();
-		}catch(EmailException e){
-			throw new RuntimeException("Error in EmailUtils(Send Approve report email): "+e.getMessage());
-		}
-	}
-
 	public void sendApproveAccountEmail(String username) {
 		try{
 			email.addTo(username);

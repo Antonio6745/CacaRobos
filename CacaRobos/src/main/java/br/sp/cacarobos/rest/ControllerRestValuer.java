@@ -17,7 +17,6 @@ import br.sp.cacarobos.util.EmailUtils;
 import br.sp.cacarobos.util.HttpError;
 
 @RestController
-@RequestMapping("/valuer")
 public class ControllerRestValuer {
 	
 	private final DaoValuer bdValuer;
@@ -27,13 +26,13 @@ public class ControllerRestValuer {
 		this.bdValuer=bdValuer;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/valuer", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> create(@RequestBody Valuer v){
 		try{
 			bdValuer.create(v);
 			try {
 				EmailUtils email = new EmailUtils();
-				email.sendSubscribleEmailUser(v.getLogin().getUsername());
+				email.sendSubscribleEmailValuer(v.getLogin().getUsername());
 			} catch (EmailException e) {
 				throw new RuntimeException("Error in ControllerRestValuer(Create): "+e.getMessage());
 			}
@@ -44,7 +43,7 @@ public class ControllerRestValuer {
 		}
 	}
 	
-	@RequestMapping(value="/{valuerId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/valuer/{valuerId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("valuerId") Long valuerId){
 		try{
 			return new ResponseEntity<Object>(bdValuer.read(valuerId), HttpStatus.OK);
@@ -54,7 +53,7 @@ public class ControllerRestValuer {
 		}
 	}
 	
-	@RequestMapping(value="/{valuerId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/valuer/{valuerId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("valuerId") Long valuerId, @RequestBody Valuer v){
 		try{
 			v.setId(valuerId);
@@ -68,8 +67,8 @@ public class ControllerRestValuer {
 		}
 	}
 	
-	@RequestMapping(value="/{valuerId}", method=RequestMethod.DELETE)
-	public ResponseEntity<Object> delete(@PathVariable("id") Long valuerId){
+	@RequestMapping(value="/valuer/{valuerId}", method=RequestMethod.DELETE)
+	public ResponseEntity<Object> delete(@PathVariable("valuerId") Long valuerId){
 		try{
 			bdValuer.delete(valuerId);
 			return ResponseEntity.noContent().build();
@@ -79,7 +78,7 @@ public class ControllerRestValuer {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/valuer", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdValuer.listAll(), HttpStatus.OK);
@@ -89,4 +88,29 @@ public class ControllerRestValuer {
 		}
 	}
 	
+	@RequestMapping(value="/validateAccount/{valuerId}", method=RequestMethod.GET)
+	public ResponseEntity<Object> validateAccount(@PathVariable("valuerId") Long valuerId){
+		try{
+			bdValuer.validateAccount(valuerId, true);
+			EmailUtils email=new EmailUtils();
+			email.sendApproveAccountEmail(bdValuer.read(valuerId).getLogin().getUsername());
+			return ResponseEntity.noContent().build();
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestValuer(validadteAccount): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
+
+	@RequestMapping(value="/unvalidateAccount/{valuerId}", method=RequestMethod.GET)
+	public ResponseEntity<Object> unvalidateAccount(@PathVariable("valuerId") Long valuerId){
+		try{
+			bdValuer.validateAccount(valuerId, false);
+			EmailUtils email=new EmailUtils();
+			email.sendApproveAccountEmail(bdValuer.read(valuerId).getLogin().getUsername());
+			return ResponseEntity.noContent().build();
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestValuer(validadteAccount): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
 }

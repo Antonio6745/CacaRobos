@@ -19,12 +19,10 @@ import br.sp.cacarobos.util.EmailUtils;
 @Controller
 public class ControllerManager {
 	private final DaoManager bdManager;
-	private final DaoValuer bdValuer;
 	
 	@Autowired
-	public ControllerManager(DaoManager bdManager, DaoValuer bdValuer) {
+	public ControllerManager(DaoManager bdManager) {
 		this.bdManager=bdManager;
-		this.bdValuer=bdValuer;
 	}
 	
 	//@RequestMapping("registerManager")
@@ -66,12 +64,5 @@ public class ControllerManager {
 		model.addAttribute("mamagerList",bdManager.listAll());
 		return "";//add page to use this method
 	}
-	
-	//@RequestMapping("approveReport")
-	public String approveValuerAccount(Valuer v)throws EmailException{
-		bdValuer.validateAccount(v.getId(), true);
-		EmailUtils email=new EmailUtils();
-		email.sendApproveAccountEmail(v.getLogin().getUsername());
-		return "";//add manager main page
-	}
+
 }

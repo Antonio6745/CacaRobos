@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.UserType;
 import br.sp.cacarobos.model.Valuer;
 @Repository
@@ -67,7 +68,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
-				v.getLogin().setId(rs.getLong("loginId"));
+				v.setLogin(retriveLogin(rs.getLong("loginId")));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
 				v.setReason(rs.getString("reason"));
@@ -79,15 +80,34 @@ public class DaoValuer implements GenericDao<Valuer>{
 			throw new RuntimeException("Error in DaoValuer(Read): "+e.getMessage());
 		}
 	}
-
+	
+	private Login retriveLogin(Long l){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE id=?");
+			command.setLong(1, l);
+			ResultSet rs=command.executeQuery();
+			Login t=null;
+			if(rs.next()){
+				t=new Login();
+				t.setId(l);
+				t.setUsername(rs.getString("username"));
+				t.setPassword(rs.getString("passcode"));
+			}
+			rs.close();
+			command.close();
+			return t;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoValuer(Retrive Login): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void update(Valuer t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("UPDATE valuer SET name=?, cpf=?, profilePicture=? WHERE id=?");
+			PreparedStatement command=connection.prepareStatement("UPDATE valuer SET name=?, profilePicture=? WHERE id=?");
 			command.setString(1, t.getName());
-			command.setString(2, t.getCpf());
-			command.setBlob(3, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
-			command.setLong(4, t.getId());
+			command.setBlob(2, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setLong(3, t.getId());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -127,12 +147,8 @@ public class DaoValuer implements GenericDao<Valuer>{
 	@Override
 	public void delete(Long t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("DELETE FROM valuer WHERE id=?");
-			command.setLong(1, t);
-			t=retiveLoginId(t);
-			command.execute();
-			command=connection.prepareStatement("DELETE FROM login WHERE id=?");
-			command.setLong(1, t);
+			PreparedStatement command=connection.prepareStatement("DELETE FROM login WHERE id=?");
+			command.setLong(1, retiveLoginId(t));
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -151,7 +167,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
-				v.getLogin().setId(rs.getLong("loginId"));
+				v.setLogin(retriveLogin(rs.getLong("loginId")));
 				v.setActiveAccount(rs.getBoolean("activeAccount"));
 				v.setProfilePicture(rs.getBytes("profilePicture"));
 				v.setReason(rs.getString("reason"));

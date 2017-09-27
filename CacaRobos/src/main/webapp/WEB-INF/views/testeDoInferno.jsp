@@ -8,10 +8,10 @@
 <title>Teste</title>
 </head>
 <body>
-<form action="sigin">
-	<!-- <label></label><input name="nickname">-->
-	<label></label><input name="username">
-	<label></label><input name="password">
+<form action="createReport">
+	<input name="link">
+	<input name="networkType">
+	<input name="description">
 	<input type="submit" value="Realizar Action">
 </form>
 
