@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.model.Commentary;
 import br.sp.cacarobos.util.HttpError;
-@RequestMapping("/commentary")
+
 @RestController
 public class ControllerRestCommentary {
 	private final DaoCommentary bdCommentary;
@@ -26,7 +26,7 @@ public class ControllerRestCommentary {
 		this.bdCommentary=bdCommentary;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/commentary", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> create(@RequestBody Commentary c){
 		try{
 			bdCommentary.create(c);
@@ -37,7 +37,7 @@ public class ControllerRestCommentary {
 		}
 	}
 	
-	//@RequestMapping(value="/{commentaryId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/commentary/{commentaryId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> read(@PathVariable("commentaryId") Long commentaryId){
 		try{
 			return new ResponseEntity<Object>(bdCommentary.read(commentaryId), HttpStatus.OK);
@@ -47,7 +47,7 @@ public class ControllerRestCommentary {
 		}
 	}
 	
-	@RequestMapping(value="/{commentaryId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/commentary/{commentaryId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> update(@PathVariable("commentaryId") Long commentaryId, @RequestBody Commentary c){
 		try{
 			c.setId(commentaryId);
@@ -61,7 +61,7 @@ public class ControllerRestCommentary {
 		}
 	}
 	
-	@RequestMapping(value="/{commentaryId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/commentary/{commentaryId}", method=RequestMethod.DELETE)
 	public ResponseEntity<Object> delete(@PathVariable("commentaryId") Long commentaryId){
 		try{
 			bdCommentary.delete(commentaryId);
@@ -72,7 +72,7 @@ public class ControllerRestCommentary {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/commentary", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAll(){
 		try{
 			return new ResponseEntity<Object>(bdCommentary.listAll(), HttpStatus.OK);
@@ -82,10 +82,10 @@ public class ControllerRestCommentary {
 		}
 	}
 	
-	//@RequestMapping(value="/{commentaryId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Object> listCommentsByReportId(@PathVariable("commentaryId") Long commentaryId){
+	@RequestMapping(value="/listCommentsByReportId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> listCommentsByReportId(@PathVariable("reportId") Long reportId){
 		try{
-			return new ResponseEntity<Object>(bdCommentary.listCommentsByReportId(commentaryId), HttpStatus.OK);
+			return new ResponseEntity<Object>(bdCommentary.listCommentsByReportId(reportId), HttpStatus.OK);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestCommentary(): "+e.getMessage());
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
