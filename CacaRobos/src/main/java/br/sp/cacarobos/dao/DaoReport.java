@@ -1,5 +1,4 @@
 package br.sp.cacarobos.dao;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,12 +7,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
@@ -279,24 +275,6 @@ public class DaoReport implements GenericDao<Report>{
 		return null;
 	}
 	
-	/*
-	public List<Report> retriveOnlyActiveReports(){
-		List<Report> list=new ArrayList<>();
-		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE activeReport=1");
-			ResultSet rs=command.executeQuery();
-			while(rs.next()){
-				Report r=retriveData(rs);
-				list.add(r);
-			}
-			rs.close();
-			command.close();
-			return list;
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoReport(Retrive only active reports): "+e.getMessage());
-		}
-	}
-	*/
 	public List<Report> listAllReportsByValuerId(Long t, boolean activeReports){
 		List<Report> list=new ArrayList<>();
 		try{
@@ -313,6 +291,25 @@ public class DaoReport implements GenericDao<Report>{
 			return list;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoReport(List all reports by valuer id): "+e.getMessage());
+		}
+	}
+	
+	public List<Report> listAllReportsByUserId(Long l, boolean activeReports){
+		List<Report> list=new ArrayList<Report>();
+		try {
+			PreparedStatement command=connection.prepareStatement(
+					activeReports==true?"SELECT * FROM report WHERE userId=? AND activeReport=1":"SELECT * FROM report WHERE userId=? AND activeReport=0");
+			command.setLong(1, l);
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Report r=retriveData(rs);
+				list.add(r);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(List all reports by user id): "+e.getMessage());
 		}
 	}
 	
@@ -351,4 +348,20 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
+	public Report readByTrackingCode(String trackingCode){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE trackingCode=?");
+			command.setString(1, trackingCode);
+			ResultSet rs=command.executeQuery();
+			Report r=null;
+			if(rs.next()){
+				r=retriveData(rs);
+			}
+			rs.close();
+			command.close();
+			return r;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Read by tracking code): "+e.getMessage());
+		}
+	}
 }

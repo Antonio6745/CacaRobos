@@ -76,3 +76,12 @@ create table if not exists commentary(
     reportId int not null,
     foreign key (reportId) references report(id)
 );
+
+drop table if exists votes;
+create table if not exists votes(
+	id int primary key auto_increment,
+    reportId int not null,
+    foreign key (reportId) references report(id),
+    valuerId int not null,
+    foreign key (valuer) references valuer(id)
+);

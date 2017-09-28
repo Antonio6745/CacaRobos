@@ -24,7 +24,12 @@ public class ControllerValuer {
 		this.bdValuer=bdValuer;
 	}
 	
-	//@RequestMapping("registerValuer")
+	@RequestMapping("mainPageValuer")
+	public String mainPageValuer(){
+		return "";//add mainPageValuer
+	}
+	
+	@RequestMapping("registerValuer")
 	public String registerValuer(Valuer t, Login l, MultipartFile file) throws EmailException{
 		t.setLogin(l);
 		if(!file.isEmpty()){
@@ -42,13 +47,13 @@ public class ControllerValuer {
 		return "";//add index page
 	}
 	
-	//@RequestMapping("findValuer")
+	@RequestMapping("findValuer")
 	public String findValuer(Valuer t, Model model){
 		model.addAttribute("valuerLocated", bdValuer.read(t.getId()));
 		return "";//add page to use this method
 	}
 	
-	//@RequestMapping("updateValuer")
+	@RequestMapping("updateValuer")
 	public String updateValuer(Valuer t){
 		bdValuer.update(t);
 		return "";//add page to use this method
@@ -66,11 +71,4 @@ public class ControllerValuer {
 		return "";//add valuer page list
 	}
 	
-	//@RequestMapping("approveReport")
-	public String approveValuerAccount(Valuer v)throws EmailException{
-		bdValuer.validateAccount(v.getId(), true);
-		EmailUtils email=new EmailUtils();
-		email.sendApproveAccountEmail(v.getLogin().getUsername());
-		return "";//add manager main page
-	}
 }

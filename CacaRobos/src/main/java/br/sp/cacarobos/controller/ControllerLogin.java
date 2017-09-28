@@ -1,18 +1,15 @@
 package br.sp.cacarobos.controller;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import br.sp.cacarobos.dao.DaoLogin;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Manager;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.UserType;
 import br.sp.cacarobos.model.Valuer;
-
 @Controller
 public class ControllerLogin {
 	private final DaoLogin bdLogin;
@@ -40,21 +37,21 @@ public class ControllerLogin {
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("managerLoggedIn", t);
-				return "mainPageManager";
+				return "redirect:mainPageManager";
 			}else if(l.getUserType().equals(UserType.USR.userType)){
 				User t=bdLogin.retriveInfoUser(l);
 				/*if(t.getProfilePicture()==null){
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("userLoggedIn", t);
-				return "mainPageUser";
+				return "redirect:mainPageUser";
 			}else if(l.getUserType().equals(UserType.VLR.userType)){
 				Valuer t=bdLogin.retriveInfoValuer(l);
 				/*if(t.getProfilePicture()==null){
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("valuerLoggedIn", t);
-				return "mainPageValuer";
+				return "redirect:mainPageValuer";
 			}
 		}
 		return "testeDoInferno";

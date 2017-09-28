@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.sp.cacarobos.dao.DaoManager;
-import br.sp.cacarobos.dao.DaoValuer;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Manager;
-import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.util.EmailUtils;
 
 @Controller
@@ -25,7 +23,12 @@ public class ControllerManager {
 		this.bdManager=bdManager;
 	}
 	
-	//@RequestMapping("registerManager")
+	@RequestMapping("mainPagaManager")
+	public String mainPagaManager(){
+		return "";//add mainPageManager
+	}
+	
+	@RequestMapping("registerManager")
 	public String registerManager(Manager t, Login l, MultipartFile file) throws EmailException{
 		t.setLogin(l);
 		if(!file.isEmpty()){
@@ -41,13 +44,13 @@ public class ControllerManager {
 		return "";//add manager main page
 	}
 	
-	//@RequestMapping("findManager")
+	@RequestMapping("findManager")
 	public String findManager(Manager t, Model model){
 		model.addAttribute("managerLocated", bdManager.read(t.getId()));
 		return "";//add page to use this method
 	}
 	
-	//@RequestMapping("updateManager")
+	@RequestMapping("updateManager")
 	public String updateManager(Manager t){
 		bdManager.update(t);
 		return "";//add page to use this method

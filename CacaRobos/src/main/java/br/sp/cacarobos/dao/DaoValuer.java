@@ -64,14 +64,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 			ResultSet rs=command.executeQuery();
 			Valuer v=null;
 			if(rs.next()){
-				v=new Valuer();
-				v.setId(rs.getLong("id"));
-				v.setName(rs.getString("name"));
-				v.setCpf(rs.getString("cpf"));
-				v.setLogin(retriveLogin(rs.getLong("loginId")));
-				v.setActiveAccount(rs.getBoolean("activeAccount"));
-				v.setProfilePicture(rs.getBytes("profilePicture"));
-				v.setReason(rs.getString("reason"));
+				v=retriveData(rs);
 			}
 			rs.close();
 			command.close();
@@ -91,13 +84,29 @@ public class DaoValuer implements GenericDao<Valuer>{
 				t=new Login();
 				t.setId(l);
 				t.setUsername(rs.getString("username"));
-				t.setPassword(rs.getString("passcode"));
+				//t.setPassword(rs.getString("passcode"));
 			}
 			rs.close();
 			command.close();
 			return t;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoValuer(Retrive Login): "+e.getMessage());
+		}
+	}
+	
+	private Valuer retriveData(ResultSet rs){
+		try{
+			Valuer v=new Valuer();
+			v.setId(rs.getLong("id"));
+			v.setName(rs.getString("name"));
+			v.setCpf(rs.getString("cpf"));
+			v.setLogin(retriveLogin(rs.getLong("loginId")));
+			v.setActiveAccount(rs.getBoolean("activeAccount"));
+			v.setProfilePicture(rs.getBytes("profilePicture"));
+			v.setReason(rs.getString("reason"));
+			return v;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoValuer(Retrive Data): "+e.getMessage());
 		}
 	}
 	
@@ -155,7 +164,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 			new RuntimeException("Error in DaoValuer(Delete): "+e.getMessage());
 		}
 	}
-
+	
 	@Override
 	public List<Valuer> listAll() {
 		List<Valuer> list=new ArrayList<>();
@@ -163,14 +172,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer");
 			ResultSet rs=command.executeQuery();
 			while(rs.next()){
-				Valuer v=new Valuer();
-				v.setId(rs.getLong("id"));
-				v.setName(rs.getString("name"));
-				v.setCpf(rs.getString("cpf"));
-				v.setLogin(retriveLogin(rs.getLong("loginId")));
-				v.setActiveAccount(rs.getBoolean("activeAccount"));
-				v.setProfilePicture(rs.getBytes("profilePicture"));
-				v.setReason(rs.getString("reason"));
+				Valuer v=retriveData(rs);
 				list.add(v);
 			}
 			rs.close();
@@ -180,6 +182,5 @@ public class DaoValuer implements GenericDao<Valuer>{
 			new RuntimeException("Error in DaoValuer(List All): "+e.getMessage());
 		}
 		return null;
-	}
-
+	} 
 }

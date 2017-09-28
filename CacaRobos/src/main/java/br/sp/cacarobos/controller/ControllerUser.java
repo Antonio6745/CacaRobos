@@ -23,7 +23,12 @@ public class ControllerUser {
 		this.bdUser=bdUser;
 	}
 	
-	//@RequestMapping("registerUser")
+	@RequestMapping("mainPageUser")
+	public String mainPageUser(){
+		return ""; //add mainPageUser
+	}
+	
+	@RequestMapping("registerUser")
 	public String registerUser(User u, Login l, MultipartFile file) throws EmailException{
 		u.setLogin(l);
 		if(!file.isEmpty()){
@@ -39,13 +44,13 @@ public class ControllerUser {
 		return "";//add user register page
 	}
 	
-	//@RequestMapping("findUser")
+	@RequestMapping("findUser")
 	public String findUser(User t, Model model){
 		model.addAttribute("userLocated", bdUser.read(t.getId()));
 		return "";//add page to use this method
 	}
 	
-	//@RequestMapping("updateUser")
+	@RequestMapping("updateUser")
 	public String updateUser(User t){
 		bdUser.update(t);
 		return "";//add page to use this method
