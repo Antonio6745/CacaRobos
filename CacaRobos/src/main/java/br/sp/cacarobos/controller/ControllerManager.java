@@ -28,6 +28,11 @@ public class ControllerManager {
 		return "";//add mainPageManager
 	}
 	
+	@RequestMapping("createManager")
+	public String createManager(){
+		return "";//to the register manager page
+	}
+	
 	@RequestMapping("registerManager")
 	public String registerManager(Manager t, Login l, MultipartFile file) throws EmailException{
 		t.setLogin(l);
@@ -41,7 +46,7 @@ public class ControllerManager {
 		bdManager.create(t);
 		EmailUtils email=new EmailUtils();
 		email.sendSubscribleEmailManger(t.getLogin().getUsername());
-		return "";//add manager main page
+		return "redirect:mainPageManager";//add manager main page
 	}
 	
 	@RequestMapping("findManager")
@@ -67,5 +72,7 @@ public class ControllerManager {
 		model.addAttribute("mamagerList",bdManager.listAll());
 		return "";//add page to use this method
 	}
+	
+	
 
 }

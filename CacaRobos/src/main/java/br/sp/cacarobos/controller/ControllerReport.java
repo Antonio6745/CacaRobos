@@ -4,19 +4,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoVote;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.model.Valuer;
 
 @Controller
 public class ControllerReport {
 	private final DaoReport bdReport;
 	private final DaoVote bdVote;
+	private final DaoCommentary bdCommentary;
 	@Autowired
-	public ControllerReport(DaoReport bdReport, DaoVote bdVote) {
+	public ControllerReport(DaoReport bdReport, DaoVote bdVote, DaoCommentary bdCommentary) {
 		this.bdReport=bdReport;
 		this.bdVote=bdVote;
+		this.bdCommentary=bdCommentary;
 	}
 	
 	@RequestMapping("registerReport")
@@ -39,5 +43,57 @@ public class ControllerReport {
 	public String searchTrackingCode(Report r, Model model){
 		model.addAttribute("reportFinded", bdReport.readByTrackingCode(r.getTrackingCode()));
 		return "";//add page
+	}
+	
+	@RequestMapping("retriveReport")
+	public String retriveReport(Report r, Model model){
+		model.addAttribute("reportFinded", bdReport.read(r.getId()));
+		return "";
+	}
+	
+	@RequestMapping("updateReport")
+	public String upadateReport(Report r){
+		bdReport.update(r);
+		return "redirect:";//to the report "profile page" witch has change
+	}
+	
+	@RequestMapping("findReport")
+	public String findReport(Report r, Model model){
+		r=bdReport.read(r.getId());
+		r.setCommentaryList(bdCommentary.listCommentsByReportId(r.getId()));
+		model.addAttribute("reportFinded", r);
+		return "";//add report "profile page"
+	}
+	
+	@RequestMapping("listAllMyActiveReports")
+	public String listAllMyActiveReports(User u, Model model){
+		model.addAttribute("allMyReports", bdReport.listAllReportsByUserId(u.getId(), true));
+		return "";//add report page list
+	}
+	
+	@RequestMapping("listAllMyDisactiveReports")
+	public String listAllMyDisactiveReports(User u, Model model){
+		model.addAttribute("allMyReports", bdReport.listAllReportsByUserId(u.getId(), false));
+		return "";//add report page list
+	}
+	
+	@RequestMapping("voteIsARobot")
+	public String voteIsARobot(Report r, Valuer v){
+		if(bdVote.alreadyVoted(r, v)){
+			return "";//redirect to the same page, but with a warning saying "holly molly, u already had voted"
+		}else {
+			bdReport.addIsARobotOrNotVote(r.getId(), true);
+		}
+		return "redirect:";//redirect to the report page (tip: findReport?id=r.getId)
+	}
+	
+	@RequestMapping("voteIsNotARobot")
+	public String voteIsNotARobot(Report r, Valuer v){
+		if(bdVote.alreadyVoted(r, v)){
+			return "";////redirect to the same page, but with a warning saying "holly molly, u already had voted"
+		}else{
+			bdReport.addIsARobotOrNotVote(r.getId(), false);
+		}
+		return "redirect:";////redirect to the report page (tip: findReport?id=r.getId)
 	}
 }

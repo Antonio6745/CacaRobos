@@ -74,7 +74,7 @@ create table if not exists commentary(
     userId int not null,
     foreign key (userId) references user(id),
     reportId int not null,
-    foreign key (reportId) references report(id)
+    foreign key (reportId) references report(id) on delete cascade
 );
 
 drop table if exists votes;
@@ -83,5 +83,5 @@ create table if not exists votes(
     reportId int not null,
     foreign key (reportId) references report(id),
     valuerId int not null,
-    foreign key (valuer) references valuer(id)
+    foreign key (valuerId) references valuer(id)
 );

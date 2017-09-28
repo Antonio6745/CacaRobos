@@ -195,13 +195,11 @@ public class DaoReport implements GenericDao<Report>{
 		try{
 			Report r=read(t);
 			PreparedStatement command=connection.prepareStatement("UPDATE report SET isARobotVotes=?, isNotARobotVotes=? WHERE id=?");
-			System.out.println(r);
 			if(itIsARobot){
 				r.getVoteCounting().addIsARobotVote();
 			}else {
 				r.getVoteCounting().addIsNotARobotVote();
 			}
-			System.out.println(r);
 			command.setInt(1, r.getVoteCounting().getIsARobot());
 			command.setInt(2, r.getVoteCounting().getIsNotARobot());
 			command.setLong(3, r.getId());

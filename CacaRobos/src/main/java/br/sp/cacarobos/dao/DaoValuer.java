@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,5 +183,22 @@ public class DaoValuer implements GenericDao<Valuer>{
 			new RuntimeException("Error in DaoValuer(List All): "+e.getMessage());
 		}
 		return null;
-	} 
+	}
+	
+	public List<Valuer> listAllUnactiveValuers(){
+		List<Valuer> list=new ArrayList<Valuer>();
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE activeAccount=0");
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Valuer v=retriveData(rs);
+				list.add(v);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoValuer(List all unactive valuers): "+e.getMessage());
+		}
+	}
 }

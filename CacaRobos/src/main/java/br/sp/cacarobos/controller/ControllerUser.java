@@ -67,5 +67,5 @@ public class ControllerUser {
 		model.addAttribute("userList", bdUser.listAll());
 		return "";//add user list page
 	}
-	
+
 }

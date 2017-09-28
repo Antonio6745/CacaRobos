@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.sp.cacarobos.model.Report;
+import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.model.Vote;
 
 @Repository
@@ -132,5 +134,12 @@ public class DaoVote implements GenericDao<Vote>{
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoVote(Already voted): "+e.getMessage());
 		}
+	}
+	
+	public boolean alreadyVoted(Report r, Valuer v){
+		Vote vote=new Vote();
+		vote.setReportId(r.getId());
+		vote.setValuerId(v.getId());
+		return alreadyVoted(vote);
 	}
 }

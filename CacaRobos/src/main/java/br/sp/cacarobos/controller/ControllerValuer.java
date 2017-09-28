@@ -67,8 +67,27 @@ public class ControllerValuer {
 	
 	//@RequestMapping("listAllValuers")
 	public String listAllValuers(Model model){
-		model.addAttribute("", bdValuer.listAll());
+		model.addAttribute("valuerList", bdValuer.listAll());
 		return "";//add valuer page list
 	}
 	
+	@RequestMapping("listAllUnactiveValuers")
+	public String listAllUnactiveValuers(Model model){
+		model.addAttribute("valuerList", bdValuer.listAllUnactiveValuers());
+		return "";//to the valuer list page
+	}
+	
+	@RequestMapping("approveAccount")
+	public String approveValuerAccont(Valuer v) throws EmailException{
+		bdValuer.validateAccount(v.getId(), true);
+		EmailUtils email=new EmailUtils();
+		email.sendApproveAccountEmail(bdValuer.read(v.getId()).getLogin().getUsername());
+		return "redirect:";//to the valuer list page
+	}
+	
+	//@RequestMapping("disapproveAccount")
+	public String disapproveValuerAccont(Valuer v){
+		bdValuer.validateAccount(v.getId(), false);
+		return "redirect:";//to the valuer list page
+	}
 }
