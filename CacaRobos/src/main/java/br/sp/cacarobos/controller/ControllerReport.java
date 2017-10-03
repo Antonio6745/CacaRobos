@@ -42,6 +42,7 @@ public class ControllerReport {
 	@RequestMapping("searchTrackingCode")
 	public String searchTrackingCode(Report r, Model model){
 		model.addAttribute("reportFinded", bdReport.readByTrackingCode(r.getTrackingCode()));
+		model.addAttribute("commentaryList", bdCommentary.listCommentsByReportId(r.getId()));
 		return "";//add page
 	}
 	

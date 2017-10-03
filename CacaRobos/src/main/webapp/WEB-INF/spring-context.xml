@@ -27,7 +27,7 @@
 	<bean id="mysqlDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/cacarobos" />
-		<property name="maxTotal" value="7"></property>
+		<property name="maxTotal" value="8"></property>
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
