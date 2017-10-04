@@ -8,10 +8,9 @@
 <title>Teste</title>
 </head>
 <body>
-<form action="createReport">
-	<input name="link">
-	<input name="networkType">
-	<input name="description">
+<form action="sigin">
+	<input name="username">
+	<input name="password">
 	<input type="submit" value="Realizar Action">
 </form>
 

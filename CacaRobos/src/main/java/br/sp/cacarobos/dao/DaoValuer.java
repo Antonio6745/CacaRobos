@@ -35,7 +35,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 	@Override
 	public void create(Valuer t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO login (username, passcode, userType) VALUES (?,md5(?),?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement command=connection.prepareStatement("INSERT INTO login (username, passcode, userType) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			command.setString(1, t.getLogin().getUsername());
 			command.setString(2, t.getLogin().getPassword());
 			command.setString(3, UserType.VLR.userType);

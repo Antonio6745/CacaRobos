@@ -6,7 +6,7 @@ drop table if exists login;
 create table if not exists login(
 	id int primary key auto_increment,
     username varchar(50) unique not null,
-    passcode varchar(32) not null,
+    passcode varchar(64) not null,
     userType char(3) not null
 );
 

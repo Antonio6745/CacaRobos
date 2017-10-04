@@ -1,5 +1,7 @@
 package br.sp.cacarobos.model;
 
+import br.sp.cacarobos.util.PasswordEncryption;
+
 public class Login {
 	private Long id;
 	private String username;
@@ -22,7 +24,7 @@ public class Login {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = PasswordEncryption.encrypt(password);
 	}
 	public String getUserType() {
 		return userType;

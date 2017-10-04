@@ -25,7 +25,7 @@ public class ControllerUser {
 	
 	@RequestMapping("mainPageUser")
 	public String mainPageUser(){
-		return ""; //add mainPageUser
+		return "mainPageUser"; //add mainPageUser
 	}
 	
 	@RequestMapping("registerUser")

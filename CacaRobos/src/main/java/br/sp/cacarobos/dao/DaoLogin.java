@@ -22,13 +22,13 @@ public class DaoLogin{
 		try {
 			connection=data.getConnection();
 		}catch(SQLException e){
-			new RuntimeException("Error in DaoLogin(): "+e.getMessage());
+			new RuntimeException("Error in DaoLogin(Get connection): "+e.getMessage());
 		}
 	}
 	
 	public Login sigin(Login t){
 		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE username=? AND passcode=md5(?)");
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE username=? AND passcode=?");
 			command.setString(1, t.getUsername());
 			command.setString(2, t.getPassword());
 			ResultSet rs=command.executeQuery();
