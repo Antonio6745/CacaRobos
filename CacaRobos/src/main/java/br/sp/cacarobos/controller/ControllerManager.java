@@ -25,7 +25,7 @@ public class ControllerManager {
 	
 	@RequestMapping("mainPagaManager")
 	public String mainPagaManager(){
-		return "";//add mainPageManager
+		return "mainPagaManager";//add mainPageManager
 	}
 	
 	@RequestMapping("createManager")

@@ -54,12 +54,12 @@ public class ControllerLogin {
 				return "redirect:mainPageValuer";
 			}
 		}
-		return "testeDoInferno";
+		return "redirect:home";
 	}
 	
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "";//add index page
+		return "redirect:home";//add index page
 	}
 }

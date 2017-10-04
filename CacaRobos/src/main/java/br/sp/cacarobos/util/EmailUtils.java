@@ -103,4 +103,17 @@ public class EmailUtils{
 			throw new RuntimeException("Error in EmailUtils(Send approve account email): "+e.getMessage());
 		}
 	}
+	
+	public void sendReportCreatedEmail(String username, String trackingCode){
+		try{
+			email.addTo(username);
+			email.setSubject("Caça Robos - Denuncia Criada");
+			email.setHtmlMsg("<html><h1>Denuncia cadastrada com sucesso!</h1></br><h3>Obrigado pela sua contribuição!<h3></br>"
+					+ "<p>Sua denuncia ja foi cadastrada e está em votação nesse instante! Voce pode acompanha-la usando o "
+					+ "codide acompanhamento da sua denuncia: "+trackingCode+"</p></br></html>");
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send report created email): "+e.getMessage());
+		}
+	}
 }

@@ -141,23 +141,4 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		return null;
 	}
 	
-	public List<Commentary> listCommentsByReportId(Long t){
-		List<Commentary> list=new ArrayList<>();
-		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM commentary WHERE reportId=?");
-			command.setLong(1, t);
-			ResultSet rs=command.executeQuery();
-			while(rs.next()){
-				Commentary c=retriveData(rs);
-				c.setUser(retriveUser(c.getUser().getId()));
-				list.add(c);
-			}
-			rs.close();
-			command.close();
-			return list;
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoCommentary(List comments by report id): "+e.getMessage());
-		}
-	}
-	
 }

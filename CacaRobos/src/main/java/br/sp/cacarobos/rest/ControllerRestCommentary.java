@@ -81,14 +81,4 @@ public class ControllerRestCommentary {
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}
-	
-	@RequestMapping(value="/listCommentsByReportId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Object> listCommentsByReportId(@PathVariable("reportId") Long reportId){
-		try{
-			return new ResponseEntity<Object>(bdCommentary.listCommentsByReportId(reportId), HttpStatus.OK);
-		}catch(Exception e){
-			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestCommentary(): "+e.getMessage());
-			return ResponseEntity.status(error.getHttpStatus()).body(error);
-		}
-	}
 }

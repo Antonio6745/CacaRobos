@@ -7,9 +7,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import br.sp.cacarobos.model.Commentary;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
@@ -18,7 +22,7 @@ import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.util.CodeGenerator;
 
 @Repository
-public class DaoReport implements GenericDao<Report>{
+public class DaoReport{
 	
 	private Connection connection;
 	
@@ -31,8 +35,7 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
-	@Override
-	public void create(Report t) {
+	public String create(Report t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link, dateReport) VALUES (?,?,?,?,?,?,?)");
 			command.setString(1, Status.PROCESSING.getStatus());
@@ -48,8 +51,9 @@ public class DaoReport implements GenericDao<Report>{
 			command.setDate(7, Date.valueOf(LocalDate.now()));
 			command.execute();
 			command.close();
+			return t.getTrackingCode();
 		}catch(SQLException e){
-			new RuntimeException("Error in DaoReport(Create): "+e.getMessage());
+			throw new RuntimeException("Error in DaoReport(Create): "+e.getMessage());
 		}
 	}
 
@@ -91,7 +95,6 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
-	@Override
 	public Report read(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE id=?");
@@ -152,7 +155,6 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
-	@Override
 	public void update(Report t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("UPDATE report SET description=?, socialNetworkType=?, link=? WHERE id=?");
@@ -210,7 +212,6 @@ public class DaoReport implements GenericDao<Report>{
 		}		
 	}
 	
-	@Override
 	public void delete(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("DELETE FROM report WHERE id=?");
@@ -219,6 +220,27 @@ public class DaoReport implements GenericDao<Report>{
 			command.close();
 		}catch(SQLException e){
 			new RuntimeException("Error in DaoReport(Delete): "+e.getMessage());
+		}
+	}
+	
+	private List<Commentary> listCommentsByReportId(Long t){
+		List<Commentary> list=new ArrayList<>();
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM commentary WHERE reportId=?");
+			command.setLong(1, t);
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Commentary c=new Commentary();
+				c.setId(rs.getLong("id"));
+				c.setDescription(rs.getString("description"));
+				c.setUser(retriveUser(c.getUser().getId()));
+				list.add(c);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(List comments by report id): "+e.getMessage());
 		}
 	}
 	
@@ -248,13 +270,13 @@ public class DaoReport implements GenericDao<Report>{
 			r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
 			r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
 			r.setLink(rs.getString("link"));
+			r.setCommentaryList(listCommentsByReportId(r.getId()));
 			return r;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoReport(Retrive data): "+e.getMessage());
 		}
 	}
 
-	@Override
 	public List<Report> listAll() {
 		List<Report> list=new ArrayList<>();
 		try {

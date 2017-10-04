@@ -26,7 +26,7 @@ public class ControllerValuer {
 	
 	@RequestMapping("mainPageValuer")
 	public String mainPageValuer(){
-		return "";//add mainPageValuer
+		return "mainPageValuer";//add mainPageValuer
 	}
 	
 	@RequestMapping("registerValuer")

@@ -1,33 +1,35 @@
 package br.sp.cacarobos.controller;
+import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoVote;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
+import br.sp.cacarobos.util.EmailUtils;
 
 @Controller
 public class ControllerReport {
 	private final DaoReport bdReport;
 	private final DaoVote bdVote;
-	private final DaoCommentary bdCommentary;
 	@Autowired
-	public ControllerReport(DaoReport bdReport, DaoVote bdVote, DaoCommentary bdCommentary) {
+	public ControllerReport(DaoReport bdReport, DaoVote bdVote) {
 		this.bdReport=bdReport;
 		this.bdVote=bdVote;
-		this.bdCommentary=bdCommentary;
 	}
 	
 	@RequestMapping("registerReport")
-	public String createReport(Report r, User u){
+	public String createReport(Report r, User u, Model model)throws EmailException{
 		if(!bdReport.reportAlreadyExists(r.getLink())){
 			r.setUser(u);
-			bdReport.create(r);
+			r.setTrackingCode(bdReport.create(r));
+			model.addAttribute("reportAdded", r);
+			EmailUtils emailUtils=new EmailUtils();
+			emailUtils.sendReportCreatedEmail(u.getLogin().getUsername(), r.getTrackingCode());
 		}else {
 			return "";
 		}
@@ -42,7 +44,6 @@ public class ControllerReport {
 	@RequestMapping("searchTrackingCode")
 	public String searchTrackingCode(Report r, Model model){
 		model.addAttribute("reportFinded", bdReport.readByTrackingCode(r.getTrackingCode()));
-		model.addAttribute("commentaryList", bdCommentary.listCommentsByReportId(r.getId()));
 		return "";//add page
 	}
 	
@@ -61,7 +62,6 @@ public class ControllerReport {
 	@RequestMapping("findReport")
 	public String findReport(Report r, Model model){
 		r=bdReport.read(r.getId());
-		r.setCommentaryList(bdCommentary.listCommentsByReportId(r.getId()));
 		model.addAttribute("reportFinded", r);
 		return "";//add report "profile page"
 	}
