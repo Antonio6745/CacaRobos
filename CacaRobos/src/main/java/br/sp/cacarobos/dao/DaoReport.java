@@ -384,4 +384,22 @@ public class DaoReport{
 			throw new RuntimeException("Error in DaoReport(Read by tracking code): "+e.getMessage());
 		}
 	}
+	
+	public List<Report> searchByDescription(String description){
+		List<Report> list=new ArrayList<>();
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report WHERE description LIKE ? AND activeReport=1");
+			command.setString(1, "%"+description+"%");
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Report r=retriveData(rs);
+				list.add(r);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Search by description): "+e.getMessage());
+		}
+	}
 }

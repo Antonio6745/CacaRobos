@@ -97,4 +97,10 @@ public class ControllerReport {
 		}
 		return "redirect:";////redirect to the report page (tip: findReport?id=r.getId)
 	}
+	
+	@RequestMapping("searchByDescription")
+	public String searchByDescription(Report r, Model model){
+		model.addAttribute("reportsFinded", bdReport.searchByDescription(r.getDescription()));
+		return "";
+	}
 }
