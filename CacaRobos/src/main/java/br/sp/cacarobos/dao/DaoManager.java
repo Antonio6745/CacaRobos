@@ -76,6 +76,25 @@ public class DaoManager implements GenericDao<Manager>{
 		}
 	}
 
+	public boolean cpfAlreadyExists(String cpf){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT cpf FROM manager WHERE cpf=?");
+			command.setString(1, cpf);
+			ResultSet rs=command.executeQuery();
+			boolean alreadyExists;
+			if(rs.next()){
+				alreadyExists=true;
+			}else{
+				alreadyExists=false;
+			}
+			rs.close();
+			command.close();
+			return alreadyExists;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoManager(CPF Already exists): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void update(Manager t) {
 		try {

@@ -74,6 +74,25 @@ public class DaoValuer implements GenericDao<Valuer>{
 			throw new RuntimeException("Error in DaoValuer(Read): "+e.getMessage());
 		}
 	}
+
+	public boolean cpfAlreadyExists(String cpf){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT cpf FROM valuer WHERE cpf=?");
+			command.setString(1, cpf);
+			ResultSet rs=command.executeQuery();
+			boolean alreadyExists;
+			if(rs.next()){
+				alreadyExists=true;
+			}else{
+				alreadyExists=false;
+			}
+			rs.close();
+			command.close();
+			return alreadyExists;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoValuer(CPF Already exists): "+e.getMessage());
+		}
+	}
 	
 	private Login retriveLogin(Long l){
 		try{

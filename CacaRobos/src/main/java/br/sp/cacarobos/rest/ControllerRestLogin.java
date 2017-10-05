@@ -23,7 +23,7 @@ public class ControllerRestLogin {
 		this.bdLogin=bdLogin;
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/login/sigin", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> sigin(@RequestBody Login l){
 		try{
 			l=bdLogin.sigin(l);

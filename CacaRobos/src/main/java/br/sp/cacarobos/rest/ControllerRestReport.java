@@ -78,7 +78,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/reportAlreadyExists", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/reportAlreadyExists", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> reportAlreadyExists(@RequestBody Report r){
 		try{
 			return new ResponseEntity<Object>(bdReport.reportAlreadyExists(r.getLink()), HttpStatus.OK);
@@ -88,7 +88,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/updateStatus/{reportId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/updateStatus/{reportId}", method=RequestMethod.PUT, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> updateStatus(@PathVariable("reportId") Long reportId, @RequestBody Report r){
 		try{
 			bdReport.updateStatus(reportId, r.getStatus());
@@ -123,7 +123,7 @@ public class ControllerRestReport {
 	}
 	*/
 	
-	@RequestMapping(value="/addIsARobotVote/{reportId}", method=RequestMethod.GET)
+	@RequestMapping(value="/report/addIsARobotVote/{reportId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> addIsARobotVote(@PathVariable("reportId") Long reportId){
 		try{
 			bdReport.addIsARobotOrNotVote(reportId, true);
@@ -134,7 +134,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/addIsNotARobotVote/{reportId}", method=RequestMethod.GET)
+	@RequestMapping(value="/report/addIsNotARobotVote/{reportId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> addIsNotARobotVote(@PathVariable("reportId") Long reportId){
 		try{
 			bdReport.addIsARobotOrNotVote(reportId, false);
@@ -145,7 +145,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listOnlyActiveReports", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/listOnlyActiveReports", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listOnlyActiveReports(){
 		try{
 			return new ResponseEntity<Object>(bdReport.listAllActiveReports(), HttpStatus.OK);
@@ -155,7 +155,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listAllActiveReportsByValuerId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/listAllActiveReportsByValuerId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAllActiveReportsByValuerId(@PathVariable("reportId") Long reportId){
 		try{
 			return new ResponseEntity<Object>(bdReport.listAllReportsByValuerId(reportId, true), HttpStatus.OK);
@@ -165,7 +165,7 @@ public class ControllerRestReport {
 		}
 	}
 
-	@RequestMapping(value="/listAllDisactiveReportsByValuerId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/listAllDisactiveReportsByValuerId/{reportId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAllDisactiveReportsByValuerId(@PathVariable("reportId") Long reportId){
 		try{
 			return new ResponseEntity<Object>(bdReport.listAllReportsByValuerId(reportId, false), HttpStatus.OK);
@@ -175,7 +175,7 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listAllActiveReports", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/listAllActiveReports", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listAllActiveReports(){
 		try{
 			return new ResponseEntity<Object>(bdReport.listAllActiveReports(), HttpStatus.OK);
@@ -185,12 +185,23 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listBySocialNetwork", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/report/listBySocialNetwork", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listBySocialNetwork(@RequestBody Report r){
 		try{
 			return new ResponseEntity<Object>(bdReport.listBySocialNetwork(r.getNetworkType()), HttpStatus.OK);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(List by social network): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
+	
+	@RequestMapping(value="/report/updateReportTimeAvaliable/{time}", method=RequestMethod.GET)
+	public ResponseEntity<Object> updateReportTimeAvaliable(@PathVariable("time") Integer time){
+		try{
+			bdReport.updateReportTimeAvaliable(time);
+			return ResponseEntity.noContent().build();
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(Update report time avaliale): "+e.getMessage());
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}

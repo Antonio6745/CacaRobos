@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.UserType;
 
@@ -72,6 +75,25 @@ public class DaoUser implements GenericDao<User>{
 		}
 	}
 
+	public boolean nicknameAlreadyExists(String nickname){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT nickname FROM user WHERE nickname=?");
+			command.setString(1, nickname);
+			ResultSet rs=command.executeQuery();
+			boolean alreadyExists;
+			if(rs.next()){
+				alreadyExists=true;
+			}else{
+				alreadyExists=false;
+			}
+			rs.close();
+			command.close();
+			return alreadyExists;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoUser(Nickname already exists): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public void update(User t) {
 		try {

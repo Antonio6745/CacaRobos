@@ -402,4 +402,15 @@ public class DaoReport{
 			throw new RuntimeException("Error in DaoReport(Search by description): "+e.getMessage());
 		}
 	}
+	
+	public void updateReportTimeAvaliable(Integer time){
+		try{
+			PreparedStatement command=connection.prepareStatement("UPDATE activeReportTime SET timeAvaliable=?");
+			command.setInt(1, time);
+			command.execute();
+			command.close();
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Upadte Time Avaliable): "+e.getMessage());
+		}
+	}
 }

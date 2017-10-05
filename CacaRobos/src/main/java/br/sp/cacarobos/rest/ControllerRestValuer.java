@@ -88,7 +88,7 @@ public class ControllerRestValuer {
 		}
 	}
 	
-	@RequestMapping(value="/validateAccount/{valuerId}", method=RequestMethod.GET)
+	@RequestMapping(value="/valuer/validateAccount/{valuerId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> validateAccount(@PathVariable("valuerId") Long valuerId){
 		try{
 			bdValuer.validateAccount(valuerId, true);
@@ -101,7 +101,7 @@ public class ControllerRestValuer {
 		}
 	}
 
-	@RequestMapping(value="/unvalidateAccount/{valuerId}", method=RequestMethod.GET)
+	@RequestMapping(value="/valuer/unvalidateAccount/{valuerId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> unvalidateAccount(@PathVariable("valuerId") Long valuerId){
 		try{
 			bdValuer.validateAccount(valuerId, false);
@@ -110,6 +110,16 @@ public class ControllerRestValuer {
 			return ResponseEntity.noContent().build();
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestValuer(validadteAccount): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
+	
+	@RequestMapping(value="/valuer/cpfAlreadyExists/{cpf}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> cpfAlreadyExists(@PathVariable("cpf") String cpf){
+		try{
+			return new ResponseEntity<Object>(bdValuer.cpfAlreadyExists(cpf) ,HttpStatus.OK);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestValuer(CPF already exists): "+e.getMessage());
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}

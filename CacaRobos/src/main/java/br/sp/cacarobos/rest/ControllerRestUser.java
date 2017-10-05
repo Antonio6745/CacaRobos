@@ -89,4 +89,14 @@ public class ControllerRestUser {
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}
+	
+	@RequestMapping(value="/user/nicknameAlreadyExists/{nickname}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> nicknameAlreadyExists(@PathVariable("nickname") String nickname){
+		try{
+			return new ResponseEntity<Object>(bdUser.nicknameAlreadyExists(nickname), HttpStatus.OK);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestUser(Nickanme already exists): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
 }

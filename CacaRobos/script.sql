@@ -59,13 +59,19 @@ create table if not exists report(
     socialNetworkType varchar(35) not null
 );
 
+drop table if exists activeReportTime;
+create table if not exists activeReportTime(
+    timeAvaliable int
+);
+insert into activeReportTime(timeAvaliable) value(7);
+
 drop event if exists deactivateReport;
 create event if not exists deactivateReport
 	on schedule every 1 day
 		starts '2017-09-13 09:00:00'
 			do
 				update report set activeReport=0
-					where datediff(now(),dataAdd)>=7;
+					where datediff(now(),dataAdd)>=(select timeAvaliable from activeReportTime);
 
 drop table if exists commentary;
 create table if not exists commentary(

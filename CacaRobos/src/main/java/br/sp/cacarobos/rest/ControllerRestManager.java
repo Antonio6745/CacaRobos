@@ -87,4 +87,14 @@ public class ControllerRestManager {
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}
+	
+	@RequestMapping(value="/manager/cpfAlreadyExists/{cpf}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> cpfAlreadyExists(@PathVariable("cpf") String cpf){
+		try{
+			return new ResponseEntity<Object>(bdManager.cpfAlreadyExists(cpf) ,HttpStatus.OK);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestManager(CPF already exists): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
 }
