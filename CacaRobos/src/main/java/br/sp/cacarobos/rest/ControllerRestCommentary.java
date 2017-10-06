@@ -26,13 +26,26 @@ public class ControllerRestCommentary {
 		this.bdCommentary=bdCommentary;
 	}
 	
-	@RequestMapping(value="/commentary", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<Object> create(@RequestBody Commentary c){
+	@RequestMapping(value="/commentary/createUserCommentary", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> createUserCommentary(@RequestBody Commentary c){
 		try{
-			bdCommentary.create(c);
+			System.out.println(c);
+			bdCommentary.createUserCommentary(c);
+			System.out.println("passou e salvou");
 			return ResponseEntity.created(URI.create("/commentary/"+c.getId())).body(c);
 		}catch(Exception e){
-			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestCommentary(Create): "+e.getMessage());
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestCommentary(Create user commentary): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
+	
+	@RequestMapping(value="/commentary/createValuerCommentary", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> createValuerCommentary(@RequestBody Commentary c){
+		try{
+			bdCommentary.createValuerCommentary(c);
+			return ResponseEntity.created(URI.create("/commentary/"+c.getId())).body(c);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestCommentary(Create valuer commentary): "+e.getMessage());
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}

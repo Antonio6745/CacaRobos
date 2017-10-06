@@ -205,4 +205,14 @@ public class ControllerRestReport {
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}
+	
+	@RequestMapping(value="/report/searchByDescription", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Object> searchByDescription(@RequestBody Report r){
+		try{
+			return new ResponseEntity<Object>(bdReport.searchByDescription(r.getDescription()), HttpStatus.OK);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "ControllerRestReport(Search by description): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
 }

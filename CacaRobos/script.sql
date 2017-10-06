@@ -77,8 +77,11 @@ drop table if exists commentary;
 create table if not exists commentary(
 	id int primary key auto_increment,
     description varchar(255) not null, 
-    userId int not null,
+    userId int null,
     foreign key (userId) references user(id),
+    valuerId int null,
+    foreign key (valuerId) references valuer(id),
+    userType char(3),
     reportId int not null,
     foreign key (reportId) references report(id) on delete cascade
 );

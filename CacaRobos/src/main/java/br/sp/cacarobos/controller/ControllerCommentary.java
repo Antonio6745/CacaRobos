@@ -8,6 +8,8 @@ import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.model.Commentary;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.model.UserType;
+import br.sp.cacarobos.model.Valuer;
 
 @Controller
 public class ControllerCommentary {
@@ -18,11 +20,21 @@ public class ControllerCommentary {
 		this.bdCommentary=bdCommentary;
 	}
 	
-	@RequestMapping("registerCommentary")
-	public String registerCommentary(Commentary c, User u, Report r){
+	@RequestMapping("registerUserCommentary")
+	public String registerUserCommentary(Commentary c, User u, Report r){
 		c.setReport(r);
 		c.setUser(u);
-		bdCommentary.create(c);
+		c.setUserType(UserType.USR.userType);
+		bdCommentary.createUserCommentary(c);
+		return "redirect:";//to the same report "profile page"
+	}
+	
+	@RequestMapping("registerValuerCommentary")
+	public String registerValuerCommentary(Commentary c, Valuer v, Report r){
+		c.setReport(r);
+		c.setValuer(v);
+		c.setUserType(UserType.VLR.userType);
+		bdCommentary.createValuerCommentary(c);
 		return "redirect:";//to the same report "profile page"
 	}
 	

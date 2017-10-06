@@ -4,9 +4,12 @@ public class Commentary {
 	private Long id;
 	private String description;
 	private User user;
+	private Valuer valuer;
 	private Report report;
+	private String userType;
 	public Commentary() {
 		user=new User();
+		valuer=new Valuer();
 		report=new Report();
 	}
 	public User getUser() {
@@ -33,10 +36,21 @@ public class Commentary {
 	public void setReport(Report report) {
 		this.report = report;
 	}
+	public Valuer getValuer() {
+		return valuer;
+	}
+	public void setValuer(Valuer valuer) {
+		this.valuer = valuer;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", description=" + description + ", user=" + user + "]";
+		return "Commentary [id=" + id + ", description=" + description + ", user=" + user + ", valuer=" + valuer
+				+ ", report=" + report + ", userType=" + userType + "]";
 	}
-	
-	
 }

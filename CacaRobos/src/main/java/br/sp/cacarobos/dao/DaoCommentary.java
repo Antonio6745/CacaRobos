@@ -14,9 +14,11 @@ import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Commentary;
 import br.sp.cacarobos.model.User;
+import br.sp.cacarobos.model.UserType;
+import br.sp.cacarobos.model.Valuer;
 
 @Repository
-public class DaoCommentary implements GenericDao<Commentary>{
+public class DaoCommentary{
 	
 	private Connection connection;
 	
@@ -29,13 +31,13 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 	
-	@Override
-	public void create(Commentary t) {
+	public void createUserCommentary(Commentary t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO commentary (description, userId, reportId) VALUES (?,?,?)");
+			PreparedStatement command=connection.prepareStatement("INSERT INTO commentary (description, userId, reportId, userType) VALUES (?,?,?,?)");
 			command.setString(1, t.getDescription());
 			command.setLong(2, t.getUser().getId());
 			command.setLong(3, t.getReport().getId());
+			command.setString(4, UserType.USR.userType);
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -43,7 +45,20 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 
-	@Override
+	public void createValuerCommentary(Commentary t) {
+		try {
+			PreparedStatement command=connection.prepareStatement("INSERT INTO commentary (description, valuerId, reportId, userType) VALUES (?,?,?,?)");
+			command.setString(1, t.getDescription());
+			command.setLong(2, t.getValuer().getId());
+			command.setLong(3, t.getReport().getId());
+			command.setString(4, UserType.VLR.userType);
+			command.execute();
+			command.close();
+		}catch(SQLException e){
+			new RuntimeException("Error in DaoComment(Create): "+e.getMessage());
+		}
+	}
+	
 	public Commentary read(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM commentary WHERE id=?");
@@ -52,7 +67,11 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			Commentary c=null;
 			if(rs.next()){
 				c=retriveData(rs);
-				c.setUser(retriveUser(c.getUser().getId()));
+				if(c.getUserType().equals(UserType.USR.userType)) {
+					c.setUser(retriveUser(c.getUser().getId()));
+				}else {
+					c.setValuer(retriveValuer(c.getValuer().getId()));
+				}
 			}
 			rs.close();
 			command.close();
@@ -61,6 +80,29 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			new RuntimeException("Error in DaoComment(Read): "+e.getMessage());
 		}
 		return null;
+	}
+	
+	private Valuer retriveValuer(Long t){
+		try{
+			PreparedStatement command=connection.prepareStatement("");
+			command.setLong(1, t);
+			ResultSet rs=command.executeQuery();
+			Valuer v = null;
+			if(rs.next()){
+				v=new Valuer();
+				v.setId(rs.getLong("id"));
+				v.setName(rs.getString("name"));
+				v.setCpf(rs.getString("cpf"));
+				v.setActiveAccount(rs.getBoolean("activeAccount"));
+				v.setProfilePicture(rs.getBytes("profilePicture"));
+				v.setReason(rs.getString("reason"));
+			}
+			rs.close();
+			command.close();
+			return v;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoCommentary(Retrive Valuer): "+e.getMessage());
+		}
 	}
 	
 	private User retriveUser(Long t){
@@ -83,7 +125,6 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 	
-	@Override
 	public void update(Commentary t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("UPDATE commentary SET description=? WHERE id=?");
@@ -96,7 +137,6 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 
-	@Override
 	public void delete(Long t) {
 		try {
 			PreparedStatement command=connection.prepareStatement("DELETE FROM commentary WHERE id=?");
@@ -121,7 +161,6 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 	
-	@Override
 	public List<Commentary> listAll() {
 		List<Commentary> list=new ArrayList<>();
 		try {
