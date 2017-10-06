@@ -2,6 +2,7 @@ package br.sp.cacarobos.util;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -23,7 +24,11 @@ public class JsonUtil{
 		}
 	}
 	
-	public static Object reciveAndConvertJson(String url, Object object){
+	public static Object reciveAndConvertJsonObject(String url, Object object){
 		return gson.fromJson(readJson(url), object.getClass());
+	}
+	
+	public static List<?> reciveAndConvertJsonList(String url){
+		return gson.fromJson(readJson(url), List.class);
 	}
 }
