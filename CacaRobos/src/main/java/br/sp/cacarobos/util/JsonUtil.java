@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 public class JsonUtil{
 	private final static Gson gson=new Gson();
+	
 	private static String readJson(String url){
 		try {
 			URL urlToBeRead=new URL(url);
@@ -20,7 +21,7 @@ public class JsonUtil{
 			in.close();
 			return json;
 		} catch (IOException e) {
-			throw new RuntimeException("Error in JsonUtil(Read jason): "+e.getMessage());
+			throw new RuntimeException("Error in JsonUtil(Read Json): "+e.getMessage());
 		}
 	}
 	
