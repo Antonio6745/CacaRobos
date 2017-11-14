@@ -36,7 +36,6 @@ public class ControllerUser {
 				throw new RuntimeException("Error in ControllerUser(Register user): "+e.getMessage());
 			}
 		}
-		System.out.println(u);
 		bdUser.create(u);
 		EmailUtils email=new EmailUtils();
 		email.sendSubscribleEmailUser(u.getLogin().getUsername());

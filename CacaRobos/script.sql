@@ -71,7 +71,7 @@ create event if not exists deactivateReport
 	on schedule every 1 day
 		starts '2017-09-13 09:00:00'
 			do
-				update report set activeReport=0
+				update report set activeReport=0, status='Finalizada'
 					where datediff(now(),dataAdd)>=(select timeAvaliable from activeReportTime);
 
 drop table if exists commentary;
