@@ -25,9 +25,14 @@ public class ControllerLogin {
 		this.bdLogin=bdLogin;
 	}
 	
-	@RequestMapping("home")
-	public String home() {
-		return "testeDoInferno";
+	@RequestMapping("enviarDenuncia")
+	public String enviarDenuncia(){
+		return "enviarDenuncia";
+	}
+	
+	@RequestMapping("allValuers")
+	public String listAllValuers(){
+		return "listAllValuers";
 	}
 	
 	@RequestMapping("sigin")
@@ -40,29 +45,33 @@ public class ControllerLogin {
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("managerLoggedIn", t);
-				return "mainPageManager";
+				return "redirect:allValuers";
 			}else if(l.getUserType().equals(UserType.USR.userType)){
 				User t=bdLogin.retriveInfoUser(l);
 				/*if(t.getProfilePicture()==null){
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("userLoggedIn", t);
-				return "mainPageUser";
+				return "redirect:enviarDenuncia";
 			}else if(l.getUserType().equals(UserType.VLR.userType)){
 				Valuer t=bdLogin.retriveInfoValuer(l);
 				/*if(t.getProfilePicture()==null){
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("valuerLoggedIn", t);
-				return "mainPageValuer";
+				return "redirect:listFeedValuer";
 			}
 		}
-		return "testeDoInferno";
+		return "erroLogin";
 	}
 	
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "";//add index page
+		return "redirect:home";//add index page
+	}
+	@RequestMapping("formLogin")
+	public String log() {
+		return"login";
 	}
 }

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +18,7 @@ import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
+import br.sp.cacarobos.model.Vote;
 import br.sp.cacarobos.util.CodeGenerator;
 
 @Repository
@@ -37,17 +38,19 @@ public class DaoReport implements GenericDao<Report>{
 	@Override
 	public void create(Report t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link) VALUES (?,?,?,?,?,?)");
-			command.setString(1, t.getStatus());
-			command.setString(2, Status.PROCESSING.status);
+			PreparedStatement command=connection.prepareStatement("INSERT INTO report (status, description, userId, trackingCode, socialNetworkType, link,title) VALUES (?,?,?,?,?,?,?)");
+			command.setString(1, Status.PROCESSING.status);
+			command.setString(2, t.getDescription());
 			command.setLong(3, t.getUser().getId());
 			String codeGenerated=new CodeGenerator().generateCode();
 			while(trackingCodeAlreadyExists(codeGenerated)){
 				codeGenerated=new CodeGenerator().generateCode();
 			}
+
 			command.setString(4, codeGenerated);
 			command.setString(5, t.getNetworkType());
 			command.setString(6, t.getLink());
+			command.setString(7, t.getTitle());
 			command.execute();
 			command.close();
 		}catch(SQLException e){
@@ -101,31 +104,7 @@ public class DaoReport implements GenericDao<Report>{
 			ResultSet rs=command.executeQuery();
 			Report r=null;
 			if(rs.next()){
-				r=new Report();
-				r.setId(rs.getLong("id"));
-				r.setDescription(rs.getString("description"));
-				String statusId=rs.getString("status");
-				for(Status status : Status.values()){
-					if(status.status.equals(statusId)){
-						r.setStatus(status);
-						break;
-					}
-				}
-				String socialNetwork=rs.getString("socialNetworkType");
-				for(SocialNetworkType networkType: SocialNetworkType.values()){
-					if(networkType.socialNetworkType.equals(socialNetwork)){
-						r.setNetworkType(socialNetwork);
-						break;
-					}
-				}
-				r.setUser(retriveUser(rs.getLong("userId")));
-				r.setValuer(retriveValuer(rs.getLong("valuerId")));
-				r.setApproveReport(rs.getBoolean("approveReport"));
-				r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
-				r.setActiveReport(rs.getBoolean("activeReport"));
-				r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
-				r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
-				r.setLink(rs.getString("link"));
+				r=retriveData(rs);
 			}
 			rs.close();
 			command.close();
@@ -229,6 +208,7 @@ public class DaoReport implements GenericDao<Report>{
 		}
 	}
 	
+	/*
 	public void addIsARobotOrNotVote(Long t, boolean itIsARobot){
 		try{
 			Report r=read(t);
@@ -247,7 +227,7 @@ public class DaoReport implements GenericDao<Report>{
 			throw new RuntimeException("Error in DaoReport(Add is a robot or not vote): "+e.getMessage());
 		}		
 	}
-	
+	*/
 	@Override
 	public void delete(Long t) {
 		try {
@@ -255,6 +235,7 @@ public class DaoReport implements GenericDao<Report>{
 			command.setLong(1, t);
 			command.execute();
 			command.close();
+			System.out.println(command);
 		}catch(SQLException e){
 			new RuntimeException("Error in DaoReport(Delete): "+e.getMessage());
 		}
@@ -268,7 +249,7 @@ public class DaoReport implements GenericDao<Report>{
 			String statusId=rs.getString("status");
 			for(Status status : Status.values()){
 				if(status.status.equals(statusId)){
-					r.setStatus(status);
+					r.setStatus(status.status);
 					break;
 				}
 			}
@@ -281,17 +262,18 @@ public class DaoReport implements GenericDao<Report>{
 			}
 			r.setUser(retriveUser(rs.getLong("userId")));
 			r.setValuer(retriveValuer(rs.getLong("valuerId")));
-			r.setApproveReport(rs.getBoolean("approveReport"));
-			r.setDateReport(LocalDateTime.parse(rs.getDate("dateReport").toString()));
+			r.setDateReport(LocalDate.parse(rs.getDate("dateReport").toString()));
 			r.setActiveReport(rs.getBoolean("activeReport"));
 			r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
 			r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
 			r.setLink(rs.getString("link"));
+			r.setTitle(rs.getString("title"));
 			return r;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoReport(Retrive data): "+e.getMessage());
 		}
 	}
+
 
 	@Override
 	public List<Report> listAll() {
@@ -383,5 +365,55 @@ public class DaoReport implements GenericDao<Report>{
 			throw new RuntimeException("Error in DaoReport(List by social network): "+e.getMessage());
 		}
 	}
-	
+	public List<Report> listByUser(Long id){
+		List<Report> list = new ArrayList<>();
+		try {
+			PreparedStatement command =connection.prepareStatement("SELECT * FROM report WHERE userId=?");
+			command.setLong(1, id);
+			ResultSet rs=command.executeQuery();
+			while(rs.next()) {
+				Report r=retriveData(rs);
+				list.add(r);
+			}
+			rs.close();
+			command.close();
+			System.out.println(list);
+			return list;
+		}catch(SQLException e) {
+			throw new RuntimeException("Error in DaoReport(List by user"+e.getMessage());
+		}
+	}
+	public void addVoteRobotTrue(Long t){
+		try{
+			Report r=read(t);
+			PreparedStatement command=connection.prepareStatement("UPDATE report SET isARobotVotes=isARobotVotes+1 WHERE id=?");
+			command.setLong(1, r.getId());
+			command.execute();
+			command.close();
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Add is a robot or not vote): "+e.getMessage());
+		}		
+	}
+	public void addVoteRobotFalse (Long t){
+		try{
+			Report r=read(t);
+			PreparedStatement command=connection.prepareStatement("UPDATE report SET isNotARobotVotes=isNotARobotVotes+1 WHERE id=?");
+			command.setLong(1, r.getId());
+			command.execute();
+			command.close();
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(Add is a robot or not vote): "+e.getMessage());
+		}		
+	}
+	public void registerVote (Vote v) {
+		try {
+			PreparedStatement command = connection.prepareStatement("INSERT INTO votes (reportId,valuerId) values (?,?)");
+			command.setLong(1, v.getReportId());
+			command.setLong(2, v.getValuerId());
+			command.execute();
+			command.close();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoReport(registerVote):"+e.getMessage());
+		}
+	}
 }

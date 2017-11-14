@@ -2,6 +2,9 @@ package br.sp.cacarobos.controller;
 
 import java.io.IOException;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoUser;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.User;
@@ -17,13 +21,15 @@ import br.sp.cacarobos.util.EmailUtils;
 @Controller
 public class ControllerUser {
 	private final DaoUser bdUser;
+	private final DaoReport bdReport;
 	
 	@Autowired
-	public ControllerUser(DaoUser bdUser) {
+	public ControllerUser(DaoUser bdUser,DaoReport bdReport) {
 		this.bdUser=bdUser;
+		this.bdReport=bdReport;
 	}
 	
-	//@RequestMapping("registerUser")
+	@RequestMapping("registerUser")
 	public String registerUser(User u, Login l, MultipartFile file) throws EmailException{
 		u.setLogin(l);
 		if(!file.isEmpty()){
@@ -33,10 +39,11 @@ public class ControllerUser {
 				throw new RuntimeException("Error in ControllerUser(Register user): "+e.getMessage());
 			}
 		}
+		System.out.println(u);
 		bdUser.create(u);
 		EmailUtils email=new EmailUtils();
 		email.sendSubscribleEmailUser(u.getLogin().getUsername());
-		return "";//add user register page
+		return "confirmar";//add user register page
 	}
 	
 	//@RequestMapping("findUser")
@@ -62,5 +69,26 @@ public class ControllerUser {
 		model.addAttribute("userList", bdUser.listAll());
 		return "";//add user list page
 	}
-	
+	@RequestMapping("formUser")
+	public String formU() {
+		return "formularioUser";
+	}
+	@RequestMapping("home")
+	public String index() {
+		
+		return"index";
+	}
+	@RequestMapping("listFeedUser")
+	public String feedU(Model model){
+		model.addAttribute("feedReportUser", bdReport.listAll());
+		return "feedUser";
+	}
+
+	@RequestMapping("graficoUser")
+	public String porNoGraficoU() {
+		return"graficosUser";
+	}
+
+
+
 }

@@ -1,4 +1,5 @@
 package br.sp.cacarobos.model;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,19 +8,29 @@ import br.sp.cacarobos.util.CodeGenerator;
 public class Report {
 	private Long id;
 	private String link;
-	private Status status;
+	private String status;
 	private String description;
 	private User user;
 	private Valuer valuer;
 	private Boolean approveReport;
-	private LocalDateTime dateReport;
+	private LocalDate dateReport;
 	private Boolean activeReport;
 	private VoteCounting voteCounting;
 	private List<Commentary> commentaryList;
 	private String trackingCode;
 	private CodeGenerator codeGenerator;
 	private String networkType;
+	private String title;
 	
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Report() {
 		voteCounting=new VoteCounting();
 		user=new User();
@@ -34,9 +45,9 @@ public class Report {
 		this.id = id;
 	}
 	public String getStatus() {
-		return status.toString();
+		return status;
 	}
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public String getDescription() {
@@ -64,10 +75,10 @@ public class Report {
 	public void setApproveReport(Boolean approveReport) {
 		this.approveReport = approveReport;
 	}
-	public LocalDateTime getDateReport() {
+	public LocalDate getDateReport() {
 		return dateReport;
 	}
-	public void setDateReport(LocalDateTime dateReport) {
+	public void setDateReport(LocalDate dateReport) {
 		this.dateReport = dateReport;
 	}
 	public VoteCounting getVoteCounting() {
@@ -109,12 +120,14 @@ public class Report {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", link=" + link + ", status=" + status + ", description=" + description + ", user="
 				+ user + ", valuer=" + valuer + ", approveReport=" + approveReport + ", dateReport=" + dateReport
 				+ ", activeReport=" + activeReport + ", voteCounting=" + voteCounting + ", commentaryList="
 				+ commentaryList + ", trackingCode=" + trackingCode + ", codeGenerator=" + codeGenerator
-				+ ", networkType=" + networkType + "]";
+				+ ", networkType=" + networkType + ", title=" + title + "]";
 	}
+
 }

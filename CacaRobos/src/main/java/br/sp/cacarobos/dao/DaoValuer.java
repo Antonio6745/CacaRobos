@@ -123,7 +123,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void delete(Long t) {
 		try {

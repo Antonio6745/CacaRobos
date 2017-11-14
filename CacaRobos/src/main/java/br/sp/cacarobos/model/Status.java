@@ -1,6 +1,6 @@
 package br.sp.cacarobos.model;
 public enum Status {
-	PROCESSING("Processamento"),IN_DISCUSSION("Em Discuss„o"),FINISHED("Finalizada");
+	PROCESSING("Processamento"),IN_DISCUSSION("Em Discuss√£o"),FINISHED("Finalizada");
 	public String status;
 	
 	Status(String status){

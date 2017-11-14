@@ -9,8 +9,7 @@
 <body>
 	<h3>${valuerLoggedIn.id }</h3><br>
 	<h3>${valuerLoggedIn.name }</h3><br>
-	<h3>${valuerLoggedIn.cpf }</h3><br>
-	<h3>${valuerLoggedIn.birthdate }</h3><br>
+	<h3>${valuerLoggedIn.cpf }</h3><br>z
 	<h3>${valuerLoggedIn.login }</h3><br>
 	<h3>${valuerLoggedIn.activeAccount }</h3>
 </body>

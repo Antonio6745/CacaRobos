@@ -146,7 +146,7 @@ public class ControllerRestReport {
 	@RequestMapping(value="/addIsARobotVote/{reportId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> addIsARobotVote(@PathVariable("reportId") Long reportId){
 		try{
-			bdReport.addIsARobotOrNotVote(reportId, true);
+			bdReport.addVoteRobotTrue(reportId);
 			return ResponseEntity.noContent().build();
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(Add is a robot vote): "+e.getMessage());
@@ -157,7 +157,7 @@ public class ControllerRestReport {
 	@RequestMapping(value="/addIsNotARobotVote/{reportId}", method=RequestMethod.GET)
 	public ResponseEntity<Object> addIsNotARobotVote(@PathVariable("reportId") Long reportId){
 		try{
-			bdReport.addIsARobotOrNotVote(reportId, false);
+			bdReport.addVoteRobotFalse(reportId);
 			return ResponseEntity.noContent().build();
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(Add is not a robot vote): "+e.getMessage());

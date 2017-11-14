@@ -74,4 +74,17 @@ public class ControllerManager {
 		email.sendApproveAccountEmail(v.getLogin().getUsername());
 		return "";//add manager main page
 	}
+	@RequestMapping("listAllValuers")
+	public String listAllValuers(Model model) {
+		model.addAttribute("listValuers", bdValuer.listAll());
+		return "listValuer";
+	}
+	@RequestMapping("adcValuer")
+	public String adcV() {
+		return"adicionarValuer";
+	}
+	@RequestMapping("graficoAdm")
+	public String graf() {
+		return"graficos";
+	}
 }
