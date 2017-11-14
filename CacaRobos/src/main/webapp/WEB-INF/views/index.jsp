@@ -184,8 +184,10 @@
 						<div class="col-md-6">
                     		<div class="heading about-content">
 								<center><h3 style="color: #28a745; font-size: 40pt; padding-"> Finalidade   </h3></center><br>
-								<center><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></center>
+								<center><p>O projeto Caça-Robôs tem a finalidade de restringir a influência de bots(robôs) na politica.
+								A partir de uma denuncia realizada por qualquer usuário, pessoas que se voluntariam para ser avaliadores (com a aprovação dos 
+								administradores) avaliam o perfil, chegando a uma conclusão se ele é pertencente a um usuário comum, ou se é um robô, gerando assim, uma
+								discussão sobre o caso dentro da plataforma através de comentários. </p></center>
 
 							</div>
                     	</div>

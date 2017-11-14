@@ -34,16 +34,16 @@
         </a></center>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
-          <a class="nav-link" href="listFeedUser">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+          <a class="nav-link" href="enviarDenuncia">
+            <i class="fa fa-wpforms"></i>
+            <span class="nav-link-text">Nova denúncia</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="myReport">
-            <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Minhas Denúncias</span>
+          <a class="nav-link" href="listFeedUser">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Feed de Denúncias</span>
           </a>
         </li>
 
