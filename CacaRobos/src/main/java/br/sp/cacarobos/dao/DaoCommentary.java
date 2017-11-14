@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Commentary;
-import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
 

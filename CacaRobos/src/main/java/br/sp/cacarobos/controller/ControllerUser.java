@@ -2,9 +2,6 @@ package br.sp.cacarobos.controller;
 
 import java.io.IOException;
 
-import javax.mail.Session;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

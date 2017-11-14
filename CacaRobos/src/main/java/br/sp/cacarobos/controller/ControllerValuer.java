@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,11 +18,8 @@ import br.com.caelum.stella.validation.InvalidStateException;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoValuer;
 import br.sp.cacarobos.model.Login;
-import br.sp.cacarobos.model.Report;
-import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.model.Vote;
-import br.sp.cacarobos.model.VoteCounting;
 import br.sp.cacarobos.util.EmailUtils;
 
 @Controller

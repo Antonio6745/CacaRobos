@@ -6,14 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.dao.DaoReport;
-import br.sp.cacarobos.dao.DaoUser;
 import br.sp.cacarobos.model.Commentary;
-import br.sp.cacarobos.model.Person;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.model.Valuer;
