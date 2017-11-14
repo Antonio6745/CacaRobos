@@ -68,7 +68,7 @@
         <div class="btn">      
            
            <img id="blah"  src="#"  />
-           <h5>Obrigado por se cadastrar</h5>
+           <h5>Obrigado ${user.nickname  } por se cadastrar!</h5>
         </div>
         </br><br>
 

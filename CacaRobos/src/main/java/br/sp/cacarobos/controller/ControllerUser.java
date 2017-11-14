@@ -27,7 +27,7 @@ public class ControllerUser {
 	}
 	
 	@RequestMapping("registerUser")
-	public String registerUser(User u, Login l, MultipartFile file) throws EmailException{
+	public String registerUser(User u, Login l, MultipartFile file, Model model) throws EmailException{
 		u.setLogin(l);
 		if(!file.isEmpty()){
 			try{
@@ -40,6 +40,7 @@ public class ControllerUser {
 		bdUser.create(u);
 		EmailUtils email=new EmailUtils();
 		email.sendSubscribleEmailUser(u.getLogin().getUsername());
+		model.addAttribute("user", u);
 		return "confirmar";//add user register page
 	}
 	
