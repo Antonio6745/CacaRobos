@@ -1,6 +1,5 @@
 package br.sp.cacarobos.model;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import br.sp.cacarobos.util.CodeGenerator;

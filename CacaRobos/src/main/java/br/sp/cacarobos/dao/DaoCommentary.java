@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import br.sp.cacarobos.model.Commentary;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.User;
-import br.sp.cacarobos.model.UserType;
 import br.sp.cacarobos.model.Valuer;
 
 @Repository
@@ -121,6 +120,7 @@ public class DaoCommentary implements GenericDao<Commentary>{
 		}
 	}
 	
+	/*
 	private Login retriveLoginUserType(Long id){
 		try{
 			PreparedStatement command=connection.prepareStatement("SELECT userType FROM login WHERE id=?");
@@ -138,6 +138,7 @@ public class DaoCommentary implements GenericDao<Commentary>{
 			throw new RuntimeException("Error in DaoCommentary(Retrive Login User Type): "+e.getMessage());
 		}
 	}
+	*/
 	
 	@Override
 	public void update(Commentary t) {

@@ -22,12 +22,10 @@ import br.sp.cacarobos.model.Valuer;
 public class ControllerCommentary {
 	private final DaoCommentary bdCommentary;
 	private final DaoReport bdReport;
-	private final DaoUser bdUser;
 
-	public ControllerCommentary(DaoCommentary bdCommentary, DaoReport bdReport,DaoUser bdUser) {
+	public ControllerCommentary(DaoCommentary bdCommentary, DaoReport bdReport) {
 		this.bdCommentary = bdCommentary;
 		this.bdReport = bdReport;
-		this.bdUser = bdUser;
 	}
 
 	@RequestMapping("listCommentary")

@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.model.Report;
-import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.util.EmailUtils;
