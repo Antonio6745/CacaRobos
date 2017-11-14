@@ -117,13 +117,12 @@
                     <h4 class="panel-title">
                          <a data-toggle="collapse" data-parent="#accordion" href="#${report.id }" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center >Denúncia- ${report.title }</center>
+                            <center >${report.title }</center>
                         </a>
                     </h4>
                 </div>
                 <div id="${report.id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body animated zoomOut">
-                    <p><b><span style="color:#28a745">Informações da denúncia: </span></b> 
                         <p><b><span style="color:#28a745">Endereço da denúncia: </span></b>  ${report.link }
                         <br>
                         <br>

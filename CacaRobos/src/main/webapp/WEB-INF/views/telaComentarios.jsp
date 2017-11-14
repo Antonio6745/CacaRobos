@@ -113,7 +113,7 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" > Denúncia - ${report.title } </center>
+                            <center style="color: white; padding-left: 0px;" >${report.title } </center>
                         </a>
                     </h4>
                 </div>
