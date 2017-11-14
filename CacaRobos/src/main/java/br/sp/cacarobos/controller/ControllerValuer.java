@@ -17,6 +17,7 @@ import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoValuer;
+import br.sp.cacarobos.dao.DaoVote;
 import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.model.Vote;
@@ -27,11 +28,12 @@ public class ControllerValuer {
 
 	private final DaoValuer bdValuer;
 	private final DaoReport bdReport;
-
+	private final DaoVote bdVote;
 	@Autowired
-	public ControllerValuer(DaoValuer bdValuer,DaoReport bdReport) {
+	public ControllerValuer(DaoValuer bdValuer,DaoReport bdReport, DaoVote bdVote) {
 		this.bdReport = bdReport;
 		this.bdValuer = bdValuer;
+		this.bdVote=bdVote;
 	}
 
 	@RequestMapping("registerValuer")
@@ -136,8 +138,10 @@ public class ControllerValuer {
 		val = (Valuer) s.getAttribute("valuerLoggedIn"); 
 		v.setReportId(reportId);
 		v.setValuerId(val.getId());
-		bdReport.addVoteRobotFalse(reportId);
-		bdReport.registerVote(v);
+		if(!bdVote.alreadyVoted(reportId, v.getId())) {
+			bdReport.addVoteRobotFalse(reportId);
+			bdReport.registerVote(v);
+		}
 		return"redirect:/listFeedValuer";
 	}
 }

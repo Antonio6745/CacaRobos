@@ -6,7 +6,7 @@ drop table if exists login;
 create table if not exists login(
 	id int primary key auto_increment,
     username varchar(50) unique not null,
-    passcode varchar(32) not null,
+    passcode varchar(64) not null,
     userType char(3) not null
 );
 
@@ -51,14 +51,20 @@ create table if not exists report(
     foreign key (userId) references user(id),
     valuerId int,
     foreign key (valuerId) references valuer(id),
-    approveReport boolean null default 0,
     dateReport datetime null default now(),
     activeReport boolean null default 1,
-    isARobotVotes int,
-    isNotARobot int,
+    isARobotVotes int null default 0,
+    isNotARobotVotes int null default 0,
     trackingCode varchar(20) unique,
-    socialNetworkType varchar(35) not null
+    socialNetworkType varchar(35) not null,
+    title varchar(35) not null
 );
+
+drop table if exists activeReportTime;
+create table if not exists activeReportTime(
+    timeAvaliable int
+);
+insert into activeReportTime(timeAvaliable) value(7);
 
 drop event if exists deactivateReport;
 create event if not exists deactivateReport
@@ -66,14 +72,26 @@ create event if not exists deactivateReport
 		starts '2017-09-13 09:00:00'
 			do
 				update report set activeReport=0
-					where datediff(now(),dataAdd)>=7;
+					where datediff(now(),dataAdd)>=(select timeAvaliable from activeReportTime);
 
 drop table if exists commentary;
 create table if not exists commentary(
 	id int primary key auto_increment,
     description varchar(255) not null, 
-    userId int not null,
+    userId int null,
     foreign key (userId) references user(id),
+    valuerId int null,
+    foreign key (valuerId) references valuer(id),
+    userType char(3),
     reportId int not null,
-    foreign key (reportId) references report(id)
+    foreign key (reportId) references report(id) on delete cascade
+);
+
+drop table if exists votes;
+create table if not exists votes(
+	id int primary key auto_increment,
+    reportId int not null,
+    foreign key (reportId) references report(id),
+    valuerId int not null,
+    foreign key (valuerId) references valuer(id)
 );

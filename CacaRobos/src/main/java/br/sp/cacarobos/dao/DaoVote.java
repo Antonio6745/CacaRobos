@@ -116,11 +116,11 @@ public class DaoVote implements GenericDao<Vote>{
 		}
 	}
 	
-	public boolean alreadyVoted(Vote v){
+	public boolean alreadyVoted(Long reportId, Long valuerId){
 		try{
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM votes WHERE reportId=? AND valuerId=?");
-			command.setLong(1, v.getReportId());
-			command.setLong(2, v.getValuerId());
+			command.setLong(1, reportId);
+			command.setLong(2, valuerId);
 			ResultSet rs=command.executeQuery();
 			boolean alreadyVoted;
 			if(rs.next()){
@@ -137,9 +137,6 @@ public class DaoVote implements GenericDao<Vote>{
 	}
 	
 	public boolean alreadyVoted(Report r, Valuer v){
-		Vote vote=new Vote();
-		vote.setReportId(r.getId());
-		vote.setValuerId(v.getId());
-		return alreadyVoted(vote);
+		return alreadyVoted(r.getId(), v.getId());
 	}
 }

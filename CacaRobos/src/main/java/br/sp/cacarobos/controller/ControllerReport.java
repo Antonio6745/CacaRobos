@@ -39,12 +39,14 @@ public class ControllerReport {
 		bdReport.create(t);
 		return"redirect:myReport";
 	}
+	
 	@RequestMapping("myReport")
 	public String myRep(Model model,HttpSession s,User u) {
 		u = (User) s.getAttribute("userLoggedIn");
 		model.addAttribute("listMyReport", bdReport.listByUser(u.getId()));
 		return "minhasDenuncias";
 	}
+	
 	@RequestMapping("deleteReport")	
 	public String delRep(Report r) {
 		bdReport.delete(r.getId());
