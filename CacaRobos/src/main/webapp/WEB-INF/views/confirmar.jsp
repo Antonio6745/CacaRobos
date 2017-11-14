@@ -65,14 +65,12 @@
 <div class="contenedor-formulario">
   <div class="wrap">
      <form action="" class="formulario" name="formulario_registro" enctype="multipart/form-data"  method="post">
-        <div class="btn">      
-           
+        <div class="btn">
            <img id="blah"  src="#"  />
-           <h5>Obrigado ${user.nickname  } por se cadastrar!</h5>
+           <center><h5>Bem vindo ${user.nickname  }.</h5>
+           </br>
+           <h5>Obrigado por se cadastrar!</h5></center>
         </div>
-        </br><br>
-
-       <h9>Realize o login para usar o site</h9>
         <style type="text/css">
            p {
            color: #000;

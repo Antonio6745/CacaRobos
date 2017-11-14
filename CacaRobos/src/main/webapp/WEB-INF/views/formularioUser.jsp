@@ -69,16 +69,16 @@
           </br></br></br>
           <div class="input-group">
              <input type="text" id="nome" autofocus="true" onkeypress="return numeros();" name="nickname">
-             <label class="label"  for="apelido">Apelido*:</label>
+             <label class="label"  for="apelido">Nome/Apelido *:</label>
           </div>
           <div class="input-group">
              <input type="email" id="email" name="username">
-             <label class="label" for="email">E-mail*:</label>
+             <label class="label" for="email">E-mail *:</label>
           </div>
  
           <div class="input-group">
-             <input type="password" maxlength="8" id="senha" name="password">
-             <label class="label"  for="senha">Senha*:</label>
+             <input type="password" id="senha" name="password">
+             <label class="label"  for="senha">Senha *:</label>
           </div>
            <input type="submit" id="btn-submit" value="Cadastrar">
     </div>

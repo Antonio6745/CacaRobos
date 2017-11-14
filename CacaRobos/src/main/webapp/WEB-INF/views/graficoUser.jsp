@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
 
-   <title>Caça Robôs</title>
+   <title>CaÃ§a RobÃ´s</title>
     <script src="resources/Chart.min.js"></script>
 
     <style type="text/css">
@@ -41,7 +41,7 @@
   <!-- Custom styles for this template-->
   <link href="resources/css/sb-admin.css" rel="stylesheet"> 
 
-    <link rel="shortcut icon" href="resources/logo.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="logo.ico" type="image/x-icon" />
 
    
 
@@ -55,7 +55,7 @@
     
 
   </div>
-  <img src="resources/img/logo.ico" style="padding-right: 500px; padding-top: -20px;">
+  <img src="images/logo.ico" style="padding-right: 500px; padding-top: -20px;">
 </div>
 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
@@ -84,13 +84,13 @@
 
 
      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-      <a class="nav-link" href="graficos.html">
+      <a class="nav-link" href="graficoUser">
         <i class="fa fa-fw fa-area-chart"></i>
         <span class="nav-link-text">Estatisticas</span>
       </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-      <a class="nav-link" href="adm.html">
+      <a class="nav-link" href="valuerRegistered">
         <i class="fa fa-fw fa-table"></i>
         <span class="nav-link-text" >Avaliadores</span>
       </a>
@@ -98,7 +98,7 @@
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
       <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
         <i class="fa fa-fw fa-sitemap"></i>
-        <span class="nav-link-text">Denúncias</span>
+        <span class="nav-link-text">DenÃºncias</span>
       </a>
       <ul class="sidenav-second-level collapse" id="collapseMulti">
         <li>
@@ -144,13 +144,13 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="feed.html">Feed de Denúncias</a>
+                    <a href="feedUser">Feed de DenÃºncias</a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a href="#">Minhas Denúncias</a>
+                    <a href="myReport">Minhas DenÃºncias</a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a href="Graficos.html">Gráficos</a>
+                    <a href="graficoUser">GrÃ¡ficos</a>
                   </li> 
                 </ol>
 
@@ -178,9 +178,9 @@
 
     <div class="box">
 
-        <h1 style="color: #2ABE4A">Gráficos e estatísticas</h1>
+        <h1 style="color: #2ABE4A">GrÃ¡ficos e estatÃ­sticas</h1>
          <h2 style="color: #2ABE4A">Acessos por rede social</h2>
-        <small style="color: #2ABE4A">A analise dos dados são feitas através das denúncias efetuadas.</small>
+        <small style="color: #2ABE4A">A analise dos dados sÃ£o feitas atravÃ©s das denÃºncias efetuadas.</small>
 
         <div class="box-chart" style="padding-left: ;">
 
@@ -243,7 +243,7 @@
               <span aria-hidden="true">Ã—</span>
             </button>
           </div>
-          <div class="modal-body">Selecione "Logout" para encerrar a sessão.</div>
+          <div class="modal-body">Selecione "Logout" para encerrar a sessÃ£o.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
             <a class="btn btn-primary" href="logout">Logout</a>
@@ -255,7 +255,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Todos os direitos Reservados &copy; Appcívico 2017</small>
+          <small>Todos os direitos Reservados &copy; AppcÃ­vico 2017</small>
         </div>
       </div>
     </footer>
