@@ -204,11 +204,11 @@
 						  <b><span style="color:#28a745">É Robô: </span></b> ${report.voteCounting.isARobot }
                             <br>
                           <br>
-                           <form action="voteRobotTrue">
+                           <form action="voteRobotTrue?${report.id }">
                            <input type="hidden" name="reportId" value="${report.id }">
                           <button style="background-color: red; width: 150px; float: right">É um robo!</button>
 						  </form>
-                          <form action="voteRobotFalse">
+                          <form action="voteRobotFalse?${report.id }">
                            <input type="hidden" name="reportId" value="${report.id }">
 						  <button style="background-color: #28a745; width: 150px; float: left;">Não é robo!</button>
 						  </form>

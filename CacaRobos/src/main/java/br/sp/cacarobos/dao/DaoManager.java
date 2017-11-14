@@ -32,7 +32,7 @@ public class DaoManager implements GenericDao<Manager>{
 	@Override
 	public void create(Manager t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO login (username, passcode, userType) VALUES (?,md5(?),?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement command=connection.prepareStatement("INSERT INTO login (username, passcode, userType) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			command.setString(1, t.getLogin().getUsername());
 			command.setString(2, t.getLogin().getPassword());
 			command.setString(3, UserType.ADM.userType);

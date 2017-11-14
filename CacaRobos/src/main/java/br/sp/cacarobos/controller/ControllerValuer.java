@@ -118,27 +118,26 @@ public class ControllerValuer {
 	}
 	@RequestMapping("listFeedValuer")
 	public String feedU(Model model){
-		model.addAttribute("feedReportValuer", bdReport.listAll());
+		model.addAttribute("feedReportValuer", bdReport.listAllActiveReports());
 		return "feedValuer";
 	}
 	@RequestMapping("voteRobotTrue")
 	public String voteTrue(Vote v,@RequestParam("reportId") Long reportId,HttpSession s) {
-		
-		Valuer val = null;
-		val = (Valuer) s.getAttribute("valuerLoggedIn"); 
+		Valuer val =(Valuer) s.getAttribute("valuerLoggedIn"); 
 		v.setReportId(reportId);
 		v.setValuerId(val.getId());
-		bdReport.addVoteRobotTrue(reportId);
+		if(!bdVote.alreadyVoted(reportId, val.getId())) {
+			bdReport.addVoteRobotTrue(reportId);
+			bdReport.registerVote(v);
+		}
 		return"redirect:/listFeedValuer";
 	}
 	@RequestMapping("voteRobotFalse")
 	public String voteFalse(Vote v,@RequestParam("reportId") Long reportId,HttpSession s) {
-		
-		Valuer val = null;
-		val = (Valuer) s.getAttribute("valuerLoggedIn"); 
+		Valuer val =(Valuer) s.getAttribute("valuerLoggedIn"); 
 		v.setReportId(reportId);
 		v.setValuerId(val.getId());
-		if(!bdVote.alreadyVoted(reportId, v.getId())) {
+		if(!bdVote.alreadyVoted(reportId, val.getId())) {
 			bdReport.addVoteRobotFalse(reportId);
 			bdReport.registerVote(v);
 		}

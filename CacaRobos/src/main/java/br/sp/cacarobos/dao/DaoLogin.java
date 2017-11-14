@@ -28,7 +28,7 @@ public class DaoLogin{
 	
 	public Login sigin(Login t){
 		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE username=? AND passcode=md5(?)");
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE username=? AND passcode=?");
 			command.setString(1, t.getUsername());
 			command.setString(2, t.getPassword());
 			ResultSet rs=command.executeQuery();
