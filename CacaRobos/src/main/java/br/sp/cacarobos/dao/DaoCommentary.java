@@ -210,15 +210,7 @@ public class DaoCommentary implements GenericDao<Commentary>{
 				Commentary c=retriveData(rs);
 				c.setUser(retriveUser(rs.getLong("userId")));
 				c.setValuer(retriveValuer(rs.getLong("valuerId")));
-				/* if(c.getValuer()==null) {
-					c.setUser(retriveUser(rs.getLong("userId")));
-					System.out.println(c.getUser());
-				}else if (c.getUser()==null) {
-					c.setValuer(retriveValuer(rs.getLong("valuerId")));
-					System.out.println(c.getValuer());
-				} else {
-					System.out.println("nenhum dos 2");
-				} */
+
 				list.add(c);
 			}
 			rs.close();

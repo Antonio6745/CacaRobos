@@ -1,6 +1,11 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/avaliadoresCadastrados.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/feedAdm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/feedUser.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/feedValuer.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/graficoAdm.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/graficoUser.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/novasSolicitacoes.jsp=UTF-8
 encoding/<project>=ISO-8859-1

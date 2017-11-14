@@ -86,7 +86,7 @@ public class ControllerUser {
 
 	@RequestMapping("graficoUser")
 	public String porNoGraficoU() {
-		return"graficosUser";
+		return"graficoUser";
 	}
 
 

@@ -74,17 +74,28 @@ public class ControllerManager {
 		email.sendApproveAccountEmail(v.getLogin().getUsername());
 		return "";//add manager main page
 	}
+	/*
 	@RequestMapping("listAllValuers")
 	public String listAllValuers(Model model) {
 		model.addAttribute("listValuers", bdValuer.listAll());
 		return "listValuer";
 	}
-	@RequestMapping("adcValuer")
-	public String adcV() {
-		return"adicionarValuer";
-	}
+	*/
 	@RequestMapping("graficoAdm")
 	public String graf() {
-		return"graficos";
+		return"graficoAdm";
+	}
+	@RequestMapping("valuerPendente")
+	public String penden() {
+		return"novasSolicitacoes";
+	}
+	@RequestMapping("valuerRegistered")
+	public String valuerCad() {
+		return"avaliadoresCadastrados";
+	}
+	@RequestMapping("feedAdm")
+	public String fedAdm() {
+		
+		return"feedAdm";
 	}
 }
