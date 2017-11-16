@@ -89,8 +89,9 @@ public class ControllerManager {
 	public String penden() {
 		return"novasSolicitacoes";
 	}
-	@RequestMapping("valuerRegistered")
-	public String valuerCad() {
+	@RequestMapping("listValuerRegistered")
+	public String valuerCad(Model model) {
+		model.addAttribute("listRegisteredValuers", bdValuer.listAll());
 		return"avaliadoresCadastrados";
 	}
 	@RequestMapping("feedAdm")

@@ -30,8 +30,8 @@
     </button>
 
   
-        <div class="collapse navbar-collapse" id="navbarResponsive" >
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+    <div class="collapse navbar-collapse" id="navbarResponsive" >
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="padding-top: px;">
           <center><a><img border="0" alt="Logo" src="resources/img/logo.png" 
             width="100" height="100">
         </a></center>
@@ -51,7 +51,7 @@
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Estatistícas</span>
           </a>
@@ -60,7 +60,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Graficos</span>
+            <span class="nav-link-text">Gráficos</span>
           </a>
         </li>
 
@@ -71,7 +71,7 @@
          
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-             <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>${userLoggedIn.nickname }</a></a>
+            <a href="logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
         </li>
       </ul>
     </div>
@@ -82,7 +82,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="">Feed de Denúncias</a>
+          <a href="#">Feed de Denúncias</a>
         </li>
       </ol>
       
@@ -90,66 +90,112 @@
       <!-- Area Chart Example-->
        <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-            <li class="nav-item">
-	          <form class="form-inline my-2 my-lg-0 mr-lg-2">
-	            <div class="input-group">
-	              <input class="form-control" type="text" placeholder="Search for...">
-	              <span class="input-group-btn">
-	                <button class="btn btn-primary" type="button">
-	                  <i class="fa fa-search"></i>
-	                </button>
-	              </span>
-	            </div>
-	          </form>
-	        </li>
-        </li>
-       </ul>
-      
-      
-  <c:forEach items="${feedReportUser }" var="report">
-      <div class="card mb-3">
-        <div class="card-header">
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-custom">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                         <a data-toggle="collapse" data-parent="#accordion" href="#${report.id }" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <center >Denúncia- ${report.title }</center>
-                        </a>
-                    </h4>
-                </div>
-                <div id="${report.id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body animated zoomOut">
-                    <p><b><span style="color:#28a745">Informações da denúncia: </span></b> 
-                        <p><b><span style="color:#28a745">Endereço da denúncia: </span></b>  ${report.link }
-                        <br>
-                        <br>
-                        
-                         <b><span style="color:#28a745">Descrição da denúncia: </span></b> ${report.description }<br>
-                         <br>
-                         
-                        <b><span style="color:#28a745">Total de avaliação: </span></b></br><br>
-                        
-                        <b><span style="color:#28a745">É um robo: </span>${report.voteCounting.isARobot } </b></br>
-                        <br>
-                        
-                        <b><span style="color:#28a745">Não é um robo: </span> ${report.voteCounting.isNotARobot }</b></br>
-                        <br>  
-                        <b><span style="color:#28a745">Status: </span></b> ${report.status }</p><br>
-					<a href="listCommentary?id=${report.id}"><button> <span style="color:#28a745">Ir para secção de comentarios-> </span></button></a>
-                    </div>
-                </div>
+            
+        <li class="nav-item">
+          <form class="form-inline my-2 my-lg-0 mr-lg-2">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
             </div>
-          </div>
-               
+          </form>
+        </li></br>
+
+        <div class="container">
+        <div class="row">
+        <c:forEach items="${feedReportUser}" var="report">
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <p><b>Denúncia ${report.title}</p></b></h4>
+                  <p align="left"><p><b><span style="color:#28a745">Endereço da denúnia: </span></b> ${report.link }
+                             <br>
+                              <br>
+                             <b><span style="color:#28a745">Descrição da denúnia: </span></b> ${report.description }
+                                <br>
+                              <br>
+    
+                            <b><span style="color:#28a745">É Robô: </span></b> ${report.voteCounting.isARobot }
+                            <b><span style="color:#28a745">Não é Robô: </span></b> ${report.voteCounting.isNotARobot }
+                                <br>
+                              <br>
+                            <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
+                            <button  type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comente Aqui!</button>
+                            
+                              <!-- Modal -->
+                              <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Secção de Comentários - Denúncia ${report.title }</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <li>
+                                            <div class="comment-main-level">
+                                                <div class="comment-box">
+                                                    <div class="comment-head">
+                                                        <h6 class="comment-name by-author"><b>Agustin Ortiz</b></h6>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                                    </div>
+                                                    <br>
+                                                    <br>
+                                                    <div class="comment-main-level">
+                                                            <div class="comment-box">
+                                                                <div class="comment-head">
+                                                                    <h6 class="comment-name by-author"><b>João Vaz</b></h6>
+                                                                </div>
+                                                                <div class="comment-content">
+                                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                                                </div>
+                                                </div>
+                                            </div>
+                                           
+                                          </li>
+                                            <br>
+                                            <br>
+
+                         <p><b><span style="color:#28a745">Comente aqui: </span></b></p>
+                         <textarea class="form-control vresize" id="MyID3"></textarea> <br>
+                        <button type="button" class="btn btn-success">Enviar comentario</button></center>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button  type="button" class="btn btn-success" data-dissmiss="modal">Sair</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div> 
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        </c:forEach>
+            
+
+                        </c:forEach>
+                        </div>
+                      </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <br>
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
+
+
+             
+      
+
          
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
