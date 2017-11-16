@@ -16,54 +16,57 @@ import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.UserType;
 import br.sp.cacarobos.model.Valuer;
+
 @Repository
-public class DaoValuer implements GenericDao<Valuer>{
+public class DaoValuer implements GenericDao<Valuer> {
 
 	private Connection connection;
-	
+
 	@Autowired
 	public DaoValuer(DataSource data) {
 		try {
-			connection=data.getConnection();
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoValuer(Get Connection): "+e.getMessage());
+			connection = data.getConnection();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Get Connection): " + e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void create(Valuer t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("INSERT INTO login (username, passcode, userType) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement command = connection.prepareStatement(
+					"INSERT INTO login (username, passcode, userType) VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			command.setString(1, t.getLogin().getUsername());
 			command.setString(2, t.getLogin().getPassword());
 			command.setString(3, UserType.VLR.userType);
 			command.execute();
-			ResultSet rs=command.getGeneratedKeys();
+			ResultSet rs = command.getGeneratedKeys();
 			rs.next();
 			t.getLogin().setId(rs.getLong(1));
-			command=connection.prepareStatement("INSERT INTO valuer (name, cpf, loginId, profilePicture, reason) VALUES (?,?,?,?,?)");
+			command = connection.prepareStatement(
+					"INSERT INTO valuer (name, cpf, loginId, profilePicture, reason) VALUES (?,?,?,?,?)");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
 			command.setLong(3, t.getLogin().getId());
-			command.setBlob(4, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setBlob(4, t.getProfilePicture() != null ? new ByteArrayInputStream(t.getProfilePicture()) : null);
 			command.setString(5, t.getReason());
 			command.execute();
 			rs.close();
 			command.close();
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoValuer(Create): "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Create): " + e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public Valuer read(Long t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+			PreparedStatement command = connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
 			command.setLong(1, t);
-			ResultSet rs=command.executeQuery();
-			Valuer v=null;
-			if(rs.next()){
-				v=new Valuer();
+			ResultSet rs = command.executeQuery();
+			Valuer v = null;
+			if (rs.next()) {
+				v = new Valuer();
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
@@ -75,79 +78,97 @@ public class DaoValuer implements GenericDao<Valuer>{
 			rs.close();
 			command.close();
 			return v;
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoValuer(Read): "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Read): " + e.getMessage());
 		}
 	}
 
 	@Override
 	public void update(Valuer t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("UPDATE valuer SET name=?, cpf=?, profilePicture=? WHERE id=?");
+			PreparedStatement command = connection
+					.prepareStatement("UPDATE valuer SET name=?, cpf=?, profilePicture=? WHERE id=?");
 			command.setString(1, t.getName());
 			command.setString(2, t.getCpf());
-			command.setBlob(3, t.getProfilePicture()!=null?new ByteArrayInputStream(t.getProfilePicture()):null);
+			command.setBlob(3, t.getProfilePicture() != null ? new ByteArrayInputStream(t.getProfilePicture()) : null);
 			command.setLong(4, t.getId());
 			command.execute();
 			command.close();
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoValuer(Update): "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Update): " + e.getMessage());
 		}
 	}
 
-	public void validateAccount(Long t, boolean answer){
-		try{
-			PreparedStatement command=connection.prepareStatement(
-					answer==true?"UPDATE valuer SET activeAccount=1 WHERE id=?":"UPDATE valuer SET activeAccount=0 WHERE id=?");
+	public void validateAccount(Long t, boolean answer) {
+		try {
+			PreparedStatement command = connection
+					.prepareStatement(answer == true ? "UPDATE valuer SET activeAccount=1 WHERE id=?"
+							: "UPDATE valuer SET activeAccount=0 WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoValuer(Validate Account): "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Validate Account): " + e.getMessage());
 		}
 	}
-	
-	private Long retiveLoginId(Long valuerId){
-		try{
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
+
+	private Long retiveLoginId(Long valuerId) {
+		try {
+			PreparedStatement command = connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
 			command.setLong(1, valuerId);
-			ResultSet rs=command.executeQuery();
-			Long l=null;
-			if(rs.next()){
-				l=rs.getLong("loginId");
+			ResultSet rs = command.executeQuery();
+			Long l = null;
+			if (rs.next()) {
+				l = rs.getLong("loginId");
 			}
 			rs.close();
 			command.close();
 			return l;
-		}catch(SQLException e){
-			throw new RuntimeException("Error in DaoUser(Retrive login id): "+e.getMessage());
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoUser(Retrive login id): " + e.getMessage());
 		}
 	}
 
 	@Override
 	public void delete(Long t) {
 		try {
-			PreparedStatement command=connection.prepareStatement("DELETE FROM valuer WHERE id=?");
+			PreparedStatement command = connection.prepareStatement("DELETE FROM valuer WHERE id=?");
 			command.setLong(1, t);
-			t=retiveLoginId(t);
+			t = retiveLoginId(t);
 			command.execute();
-			command=connection.prepareStatement("DELETE FROM login WHERE id=?");
+			command = connection.prepareStatement("DELETE FROM login WHERE id=?");
 			command.setLong(1, t);
 			command.execute();
 			command.close();
-		}catch(SQLException e){
-			new RuntimeException("Error in DaoValuer(Delete): "+e.getMessage());
+		} catch (SQLException e) {
+			new RuntimeException("Error in DaoValuer(Delete): " + e.getMessage());
+		}
+	}
+
+	private Valuer retriveData(ResultSet rs) {
+		try {
+			Valuer v = new Valuer();
+			v.setId(rs.getLong("id"));
+			v.setName(rs.getString("name"));
+			v.setCpf(rs.getString("cpf"));
+			v.getLogin().setId(rs.getLong("loginId"));
+			v.setActiveAccount(rs.getBoolean("activeAccount"));
+			v.setProfilePicture(rs.getBytes("profilePicture"));
+			v.setReason(rs.getString("reason"));
+			return v;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(Retrive Data): "+e.getMessage());
 		}
 	}
 
 	@Override
 	public List<Valuer> listAll() {
-		List<Valuer> list=new ArrayList<>();
+		List<Valuer> list = new ArrayList<>();
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer");
-			ResultSet rs=command.executeQuery();
-			while(rs.next()){
-				Valuer v=new Valuer();
+			PreparedStatement command = connection.prepareStatement("SELECT * FROM valuer");
+			ResultSet rs = command.executeQuery();
+			while (rs.next()) {
+				Valuer v = new Valuer();
 				v.setId(rs.getLong("id"));
 				v.setName(rs.getString("name"));
 				v.setCpf(rs.getString("cpf"));
@@ -160,10 +181,29 @@ public class DaoValuer implements GenericDao<Valuer>{
 			rs.close();
 			command.close();
 			return list;
-		}catch(SQLException e){
-			new RuntimeException("Error in DaoValuer(List All): "+e.getMessage());
+		} catch (SQLException e) {
+			new RuntimeException("Error in DaoValuer(List All): " + e.getMessage());
 		}
 		return null;
+	}
+
+	public List<Valuer> listAll(boolean active) {
+		List<Valuer> list = new ArrayList<Valuer>();
+		try {
+			PreparedStatement command = connection
+					.prepareStatement(active == true ? "SELECT * FROM valuer WHERE activeAccount=1"
+							: "SELECT * FROM valuer WHERE activeAccount=0");
+			ResultSet rs = command.executeQuery();
+			while (rs.next()) {
+				Valuer v = retriveData(rs);
+				list.add(v);
+			}
+			rs.close();
+			command.close();
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error in DaoValuer(List all unactive valuers): " + e.getMessage());
+		}
 	}
 
 }

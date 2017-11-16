@@ -139,4 +139,19 @@ public class DaoVote implements GenericDao<Vote>{
 	public boolean alreadyVoted(Report r, Valuer v){
 		return alreadyVoted(r.getId(), v.getId());
 	}
+	
+	public int howManyVotes(Long valuerId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT COUNT(valuerId) FROM votes WHERE valuerId=?");
+			command.setLong(1, valuerId);
+			ResultSet rs=command.executeQuery();
+			rs.next();
+			int count=rs.getInt(1);
+			rs.close();
+			command.close();
+			return count;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoVote(How many Votes): "+e.getMessage());
+		}
+	}
 }
