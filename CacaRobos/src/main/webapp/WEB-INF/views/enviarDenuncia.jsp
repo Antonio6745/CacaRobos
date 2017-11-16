@@ -68,7 +68,7 @@
          
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-           <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>${userLoggedIn.nickname }</a></a>
+           <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
         </li>
       </ul>
     </div>
