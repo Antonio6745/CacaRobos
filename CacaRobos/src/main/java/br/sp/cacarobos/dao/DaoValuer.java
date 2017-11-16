@@ -107,10 +107,10 @@ public class DaoValuer implements GenericDao<Valuer>{
 		}
 	}
 	
-	private Long retiveLoginId(Long userId){
+	private Long retiveLoginId(Long valuerId){
 		try{
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer WHERE id=?");
-			command.setLong(1, userId);
+			command.setLong(1, valuerId);
 			ResultSet rs=command.executeQuery();
 			Long l=null;
 			if(rs.next()){
