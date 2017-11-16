@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ca�a Rob�s - Cadastro de Volunt�rios</title>
+	<title>Caça-Robôs - Cadastro de Voluntários</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -53,7 +53,7 @@
 <br>
 <br>
 
- <h2>Seja um volunt�rio!</h2>
+ <h2>Seja um voluntário!</h2>
  <div class="contenedor-formulario">
  <!-- Caixa do formulário -->
     <div class="wrap">
@@ -186,7 +186,7 @@
 
             <!-- Rodapé -->
             <div class="footer">
-              <p>Todos os direitos reservados  © AppCivico - 2017</p>
+              <p>Todos os direitos reservados © AppCivico - 2017</p>
            </div>
       
 

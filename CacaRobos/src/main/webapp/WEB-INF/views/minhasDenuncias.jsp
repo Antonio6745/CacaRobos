@@ -38,28 +38,28 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
           <a class="nav-link" href="enviarDenuncia">
             <i class="fa fa-wpforms"></i>
-            <span class="nav-link-text">Nova denúncia</span>
+            <span class="nav-link-text">Nova denÃºncia</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="listFeedUser">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+            <span class="nav-link-text">Feed de DenÃºncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Estatistícas</span>
+            <span class="nav-link-text">EstatistÃ­cas</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Gráficos</span>
+            <span class="nav-link-text">GrÃ¡ficos</span>
           </a>
         </li>
 
@@ -81,7 +81,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="">Minhas Denúncias</a>
+          <a href="">Minhas DenÃºncias</a>
         </li>
       </ol>
       
@@ -113,27 +113,27 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#${myRep.id }" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" >Denuncia- ${myRep.title} </center>
+                            <center style="color: white; padding-left: 0px;" >${myRep.title} </center>
                         </a>
                         <a href="deleteReport?id=${myRep.id}">X</a>
                     </h4>
                 </div>
                 <div id="${myRep.id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body animated zoomOut">
-                        <center></br><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${myRep.link }
+                        <center></br><p><b><span style="color:#28a745">EndereÃ§o da denÃºncia: </span></b> ${myRep.link }
                          <br>
                           <br>
-                         <b><span style="color:#28a745">Descrição da denúncia: </span></b> ${myRep.description }
+                         <b><span style="color:#28a745">DescriÃ§Ã£o da denÃºncia: </span></b> ${myRep.description }
                             <br>
                           <br>
 
-                        <b><span style="color:#28a745">Total de avaliação: </span></b></br><br>
-                        <b>É um robo: ${report.voteCounting.isARobot }</b></br>
-                        <b>Não é um robo: ${report.voteCounting.isNotARobot }</b></br>
+                        <b><span style="color:#28a745">Total de avaliaÃ§Ã£o: </span></b></br><br>
+                        <b>Ã‰ um robo: ${report.voteCounting.isARobot }</b></br>
+                        <b>NÃ£o Ã© um robÃ´: ${report.voteCounting.isNotARobot }</b></br>
                           <br>
                         <b><span style="color:#28a745">Status: </span></b> ${myRep.status }</p>
                         
-                                          <a href="listCommentary?id=${myRep.id}"> <span style="color:#28a745">Ir para seção de comentários-> </span></a>
+                                          <a href="listCommentary?id=${myRep.id}"> <span style="color:#28a745">Ir para seÃ§Ã£o de comentÃ¡rios-> </span></a>
                     </div>
                 </div>
             </div>

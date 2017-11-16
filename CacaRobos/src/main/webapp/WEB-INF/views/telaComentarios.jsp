@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Seção de Comentários</title>
+  <title>SeÃ§Ã£o de ComentÃ¡rios</title>
   <!-- Bootstrap core CSS-->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -38,28 +38,28 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
           <a class="nav-link" href="feedComentario.html">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+            <span class="nav-link-text">Feed de DenÃºncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="myReport?${userLoggedIn.id }">
             <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Minhas Denúncias</span>
+            <span class="nav-link-text">Minhas DenÃºncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Estatistícas</span>
+            <span class="nav-link-text">EstatistÃ­cas</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Gráficos</span>
+            <span class="nav-link-text">GrÃ¡ficos</span>
           </a>
         </li>
 
@@ -81,7 +81,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="#">Seção de Comentários</a>
+          <a href="#">SeÃ§Ã£o de ComentÃ¡rios</a>
         </li>
       </ol>
       
@@ -113,7 +113,7 @@
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" > Denúncia - ${report.title } </center>
+                            <center style="color: white; padding-left: 0px;" >${report.title } </center>
                         </a>
                     </h4>
                 </div>

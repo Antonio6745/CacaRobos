@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CaÁa RobÙs - Cadastro de Usu·rios</title>
+	<title>Ca√ßa-Rob√¥s - Cadastro de Usu√°rios</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -53,7 +53,7 @@
 <br>
 <br>
 
- <h2>Cadastro de Usu·rio</h2>
+ <h2>Cadastro de Usu√°rio</h2>
  <div class="contenedor-formulario">
  <!-- Caixa do formul√°rio -->
     <div class="wrap">

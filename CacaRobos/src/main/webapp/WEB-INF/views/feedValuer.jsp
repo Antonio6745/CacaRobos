@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Caça Robôs</title>
+  <title>Caça-Robôs</title>
   <script src="resources/javascripts/jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
   $(document).ready(function() {
@@ -185,7 +185,7 @@
                     <h4 class="panel-title">
                          <a data-toggle="collapse" data-parent="#accordion" href="#${report.id }" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" > Denúncia - ${report.title} </center>
+                            <center style="color: white; padding-left: 0px;" >${report.title} </center>
                         </a>
                     </h4>
                 </div>

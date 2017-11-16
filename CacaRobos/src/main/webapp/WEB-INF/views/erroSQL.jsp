@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CaÁa RobÙs - Error</title>
+	<title>Ca√ßa-Rob√¥s - Error</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -45,10 +45,10 @@
        <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="formUser">Cadastro de Usu·rio</a>
+              <a class="nav-link js-scroll-trigger" href="formUser">Cadastro de Usu√°rio</a>
             </li>
              <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="formValuer">Cadastro de Volunt·rios</a>
+              <a class="nav-link js-scroll-trigger" href="formValuer">Cadastro de Volunt√°rios</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="formLogin">Login</a>
