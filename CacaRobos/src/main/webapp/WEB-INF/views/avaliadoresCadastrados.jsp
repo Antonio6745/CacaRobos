@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="br">
 
@@ -233,6 +235,7 @@
           </form>
         </li></br>
       
+      <c:forEach items="${listRegisteredValuers}" var="listValuers">
         <div class="card mb-3">
         <div class="card-header">
       <div class="row" style="padding-left: 400px;">
@@ -241,15 +244,15 @@
             <div class="panel panel-custom">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#${listValuers.id }" aria-expanded="true" aria-controls="collapseOne">
                             <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" > Voluntario - 1 </center>
+                            <center style="color: white; padding-left: 0px;" > Voluntario - ${listValuers.name } </center>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div id="${listValuers.id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body animated zoomOut">
-                        <center></br><p><b><span style="color:#28a745">E-Mail: </span></b> exemplo@exemplo
+                        <center></br><p><b><span style="color:#28a745">E-Mail: </span></b> ${listValuers.login.username }
                          <br>
                           <br>
                          <b><span style="color:#28a745">Denúncias avaliadas: </span></b> 50 avaliações
@@ -269,7 +272,7 @@
             </div>
           </div>
         </div>
-
+	</c:forEach>
 
         
 
