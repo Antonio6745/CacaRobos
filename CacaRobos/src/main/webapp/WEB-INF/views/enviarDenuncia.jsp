@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Caça Robôs</title>
+  <title>CaÃ§a-RobÃ´s</title>
   <!-- Bootstrap core CSS-->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -36,28 +36,28 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
           <a class="nav-link" href="enviarDenuncia">
             <i class="fa fa-wpforms"></i>
-            <span class="nav-link-text">Nova denúncia</span>
+            <span class="nav-link-text">Nova denÃºncia</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="listFeedUser">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+            <span class="nav-link-text">Feed de Denï¿½ncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Estatistícas</span>
+            <span class="nav-link-text">EstatistÃ­cas</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Gráficos</span>
+            <span class="nav-link-text">GrÃ¡ficos</span>
           </a>
         </li>
 
@@ -79,7 +79,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="">Enviar Denúncia</a>
+          <a href="">Enviar DenÃºncia</a>
         </li>
       </ol>
       
@@ -87,7 +87,7 @@
       <center>
       <ol class="breadcrumb" style="background-color: #28a745; width: 550px;">
           <li class="breadcrumb-item" >
-            <a> <span style="color:white; font-size: 17pt; padding-left: 160px;">Faça sua denúncia</span></a>
+            <a> <span style="color:white; font-size: 17pt; padding-left: 160px;">FaÃ§a sua denÃºncia</span></a>
           </li>
       </ol>
     </center>
@@ -98,19 +98,19 @@
         <center><form action="sendReport">
           <fieldset class="grupo">
            <div class="campo" style="padding-left: 620px;">
-                    <label for="titulo"  style="font-size: 23pt;">Título da denúncia: <span style="color:red">*</span> </label>
+                    <label for="titulo"  style="font-size: 23pt;">TÃ­tulo da denÃºncia: <span style="color:red">*</span> </label>
                    <input type="text" id="nome" name="title" style="width: 25em" value=""> 
                     </br>
               </div> 
               <div class="campo" style="padding-left: 620px;">
-                    <label for="nome"  style="font-size: 23pt;">Endereço do suposto perfil: <span style="color:red">*</span> </label>
-                    <span style="color:#A9A9A9; font-size: 10pt;"><span style="color:red">*</span> Exemplo: https://www.denuncia#255.com.br <span style="color:red">*</span></span><input type="text" id="nome" name="link" style="width: 25em" value=""> 
+                    <label for="nome"  style="font-size: 23pt;">EndereÃ§o do suposto perfil: <span style="color:red">*</span> </label>
+                    <span style="color:#A9A9A9; font-size: 10pt;"> Exemplo: https://www.denuncia#255.com.br</span><input type="text" id="nome" name="link" style="width: 25em" value=""> 
                     </br>
               </div> 
           </fieldset>
                 
               <div class="campo">
-                  <label for="nome" style="font-size: 23pt;">Por que está denunciando? <span style="color:red">*</span> </label>
+                  <label for="nome" style="font-size: 23pt;">Por que estÃ¡ denunciando? <span style="color:red">*</span> </label>
                   <textarea rows="6" style="width: 30em" id="mensagem" name="description"></textarea>
               </div>
         
@@ -122,7 +122,7 @@
                     </select>
                   </label>
               </div>
-             <button type="submit" class="btn btn-success">Enviar avaliação</button>
+             <button type="submit" class="btn btn-success">Enviar avaliaÃ§Ã£o</button>
              <br>
             </fieldset>
         </form></center>

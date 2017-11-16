@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>CaÃ§a RobÃ´s</title>
+  <title>CaÃ§a-RobÃ´s</title>
   <!-- Bootstrap core CSS-->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -72,7 +72,7 @@
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
       <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
         <i class="fa fa-fw fa-sitemap"></i>
-        <span class="nav-link-text">Denúncias</span>
+        <span class="nav-link-text">Denï¿½ncias</span>
       </a>
       <ul class="sidenav-second-level collapse" id="collapseMulti">
         <li>
@@ -115,13 +115,13 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="feed.html">Feed de Denúncias</a>
+                    <a href="feed.html">Feed de Denï¿½ncias</a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a href="#">Robôs Capturados</a>
+                    <a href="#">RobÃ´s Capturados</a>
                   </li>
                   <li class="breadcrumb-item">
-                    <a href="#">Gráficos</a>
+                    <a href="#">GrÃ¡ficos</a>
                   </li> 
                 </ol>
 
@@ -199,7 +199,7 @@
     </div>
     
     <div class="form-group">
-        <label for="email">Login Usuário:</label>
+        <label for="email">Login UsuÃ¡rio:</label>
         <input type="name" class="form-control" id="name">
     </div>
     

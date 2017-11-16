@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>SeÁ„o de Coment·rios</title>
+  <title>Se√ß√£o de Coment√°rios</title>
   <!-- Bootstrap core CSS-->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -38,28 +38,28 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" >
           <a class="nav-link" href="feedComentario.html">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Den˙ncias</span>
+            <span class="nav-link-text">Feed de Den√∫ncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="myReport?${userLoggedIn.id }">
             <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Minhas Den˙ncias</span>
+            <span class="nav-link-text">Minhas Den√∫ncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">EstatistÌcas</span>
+            <span class="nav-link-text">Estatist√≠cas</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
           <a class="nav-link" href="tables.html">
             <i class="fa fa-fw fa-table"></i>
-            <span class="nav-link-text">Gr·ficos</span>
+            <span class="nav-link-text">Gr√°ficos</span>
           </a>
         </li>
 
@@ -81,7 +81,7 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="#">SeÁ„o de Coment·rios</a>
+          <a href="#">Se√ß√£o de Coment√°rios</a>
         </li>
       </ol>
       
