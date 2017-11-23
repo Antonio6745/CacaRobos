@@ -43,7 +43,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="listFeedUser">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Den�ncias</span>
+            <span class="nav-link-text">Feed de Denúncias</span>
           </a>
         </li>
 
@@ -103,18 +103,18 @@
                     </br>
               </div> 
               <div class="campo" style="padding-left: 620px;">
-                    <label for="nome"  style="font-size: 23pt;">Endereço do suposto perfil: <span style="color:red">*</span> </label>
-                    <span style="color:#A9A9A9; font-size: 10pt;"> Exemplo: https://www.denuncia#255.com.br</span><input type="text" id="nome" name="link" style="width: 25em" value=""> 
+                    <label for="nome"  style="font-size: 23pt;">Endereço do perfil suspeito: <span style="color:red">*</span> </label>
+                    <span style="color:#A9A9A9; font-size: 10pt;"> Exemplo: https://www.redesocial.com.br/perfil_suspeito</span><input type="text" id="nome" name="link" style="width: 25em" value=""> 
                     </br>
               </div> 
           </fieldset>
                 
               <div class="campo">
-                  <label for="nome" style="font-size: 23pt;">Por que está denunciando? <span style="color:red">*</span> </label>
+                  <label for="nome" style="font-size: 23pt;">Motivo da denúncia: <span style="color:red">*</span> </label>
                   <textarea rows="6" style="width: 30em" id="mensagem" name="description"></textarea>
               </div>
         
-              <div class="campo" style="padding-top: 20px;">
+              <div class="campo" name="foo" style="padding-top: 20px; resize: none;" res>
                   <label>
                     <select name="networkType">
                       <option value="Twitter">Twitter</option>

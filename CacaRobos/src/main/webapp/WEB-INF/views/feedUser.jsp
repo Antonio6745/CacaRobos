@@ -37,16 +37,16 @@
         </a></center>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
-          <a class="nav-link" href="listFeedUser">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+          <a class="nav-link" href="enviarDenuncia">
+            <i class="fa fa-wpforms"></i>
+            <span class="nav-link-text">Nova denúncia</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="myReport">
-            <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text">Minhas Denúncias</span>
+          <a class="nav-link" href="listFeedUser">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text">Feed de Denúncias</span>
           </a>
         </li>
 
@@ -111,20 +111,21 @@
               <div class="card h-100">
                 <div class="card-body">
                   <h4 class="card-title">
-                    <p><b>Denúncia ${report.title }</p></b></h4>
+                    <p><b><u>${report.title }</u></p></b></h4>
                   <p align="left"><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${report.link }
                              <br>
                               <br>
-                             <b><span style="color:#28a745">Descrição da denúnia: </span></b> ${report.description }
+                             <b><span style="color:#28a745">Descrição da denúnia: </span></b></br> ${report.description }
                                 <br>
                               <br>
     
-                            <b><span style="color:#28a745">É Robô: </span></b>${report.voteCounting.isARobot }
-                            <b><span style="color:#28a745">Não é Robô: </span></b>${report.voteCounting.isNotARobot }
-                                <br>
-                              <br>
+                            <b><span style="color:#28a745">Robô: </span></b> ${report.voteCounting.isARobot }
+                            <br>
+                            <b><span style="color:#28a745">Perfil comum: </span></b> ${report.voteCounting.isNotARobot }
+                            <br>
+                            <br>
                             <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comente Aqui!</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comentários</button>
                             
                             <!-- Modal -->
                                 <div class="modal fade" id="myModal" role="dialog">

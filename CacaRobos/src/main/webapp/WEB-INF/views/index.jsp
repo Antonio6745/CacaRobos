@@ -157,7 +157,7 @@
 									
 									<div class="logo">
 										<img src="resources/assets/images/logo.png" alt="Logo Image" /></br>
-                                            <h7 class="center-align">Seja Bem - Vindo</h7><p></br>
+                                            <h7 class="center-align">Seja Bem-Vindo</h7><p></br>
                                             <h5 class="truncate">Clique no botão abaixo para prosseguir.</h5>
 									</div>
 
