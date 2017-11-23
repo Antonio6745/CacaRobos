@@ -9,6 +9,7 @@ create table if not exists login(
     passcode varchar(64) not null,
     userType char(3) not null
 );
+INSERT INTO login (username, passcode, userType) VALUES ('admin@admin.com','admin','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918');
 
 drop table if exists user;
 create table if not exists user(
@@ -28,6 +29,7 @@ create table if not exists manager(
     foreign key (loginId) references login(id) on delete cascade,
     profilePicture mediumblob
 );
+INSERT INTO manager (name, cpf, loginId) VALUES ('Admin','000.000.000-00',1);
 
 drop table if exists valuer;
 create table if not exists valuer(
