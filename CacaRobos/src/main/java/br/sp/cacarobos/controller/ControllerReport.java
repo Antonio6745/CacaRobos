@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.model.Report;
+import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.User;
 
@@ -27,7 +28,7 @@ public class ControllerReport {
 		t.setUser(u);
 		t.setStatus(Status.PROCESSING.status);
 		bdReport.create(t);
-		return"redirect:myReport";
+		return"redirect:listFeedUser";
 	}
 	
 	@RequestMapping("myReport")

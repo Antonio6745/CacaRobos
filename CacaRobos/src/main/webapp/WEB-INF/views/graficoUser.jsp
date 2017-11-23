@@ -194,26 +194,26 @@
 
                 var data = [
                     {
-                        value: randomnb(),
+                        value: ${basicStatistcs.instagramReports},
                         color:"#F53515",
                         highlight: "#A81C0C",
                         label: "Instagram"
                     },
                     
                     {
-                        value: randomnb(),
+                        value: ${basicStatistcs.twitterReports},
                         color: "#0BB5ED",
                         highlight: "#0B56ED",
                         label: "twitter"
                     },
                     {
-                        value: randomnb(),
+                        value: ${basicStatistcs.googlePlusReport},
                         color: "#FF0012",
                         highlight: "#500D00",
                         label: "Google +"
                     },
                     {
-                        value: randomnb(),
+                        value: ${basicStatistcs.facebookReports},
                         color: "#290CC8",
                         highlight: "#2947C8",
                         label: "Facebook"

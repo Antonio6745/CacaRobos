@@ -119,6 +119,8 @@
                     <select name="networkType">
                       <option value="Twitter">Twitter</option>
                       <option value="Facebook">Facebook</option>
+                      <option value="Google +">Google +</option>
+                      <option value="Instagram">Instagram</option>
                     </select>
                   </label>
               </div>

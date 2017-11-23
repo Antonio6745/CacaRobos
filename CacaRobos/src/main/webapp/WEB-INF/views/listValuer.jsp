@@ -162,7 +162,7 @@
 													</br>
 													<p>
 														<b><span style="color: #28a745">Email para
-																contato: </span></b> ${valuer.username } <br> <br> <b><span
+																contato: </span></b> ${valuer.login.username } <br> <br> <b><span
 															style="color: #28a745">Total de avaliação: </span></b> <b>É
 															um robo: ${report.voteCounting.isARobot }</b></br> <b>Não é um
 															robô: ${report.voteCounting.isNotARobot }</b></br> <br> <br>

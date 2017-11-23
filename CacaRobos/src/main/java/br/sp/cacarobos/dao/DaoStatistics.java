@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.sp.cacarobos.model.SocialNetworkType;
 import br.sp.cacarobos.model.Statistics;
 
 @Repository
@@ -27,7 +28,7 @@ public class DaoStatistics {
 	
 	public Statistics countFacebookReports(){
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='Facebook'");
+			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='"+SocialNetworkType.FACEBOOK.socialNetworkType+"'");
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
@@ -42,11 +43,11 @@ public class DaoStatistics {
 	
 	public Statistics countTwitterReports(){
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='Twitter'");
+			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='"+SocialNetworkType.TWITTER.socialNetworkType+"'");
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setTwitterReports(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;
@@ -57,11 +58,11 @@ public class DaoStatistics {
 	
 	public Statistics countInstagramReports(){
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='Intagram'");
+			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='"+SocialNetworkType.INSTAGRAM.socialNetworkType+"'");
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setInstagramReports(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;
@@ -72,11 +73,11 @@ public class DaoStatistics {
 	
 	public Statistics countGooglePlusReports(){
 		try {
-			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='Google +'");
+			PreparedStatement command=connection.prepareStatement("SELECT COUNT(socialNetworkType) FROM report WHERE socialNetworkType='"+SocialNetworkType.GOOGLE_PLUS.socialNetworkType+"'");
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setGooglePlusReport(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;

@@ -53,7 +53,7 @@ public class ControllerLogin {
 					t.setProfilePicture(Base64.decode(context.getRealPath("/WEB-INF/resouces/profilePictureDefault.jpg")));
 				}*/
 				session.setAttribute("userLoggedIn", t);
-				return "redirect:enviarDenuncia";
+				return "enviarDenuncia";
 			}else if(l.getUserType().equals(UserType.VLR.userType)){
 				Valuer t=bdLogin.retriveInfoValuer(l);
 				/*if(t.getProfilePicture()==null){

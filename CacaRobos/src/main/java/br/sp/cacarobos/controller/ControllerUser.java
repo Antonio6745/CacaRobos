@@ -83,7 +83,7 @@ public class ControllerUser {
 
 	@RequestMapping("graficoUser")
 	public String porNoGraficoU() {
-		return"graficoUser";
+		return"redirect:loadBasicStatistics";
 	}
 
 

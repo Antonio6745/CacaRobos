@@ -25,7 +25,7 @@ public class ControllerStatistics {
 		s.setInstagramReports(bdStatistics.countInstagramReports().getInstagramReports());
 		s.setGooglePlusReport(bdStatistics.countGooglePlusReports().getGooglePlusReport());
 		model.addAttribute("basicStatistcs",s);
-		return "";// add basic statistics page
+		return "graficoUser";// add basic statistics page
 	}
 	
 	@RequestMapping("loadAllStatistics")
