@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ca�a Rob�s - Login </title>
+	<title>Caça Robôs - Login </title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
     <link href="resources/css/estilos-login.css" rel="stylesheet">
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">
 
      <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
   	<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -25,6 +26,92 @@
 </head>
 <body id="page-top">
 
+	<style>
+	
+        .button {
+              display: inline-block;
+              border-radius: 4px;
+              background-color: transparent;
+              border: none;
+              color: #4d4d4d;
+              text-align: center;
+              font-size: 28px;
+              padding: 20px;
+              width: 200px;
+              transition: all 0.5s;
+              cursor: pointer;
+              margin: 5px;
+              float: left;
+            }
+
+            .button span {
+              cursor: pointer;
+              display: inline-block;
+              position: relative;
+              transition: 0.5s;
+            }
+
+            .button span:after {
+              content: '\00bb';
+              position: absolute;
+              opacity: 0;
+              top: 0;
+              right: -20px;
+              transition: 0.5s;
+            }
+
+            .button:hover span {
+              padding-right: 25px;
+            }
+
+            .button:hover span:after {
+              opacity: 1;
+              right: 0;
+            }
+
+            .dropbtn {
+			    background-color: #4CAF50;
+			    color: white;
+			    padding: 16px;
+			    font-size: 16px;
+			    border: none;
+			    cursor: pointer;
+			    width: 200px;
+			}
+			
+			.dropdown {
+			    position: relative;
+			    display: inline-block;
+			   
+			}
+			
+			.dropdown-content {
+			    display: none;
+			    position: absolute;
+			    background-color: #f9f9f9;
+			    width: 200px;
+			    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			    z-index: 1;
+			}
+			
+			.dropdown-content a {
+			    color: black;
+			    padding: 12px 16px;
+			    text-decoration: none;
+			    display: block;
+			}
+			
+			.dropdown-content a:hover {background-color: #f1f1f1}
+			
+			.dropdown:hover .dropdown-content {
+			    display: block;
+			}
+			
+			.dropdown:hover .dropbtn {
+			    background-color: #3e8e41;
+			}
+    </style>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
@@ -33,21 +120,28 @@
           Menu
           <i class="fa fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="home">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="formUser">Cadastro de Usuarios</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="formValuer">Cadastro de Voluntarios</a>
-            </li>
-          </ul>
-        </div>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <div class="dropdown" style="padding-top: 0px; ">
+                            <button class="dropbtn">Cadastro</button>
+                            <div class="dropdown-content">
+                              <center><a href="formValuer">Voluntario</a>
+                              <a href="formUser">Usuário</a></center>
+                            </div>
+                          </div>
+                    </ul>
+                </div>
+            </div>
+        </nav>
       </div>
     </nav>
+    
 <br>
 <br>
 <br>
@@ -57,9 +151,6 @@
 <br>
 <!-- Icone -->
 <div class="contenedor-formulario">
-  <div class="icone">
-<img src="resources/img/icone.png">
-</div>
 
 <!--<h3 class="h3">Olá! Digite seu email e senha</h3>-->
 

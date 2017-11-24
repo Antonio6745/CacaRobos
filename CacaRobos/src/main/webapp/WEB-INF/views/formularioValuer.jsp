@@ -85,7 +85,7 @@
           </div>
           <p>Descreva brevemente o motivo de ser um voluntario:</p>
           <div class="form-group">
-             <textarea class="form-control" cols="5" rows="4" style="resize: none" name="comment" id="comment"></textarea>
+             <textarea class="form-control" cols="5" rows="4" style="resize: none" name="reason" id="comment"></textarea>
           </div>
           <style type="text/css">
              p {

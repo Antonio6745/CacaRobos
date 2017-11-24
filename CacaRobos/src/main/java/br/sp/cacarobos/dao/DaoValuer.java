@@ -135,6 +135,7 @@ public class DaoValuer implements GenericDao<Valuer>{
 			command.setLong(1, t);
 			command.execute();
 			command.close();
+			System.out.println(command);
 		}catch(SQLException e){
 			new RuntimeException("Error in DaoValuer(Delete): "+e.getMessage());
 		}
@@ -145,6 +146,54 @@ public class DaoValuer implements GenericDao<Valuer>{
 		List<Valuer> list=new ArrayList<>();
 		try {
 			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer");
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Valuer v=new Valuer();
+				v.setId(rs.getLong("id"));
+				v.setName(rs.getString("name"));
+				v.setCpf(rs.getString("cpf"));
+				v.getLogin().setId(rs.getLong("loginId"));
+				v.setActiveAccount(rs.getBoolean("activeAccount"));
+				v.setProfilePicture(rs.getBytes("profilePicture"));
+				v.setReason(rs.getString("reason"));
+				list.add(v);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			new RuntimeException("Error in DaoValuer(List All): "+e.getMessage());
+		}
+		return null;
+	}
+	public List<Valuer> listAllActiveValuer() {
+		List<Valuer> list=new ArrayList<>();
+		try {
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer where activeAccount=1");
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Valuer v=new Valuer();
+				v.setId(rs.getLong("id"));
+				v.setName(rs.getString("name"));
+				v.setCpf(rs.getString("cpf"));
+				v.getLogin().setId(rs.getLong("loginId"));
+				v.setActiveAccount(rs.getBoolean("activeAccount"));
+				v.setProfilePicture(rs.getBytes("profilePicture"));
+				v.setReason(rs.getString("reason"));
+				list.add(v);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			new RuntimeException("Error in DaoValuer(List All): "+e.getMessage());
+		}
+		return null;
+	}
+	public List<Valuer> listAllInactiveValuer(){
+		List<Valuer> list=new ArrayList<>();
+		try {
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM valuer where activeAccount=0");
 			ResultSet rs=command.executeQuery();
 			while(rs.next()){
 				Valuer v=new Valuer();

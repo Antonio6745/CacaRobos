@@ -28,7 +28,7 @@ public class ControllerCommentary {
 	public String comen(Report r,Model model) {
 		model.addAttribute("listCommentary", bdCommentary.listCommentsByReportId(r.getId()));
 		model.addAttribute("report",bdReport.read(r.getId()));
-		return "telaComentarios";
+		return "redirect:listFeedUser";
 	}
 
 	@RequestMapping("createCommentary/{reportId}")

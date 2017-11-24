@@ -1,6 +1,7 @@
 package br.sp.cacarobos.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
+import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoValuer;
 import br.sp.cacarobos.dao.DaoVote;
 import br.sp.cacarobos.model.Login;
+import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.model.Vote;
 import br.sp.cacarobos.util.EmailUtils;
@@ -29,11 +32,13 @@ public class ControllerValuer {
 	private final DaoValuer bdValuer;
 	private final DaoReport bdReport;
 	private final DaoVote bdVote;
+	private final DaoCommentary bdCommentary;
 	@Autowired
-	public ControllerValuer(DaoValuer bdValuer,DaoReport bdReport, DaoVote bdVote) {
+	public ControllerValuer(DaoValuer bdValuer,DaoReport bdReport, DaoVote bdVote,DaoCommentary bdCommentary) {
 		this.bdReport = bdReport;
 		this.bdValuer = bdValuer;
 		this.bdVote=bdVote;
+		this.bdCommentary=bdCommentary;
 	}
 
 	@RequestMapping("registerValuer")
@@ -75,10 +80,11 @@ public class ControllerValuer {
 		return "";// add page to use this method
 	}
 
-	// @RequestMapping("deleteValuer")
+	 @RequestMapping("deleteValuer")
 	public String deleteValuer(Valuer t) {
 		bdValuer.delete(t.getId());
-		return "";// add page or method to keep going
+		System.out.println(t);
+		return "redirect:listValuerActive";
 	}
 	
 	
@@ -118,7 +124,9 @@ public class ControllerValuer {
 	}
 	@RequestMapping("listFeedValuer")
 	public String feedU(Model model){
-		model.addAttribute("feedReportValuer", bdReport.listAllActiveReports());
+		List<Report> reportList = bdReport.listAll();
+		reportList.forEach(i->i.setCommentaryList(bdCommentary.listCommentsByReportId(i.getId())));
+		model.addAttribute("feedReportValuer", reportList);
 		return "feedValuer";
 	}
 	@RequestMapping("voteRobotTrue")
@@ -142,5 +150,15 @@ public class ControllerValuer {
 			bdReport.registerVote(v);
 		}
 		return"redirect:/listFeedValuer";
+	}
+	@RequestMapping("aproveValuer")
+	public String aprValuer(Valuer t) {
+		bdValuer.validateAccount(t.getId(), true);
+		return"redirect:listValuerActive";
+	}
+	@RequestMapping("rejectValuer")
+	public String rejValuer(Valuer t) {
+		bdValuer.validateAccount(t.getId(), false);
+		return"redirect:listValuerInactive";
 	}
 }

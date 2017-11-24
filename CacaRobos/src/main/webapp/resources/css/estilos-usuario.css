@@ -525,10 +525,10 @@ footer {
         background: #009900;/*efeito ao passar em cima do botão*/ }
 
   h2{
-    margin-left: 42%;
-    margin-top: 20px;
+    margin-left: 40%;
+    position: absolute;
     color: #595959; 
-    position: absolute;                  
+    margin-top: -8px;
                                   
   }
 
@@ -577,3 +577,5 @@ footer {
   color: #fff;
   position: absolute;
   }
+
+ 

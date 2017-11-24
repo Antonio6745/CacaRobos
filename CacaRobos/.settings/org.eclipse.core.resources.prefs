@@ -3,6 +3,7 @@ encoding//src/main/webapp/WEB-INF/views/adicionarValuer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/avaliadoresCadastrados.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/confirmar.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/enviarDenuncia.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/erroLogin.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/erroSQL.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/feedAdm.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/feedUser.jsp=UTF-8

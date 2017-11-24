@@ -37,9 +37,9 @@
         </a></center>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
-          <a class="nav-link" href="listFeedUser">
+          <a class="nav-link" href="enviarDenuncia">
             <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+            <span class="nav-link-text">Nova denúncia</span>
           </a>
         </li>
 
@@ -71,7 +71,7 @@
          
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal href="logout">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            <a href="logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
         </li>
       </ul>
     </div>
@@ -124,10 +124,10 @@
                                 <br>
                               <br>
                             <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comente Aqui!</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${report.id }">Comente Aqui!</button>
                             
                             <!-- Modal -->
-                                <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal fade" id="${report.id }" role="dialog">
                                   <div class="modal-dialog">
                                   
                               <!-- Modal content-->
@@ -138,26 +138,33 @@
                                       </div>
                                       <div class="modal-body">
                                           <li>
+                                          <c:forEach items="${report.commentaryList }" var="commentary">
                                               <div class="comment-main-level">
                                                   <div class="comment-box">
                                                       <div class="comment-head">
-                                                          <h6 class="comment-name by-author"><b>Agustin Ortiz</b></h6>
+                                                          <h6 class="comment-name by-author"><b>${commentary.user.nickname } - </b><b>${commentary.user.login.userType }</b></h6>
                                                       </div>
                                                       <div class="comment-content">
-                                                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit omnis animi et iure laudantium vitae, praesentium optio, sapiente distinctio illo?
+                                                          ${commentary.description }
                                                       </div>
                                                       <br>
                                                       <br>
+                                                      </div>
+                                                      </div>
+                                                      </c:forEach>
+                                                      
                                             </li>
                                               <br>
                                               <br>
   
                            <p><b><span style="color:#28a745">Comente aqui: </span></b></p>
-                           <textarea class="form-control vresize" id="MyID3"></textarea> <br>
-                          <button type="button" class="btn btn-success">Enviar comentario</button></center>
+                           <form action="createCommentary/${report.id }" method="get">
+                           <textarea rows="2" cols="100" name="description" class="form-control vresize" id="MyID3"></textarea> <br>
+                          <button type="submit" class="btn btn-success">Enviar comentario</button></center>
+                          </form>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
                                       </div>
                                     </div>
                                     
