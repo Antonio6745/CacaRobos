@@ -70,8 +70,8 @@
         <li class="nav-item dropdown">
          
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal href="logout">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+           <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
         </li>
       </ul>
     </div>
