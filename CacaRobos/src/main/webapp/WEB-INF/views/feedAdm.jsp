@@ -108,7 +108,7 @@
           
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-              <i class="fa fa-fw fa-sign-out"></i>
+              <i class="fa fa-fw fa-sign-out" href="logout"></i>
               Logout</a>
           </li>
         </ul>

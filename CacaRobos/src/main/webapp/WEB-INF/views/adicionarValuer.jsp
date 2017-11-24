@@ -40,7 +40,7 @@
           
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-              <i class="fa fa-fw fa-sign-out"></i>
+              <i class="fa fa-fw fa-sign-out" href="logout"></i>
               Logout</a>
           </li>
         </ul>
@@ -72,7 +72,7 @@
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
       <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
         <i class="fa fa-fw fa-sitemap"></i>
-        <span class="nav-link-text">Den�ncias</span>
+        <span class="nav-link-text">Denúncias</span>
       </a>
       <ul class="sidenav-second-level collapse" id="collapseMulti">
         <li>
@@ -115,7 +115,7 @@
                 <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a href="feed.html">Feed de Den�ncias</a>
+                    <a href="feed.html">Feed de Denúncias</a>
                   </li>
                   <li class="breadcrumb-item">
                     <a href="#">Robôs Capturados</a>
@@ -158,7 +158,7 @@
 
 <fieldset style="padding-left: ">
   <form>
-    <center><label style="font-size: 28pt; color: #28a745;"> Dados Pessoais</label></center>
+    <center><label style="font-size: 28pt; color: #28a745;">Dados Pessoais</label></center>
   </br>
   <div class="form-group"><div class="form-group">
           <label for="email">Nome completo:</label>
