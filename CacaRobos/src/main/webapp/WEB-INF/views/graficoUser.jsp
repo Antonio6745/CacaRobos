@@ -90,9 +90,9 @@
       </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-      <a class="nav-link" href="valuerRegistered">
+      <a class="nav-link" href="listFeedUser">
         <i class="fa fa-fw fa-table"></i>
-        <span class="nav-link-text" >Avaliadores</span>
+        <span class="nav-link-text" >Feed Denúncias</span>
       </a>
     </li>
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">

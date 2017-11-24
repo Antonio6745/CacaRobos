@@ -1,6 +1,7 @@
 package br.sp.cacarobos.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.mail.EmailException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.sp.cacarobos.dao.DaoCommentary;
 import br.sp.cacarobos.dao.DaoReport;
 import br.sp.cacarobos.dao.DaoUser;
 import br.sp.cacarobos.model.Login;
+import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.model.User;
 import br.sp.cacarobos.util.EmailUtils;
 
@@ -19,11 +22,13 @@ import br.sp.cacarobos.util.EmailUtils;
 public class ControllerUser {
 	private final DaoUser bdUser;
 	private final DaoReport bdReport;
+	private final DaoCommentary bdCommentary;
 	
 	@Autowired
-	public ControllerUser(DaoUser bdUser,DaoReport bdReport) {
+	public ControllerUser(DaoUser bdUser,DaoReport bdReport, DaoCommentary bdCommentary) {
 		this.bdUser=bdUser;
 		this.bdReport=bdReport;
+		this.bdCommentary=bdCommentary;
 	}
 	
 	@RequestMapping("registerUser")
@@ -77,7 +82,9 @@ public class ControllerUser {
 	}
 	@RequestMapping("listFeedUser")
 	public String feedU(Model model){
-		model.addAttribute("feedReportUser", bdReport.listAll());
+		List<Report> reportList = bdReport.listAll();
+		reportList.forEach(i->i.setCommentaryList(bdCommentary.listCommentsByReportId(i.getId())));
+		model.addAttribute("feedReportUser", reportList);
 		return "feedUser";
 	}
 

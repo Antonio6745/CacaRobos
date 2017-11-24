@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Minhas Denuncias</title>
+  <title>Feed Comentario</title>
   <!-- Bootstrap core CSS-->
   <link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -29,35 +29,36 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+  
     <div class="collapse navbar-collapse" id="navbarResponsive" >
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="padding-top: px;">
           <center><a><img border="0" alt="Logo" src="resources/img/logo.png" 
             width="100" height="100">
         </a></center>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
           <a class="nav-link" href="enviarDenuncia">
-            <i class="fa fa-wpforms"></i>
+            <i class="fa fa-fw fa-dashboard"></i>
             <span class="nav-link-text">Nova denúncia</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="listFeedUser">
-            <i class="fa fa-fw fa-dashboard"></i>
-            <span class="nav-link-text">Feed de Denúncias</span>
+          <a class="nav-link" href="myReport">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text">Minhas Denúncias</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Estatistícas</span>
           </a>
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="graficoUser">
             <i class="fa fa-fw fa-table"></i>
             <span class="nav-link-text">Gráficos</span>
           </a>
@@ -69,8 +70,8 @@
         <li class="nav-item dropdown">
          
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-           <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>${userLoggedIn.nickname }</a></a>
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal href="logout">
+            <a href="logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
         </li>
       </ul>
     </div>
@@ -81,18 +82,19 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb" >
          <li class="breadcrumb-item">
-          <a href="">Minhas Denúncias</a>
+          <a href="#">Feed de Denúncias</a>
         </li>
       </ol>
+      
       
       <!-- Area Chart Example-->
        <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             
-        <li class="nav-item" >
+        <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
-              <input class="form-control" type="text" placeholder="Procurar por...">
+              <input class="form-control" type="text" placeholder="Search for...">
               <span class="input-group-btn">
                 <button class="btn btn-primary" type="button">
                   <i class="fa fa-search"></i>
@@ -101,51 +103,96 @@
             </div>
           </form>
         </li></br>
-      
-  <c:forEach items="${listMyReport }" var="myRep">
-      <div class="card mb-3">
-        <div class="card-header">
-      <div class="row" >
-        <div class="col-lg-8">
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-custom">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#${myRep.id }" aria-expanded="true" aria-controls="collapseOne">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <center style="color: white; padding-left: 0px;" >${myRep.title} </center>
-                        </a>
-                        <a href="deleteReport?id=${myRep.id}">X</a>
-                    </h4>
-                </div>
-                <div id="${myRep.id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body animated zoomOut">
-                        <center></br><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${myRep.link }
-                         <br>
-                          <br>
-                         <b><span style="color:#28a745">Descrição da denúncia: </span></b> ${myRep.description }
-                            <br>
-                          <br>
 
-                        <b><span style="color:#28a745">Total de avaliação: </span></b></br><br>
-                        <b>É um robo: ${report.voteCounting.isARobot }</b></br>
-                        <b>Não é um robô: ${report.voteCounting.isNotARobot }</b></br>
-                          <br>
-                        <b><span style="color:#28a745">Status: </span></b> ${myRep.status }</p>
-                        
-                                          <a href="listCommentary?id=${myRep.id}"> <span style="color:#28a745">Ir para seção de comentários-> </span></a>
-                    </div>
+        <div class="container">  
+        <div class="row">
+        <c:forEach items="${listMyReport }" var="myRep">
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <p><b>Denúncia ${myRep.title }</p></b></h4>
+                  <p align="left"><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${myRep.link }
+                             <br>
+                              <br>
+                             <b><span style="color:#28a745">Descrição da denúnia: </span></b> ${myRep.description }
+                                <br>
+                              <br>
+    
+                            <b><span style="color:#28a745">É Robô: </span></b>${myRep.voteCounting.isARobot }
+                            
+                            <b><span style="color:#28a745">Não é Robô: </span></b>${myRep.voteCounting.isNotARobot }
+                                <br>
+                              <br>
+                            <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${myRep.id }">Comente Aqui!</button>
+                            
+                            <!-- Modal -->
+                                <div class="modal fade" id="${myRep.id }" role="dialog">
+                                  <div class="modal-dialog">
+                                  
+                              <!-- Modal content-->
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Secção de Comentários - Denúncia ${myRep.title }</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                          <li>
+                                          <c:forEach items="${myRep.commentaryList }" var="commentary">
+                                              <div class="comment-main-level">
+                                                  <div class="comment-box">
+                                                      <div class="comment-head">
+                                                          <h6 class="comment-name by-author"><b>${commentary.user.nickname } - </b><b>${commentary.user.login.userType }</b></h6>
+                                                      </div>
+                                                      <div class="comment-content">
+                                                          ${commentary.description }
+                                                      </div>
+                                                      <br>
+                                                      <br>
+                                                      </div>
+                                                      </div>
+                                                      </c:forEach>
+                                                      
+                                            </li>
+                                              <br>
+                                              <br>
+  
+                           <p><b><span style="color:#28a745">Comente aqui: </span></b></p>
+                           <form action="createCommentary/${myRep.id }" method="get">
+                           <textarea rows="2" cols="100" name="description" class="form-control vresize" id="MyID3"></textarea> <br>
+                          <button type="submit" class="btn btn-success">Enviar comentario</button></center>
+                          </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                                </div>
+                                </div>
+                                
+                  </div>
+                  </c:forEach>
                 </div>
-            </div>
-          </div>
-               
               </div>
-            </div>
-          </div>
-        </div>
-   </c:forEach>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <br>
+                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+              </nav>
 
-        
+
+             
+      
+
          
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->

@@ -89,14 +89,19 @@ public class ControllerManager {
 	public String penden() {
 		return"novasSolicitacoes";
 	}
-	@RequestMapping("listValuerRegistered")
-	public String valuerCad(Model model) {
-		model.addAttribute("listRegisteredValuers", bdValuer.listAll());
+	@RequestMapping("listValuerActive")
+	public String valuerAct(Model model) {
+		model.addAttribute("listActiveValuers", bdValuer.listAllActiveValuer());
 		return"avaliadoresCadastrados";
 	}
 	@RequestMapping("feedAdm")
 	public String fedAdm() {
 		
 		return"feedAdm";
+	}
+	@RequestMapping("listValuerInactive")
+	public String valuerInact(Model model) {
+		model.addAttribute("listInactiveValuers", bdValuer.listAllInactiveValuer());
+		return"novasSolicitacoes";
 	}
 }
