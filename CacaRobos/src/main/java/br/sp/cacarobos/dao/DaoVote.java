@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import br.sp.cacarobos.model.Report;
+import br.sp.cacarobos.model.SocialNetworkType;
+import br.sp.cacarobos.model.Status;
 import br.sp.cacarobos.model.Valuer;
 import br.sp.cacarobos.model.Vote;
 
@@ -152,6 +155,55 @@ public class DaoVote implements GenericDao<Vote>{
 			return count;
 		}catch(SQLException e){
 			throw new RuntimeException("Error in DaoVote(How many Votes): "+e.getMessage());
+		}
+	}
+	
+	public Report retrieveData(ResultSet rs){
+		try{
+			Report r=new Report();
+			r.setId(rs.getLong("id"));
+			r.setDescription(rs.getString("description"));
+			String statusId=rs.getString("status");
+			for(Status status : Status.values()){
+				if(status.status.equals(statusId)){
+					r.setStatus(status.status);
+					break;
+				}
+			}
+			String socialNetwork=rs.getString("socialNetworkType");
+			for(SocialNetworkType networkType: SocialNetworkType.values()){
+				if(networkType.socialNetworkType.equals(socialNetwork)){
+					r.setNetworkType(socialNetwork);
+					break;
+				}
+			}
+			r.setDateReport(LocalDate.parse(rs.getDate("dateReport").toString()));
+			r.setActiveReport(rs.getBoolean("activeReport"));
+			r.getVoteCounting().setIsARobot(rs.getInt("isARobotVotes"));
+			r.getVoteCounting().setIsNotARobot(rs.getInt("isNotARobotVotes"));
+			r.setLink(rs.getString("link"));
+			r.setTitle(rs.getString("title"));
+			return r;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoVote(RetrieveData): "+e.getMessage());
+		}
+	}
+	
+	public List<Report> listByValuer(Long valuerId){
+		List<Report> list=new ArrayList<Report>();
+		try {
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM report where valuerId=?");
+			command.setLong(1, valuerId);
+			ResultSet rs=command.executeQuery();
+			while(rs.next()){
+				Report r=retrieveData(rs);
+				list.add(r);
+			}
+			rs.close();
+			command.close();
+			return list;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoReport(List by user): "+e.getMessage());
 		}
 	}
 }

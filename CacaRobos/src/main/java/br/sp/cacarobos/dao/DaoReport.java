@@ -383,6 +383,7 @@ public class DaoReport implements GenericDao<Report>{
 			throw new RuntimeException("Error in DaoReport(List by user"+e.getMessage());
 		}
 	}
+	
 	public void addVoteRobotTrue(Long t){
 		try{
 			Report r=read(t);

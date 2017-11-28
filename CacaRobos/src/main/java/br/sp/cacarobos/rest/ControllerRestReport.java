@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.sp.cacarobos.dao.DaoReport;
+import br.sp.cacarobos.dao.DaoVote;
 import br.sp.cacarobos.model.Report;
 import br.sp.cacarobos.util.HttpError;
 @RestController
 public class ControllerRestReport {
 	private final DaoReport bdReport;
+	private final DaoVote bdVote;
 	
 	@Autowired
-	public ControllerRestReport(DaoReport bdReport) {
+	public ControllerRestReport(DaoReport bdReport, DaoVote bdVote) {
 		this.bdReport=bdReport;
+		this.bdVote=bdVote;
 	}
 	
 	@RequestMapping(value="/createReport", method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -191,6 +194,16 @@ public class ControllerRestReport {
 			return new ResponseEntity<Object>(bdReport.listAllReportsByValuerId(reportId, false), HttpStatus.OK);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(List all disactive reports by valuer id): "+e.getMessage());
+			return ResponseEntity.status(error.getHttpStatus()).body(error);
+		}
+	}
+	
+	@RequestMapping(value="/listByValuerId/{valuerId}")
+	public ResponseEntity<Object> listByValuerId(@PathVariable("valuerId") Long valuerId){
+		try{
+			return new ResponseEntity<Object>(bdVote.listByValuer(valuerId), HttpStatus.OK);
+		}catch(Exception e){
+			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(ListByValeurId): "+e.getMessage());
 			return ResponseEntity.status(error.getHttpStatus()).body(error);
 		}
 	}
