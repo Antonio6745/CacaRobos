@@ -46,7 +46,7 @@ public class DaoStatistics {
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setTwitterReports(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;
@@ -61,7 +61,7 @@ public class DaoStatistics {
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setInstagramReports(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;
@@ -76,7 +76,7 @@ public class DaoStatistics {
 			ResultSet rs=command.executeQuery();
 			rs.next();
 			Statistics s=new Statistics();
-			s.setFacebookReports(rs.getInt(1));
+			s.setGooglePlusReport(rs.getInt(1));
 			rs.close();
 			command.close();
 			return s;
