@@ -55,21 +55,21 @@
     <!-- Caixa do formulário-->
        <div class="wrap">
        <!-- Inicio Formulário -->
-          <form action="addValuer" class="formulario" name="formulario_registro" enctype="multipart/form-data"  method="post">
+          <form action="registerUser" class="formulario" name="formulario_registro" enctype="multipart/form-data"  method="post">
              <div class="btn">
                 <!--<label class="label" for="profilePicture">Foto*:</label>-->
                 <label  class="label" for="upload-photo"><img src="resources/img/icone-imagem.png" height="50px"></label>
-                <input type="file" onchange="readURL(this);" accept="image/jpeg, image/png" name="arquivo" id="upload-photo"  />
+                <input type="file" onchange="readURL(this);" accept="image/jpeg, image/png" name="file" id="upload-photo"  />
                 <img id="blah"  src="#"  />
-                <p class="label-foto">Insira uma foto*</p>
+                <p class="label-foto">Insira uma foto</p>
              </div>
              </br></br></br>
              <div class="input-group">
-                <input type="text" id="nome" autofocus="true" onkeypress="return numeros();" name="apelido">
+                <input type="text" id="nome" autofocus="true" onkeypress="return numeros();" name="nickname">
                 <label class="label"  for="nome">Apelido*:</label>
              </div>
              <div class="input-group">
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="username">
                 <label class="label" for="email">E-mail:</label>
              </div>
              <div class="input-group">

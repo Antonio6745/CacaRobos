@@ -198,9 +198,10 @@ public class ControllerRestReport {
 		}
 	}
 	
-	@RequestMapping(value="/listByValuerId/{valuerId}")
+	@RequestMapping(value="/listByValuerId/{valuerId}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Object> listByValuerId(@PathVariable("valuerId") Long valuerId){
 		try{
+			System.out.println(bdVote.listByValuer(valuerId));
 			return new ResponseEntity<Object>(bdVote.listByValuer(valuerId), HttpStatus.OK);
 		}catch(Exception e){
 			HttpError error=new HttpError(HttpStatus.INTERNAL_SERVER_ERROR, "Error in ControllerRestReport(ListByValeurId): "+e.getMessage());

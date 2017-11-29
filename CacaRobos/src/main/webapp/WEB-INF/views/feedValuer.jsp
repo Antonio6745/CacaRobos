@@ -112,20 +112,48 @@
                 <div class="card-body">
                   <h4 class="card-title">
                     <p><b>Denúncia ${myRep.title }</p></b></h4>
-                  <p align="left"><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${report.link }
+                 <p align="left"><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${report.link }
                              <br>
-                              <br>
-                             <b><span style="color:#28a745">Descrição da denúnia: </span></b> ${report.description }
-                                <br>
-                              <br>
-    
-                            <b><span style="color:#28a745">É Robô: </span></b>${report.voteCounting.isARobot }
-                            <b><span style="color:#28a745">Não é Robô: </span></b>${report.voteCounting.isNotARobot }
-                                <br>
-                              <br>
+                             <br>
+                            <b><span style="color:#28a745">Robô: </span></b> ${report.voteCounting.isARobot }
+                            <br>
+                            <b><span style="color:#28a745">Perfil comum: </span></b> ${report.voteCounting.isNotARobot }
+                            <br>
+                            <br>
                             <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${report.id }">Comente Aqui!</button>
                             
+                            <!--Modal Descrição da Denúncia!-->
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">Descrição da Denúncia</button>
+                            
+                                 <!-- Modal -->
+                                 <div class="modal fade" id="myModal2" role="dialog">
+                                   <div class="modal-dialog">
+                                   
+                                     <!-- Modal content-->
+                                     <div class="modal-content">
+                                       <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         <h4 class="modal-title">Descrição da Denúncia</h4>
+                                       </div>
+                                       <div class="modal-body">
+                                          <b><span style="color:#28a745">Descrição e avaliação</span></b>${report.description }
+                                        <br>
+                                               <br>
+                                               <br>
+                                       </div>
+                                       <div class="modal-footer">
+                                       <button type="button" class="btn btn-success">É Robô</button>
+                                       <button type="button" class="btn btn-danger">Não é Robô</button>
+                                         <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Close</button>
+                                       </div>
+                                     </div>
+                                     
+                                   </div>
+                                 </div>
+                                 <br>
+                                 <br>
+
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${report.id }">Comente Aqui!</button>
                             <!-- Modal -->
                                 <div class="modal fade" id="${report.id }" role="dialog">
                                   <div class="modal-dialog">

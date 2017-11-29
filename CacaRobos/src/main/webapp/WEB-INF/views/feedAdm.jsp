@@ -133,50 +133,58 @@
 
 
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Estatisticas">
+      <a class="nav-link" href="feedAdm">
+        <i class="fa fa-rss"></i>
+        <span class="nav-link-text">Feed de denúnias</span>
+      </a>
+    </li>
 
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Estatisticas">
+      <a class="nav-link" href="listValuerInactive">
+        <i class="fa fa-user-plus"></i>
+        <span class="nav-link-text">Solicitações de Voluntarios</span>
+      </a>
+    </li>
 
      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
        <a class="nav-link" href="graficoAdm">
-        <i class="fa fa-fw fa-area-chart"></i>
+        <i class="fa fa-bar-chart"></i>
         <span class="nav-link-text">Estatisticas</span>
       </a>
     </li>
+
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-      <a class="nav-link" href="valuerRegistered">
-        <i class="fa fa-fw fa-table"></i>
+      <a class="nav-link" href="listValuerActive">
+        <i class="fa fa-users"></i>
         <span class="nav-link-text" >Avaliadores</span>
+      </a>
+    </li>
+
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+       <a class="nav-link" href="graficos.html">
+        <i class="fa fa-user-o"></i>
+        <span class="nav-link-text">Adicionar administrador</span>
       </a>
     </li>
       
         
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
       <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
-        <i class="fa fa-fw fa-sitemap"></i>
+        <i class="fa fa-balance-scale"></i>
         <span class="nav-link-text">Denúncias</span>
       </a>
       <ul class="sidenav-second-level collapse" id="collapseMulti">
         <li>
           <a href="#">Em analise</a>
-        </li>
+          </li>
+      
         <li>
           <a href="#">Finalizadas</a>
         </li>
 
         <li>
-          <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Redes Sociais</a>
-          <ul class="sidenav-third-level collapse" id="collapseMulti2">
-            <li>
-              <a href="#">Facebook</a>
-            </li>
-            <li>
-              <a href="#">Whatsapp</a>
-            </li>
-            <li>
-              <a href="#">Instagram</a>
-            </li>
-             <li>
-              <a href="#">Google+</a>
-            </li>
+         
+
 
 <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
@@ -194,26 +202,15 @@
 
               <div class="container-fluid">
 
-     <!-- Breadcrumbs-->
+      <!-- Breadcrumbs-->
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item">
-                    <a style="color:antiquewhite" href="feedAdm">Feed de Denúncias</a>
+                    <a style="color:antiquewhite" href="feedAdm.html">Feed de Denúncias</a>
                   </li>
-                  <li class="breadcrumb-item">
-                     <a style="color:antiquewhite" href="valuerPendente">Novas Solicitações de Avaliadores</a>
-                  </li>
-                  <li class="breadcrumb-item">
-                     <a style="color:antiquewhite" href="graficoAdm">Gráficos</a>
-                  </li>
-                   <li class="breadcrumb-item">
-                     <a style="color:antiquewhite" href="cadastro-adm.html">Adicionar um novo administrador</a>
-                  </li> 
-                 
-                </ol>
+               
 
                 <ul class="navbar-nav ml-auto">
                   </div>
-       
 
       <!-- Area Chart Example-->
        <ul class="navbar-nav ml-auto">
@@ -304,6 +301,7 @@
       <i class="fa fa-angle-up"></i>
     </a>    
     
+     <!-- perfil modal -->
     <div id="id01" class="w3-modal" style="padding-left: 200px; padding-top: 134px;">
       <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 500px;">
   
@@ -370,8 +368,6 @@
     </div>
   </div>
 </footer>
-
-
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/popper/popper.min.js"></script>

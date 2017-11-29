@@ -29,8 +29,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-  
-<<<<<<< HEAD
         
                     <!-- /.dropdown-tasks -->
                 </li>
@@ -66,12 +64,8 @@
 
     <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Estatisticas">
 
-=======
-    <div class="collapse navbar-collapse" id="navbarResponsive" >
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="padding-top: px;">
-          <center><a><img border="0" alt="Logo" src="resources/img/logo.png" 
-            width="100" height="100">
-        </a></center>
+
+
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
           <a class="nav-link" href="listValuerActive">
@@ -79,7 +73,7 @@
             <span class="nav-link-text">Avaliadores Cadastrados</span>
           </a>
         </li>
->>>>>>> _Samuel
+
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="listValuerInactive">

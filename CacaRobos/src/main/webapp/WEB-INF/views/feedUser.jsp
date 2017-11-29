@@ -38,11 +38,10 @@
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard" style="padding-top: 17px;">
           <a class="nav-link" href="enviarDenuncia">
-<<<<<<< HEAD
             <i class="fa fa-wpforms"></i>
-=======
+
             <i class="fa fa-fw fa-dashboard"></i>
->>>>>>> _Samuel
+
             <span class="nav-link-text">Nova denúncia</span>
           </a>
         </li>
@@ -74,13 +73,12 @@
         <li class="nav-item dropdown">
          
         <li class="nav-item">
-<<<<<<< HEAD
+
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-           <a href="logout"> <i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
-=======
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal href="logout">
+
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal href="logout" style="color: #28a745">
             <a href="logout"><i class="fa fa-fw fa-sign-out"></i>Logout</a></a>
->>>>>>> _Samuel
+
         </li>
       </ul>
     </div>
@@ -123,23 +121,43 @@
                     <p><b><u>${report.title }</u></p></b></h4>
                   <p align="left"><p><b><span style="color:#28a745">Endereço da denúncia: </span></b> ${report.link }
                              <br>
-                              <br>
-                             <b><span style="color:#28a745">Descrição da denúnia: </span></b></br> ${report.description }
-                                <br>
-                              <br>
-    
                             <b><span style="color:#28a745">Robô: </span></b> ${report.voteCounting.isARobot }
                             <br>
                             <b><span style="color:#28a745">Perfil comum: </span></b> ${report.voteCounting.isNotARobot }
                             <br>
                             <br>
                             <b><span style="color:#28a745">Status: </span></b> Processamento</p></p>
-<<<<<<< HEAD
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Comentários</button>
-=======
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${report.id }">Comente Aqui!</button>
->>>>>>> _Samuel
                             
+                            <!--Modal Descrição da Denúncia!-->
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">Descrição da Denúncia</button>
+                            
+                                 <!-- Modal -->
+                                 <div class="modal fade" id="myModal2" role="dialog">
+                                   <div class="modal-dialog">
+                                   
+                                     <!-- Modal content-->
+                                     <div class="modal-content">
+                                       <div class="modal-header">
+                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         <h4 class="modal-title">Descrição da Denúncia</h4>
+                                       </div>
+                                       <div class="modal-body">
+                                          <b><span style="color:#28a745">Descrição da denúnia: </span></b>${report.description}
+                                        <br>
+                                               <br>
+                                               <br>
+                                       </div>
+                                       <div class="modal-footer">
+                                         <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Close</button>
+                                       </div>
+                                     </div>
+                                     
+                                   </div>
+                                 </div>
+                                 <br>
+                                 <br>
+
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#${report.id }">Comente Aqui!</button>
                             <!-- Modal -->
                                 <div class="modal fade" id="${report.id }" role="dialog">
                                   <div class="modal-dialog">
@@ -148,7 +166,7 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Secção de Comentários - Denúncia ${report.title }</h4>
+                                        <h4 class="modal-title">${report.title }</h4>
                                       </div>
                                       <div class="modal-body">
                                           <li>
