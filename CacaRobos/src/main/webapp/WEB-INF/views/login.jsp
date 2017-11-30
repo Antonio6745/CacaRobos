@@ -77,7 +77,7 @@
         <input type="password" id="senha" name="password">
         <label class="label" for="senha">Senha:</label>
       </div>
-
+<div style="color: red">${errorMessage }</div>
       <input type="submit" id="btn-submit" value="Logar">
     </div></br><!-- Fim login -->
     <a class="cadastro" data-toggle="tooltip" title="Recupere sua senha!" href="cadastro">Esqueceu sua senha?</a>
