@@ -1,4 +1,4 @@
-# Caça Robos (CacaRobos)
+# Caça-Robôs
 
 <img src="https://github.com/Antonio6745/CacaRobos/blob/master/M%C3%ADdia/CacaRobos-Logo.jpeg"/>
 
