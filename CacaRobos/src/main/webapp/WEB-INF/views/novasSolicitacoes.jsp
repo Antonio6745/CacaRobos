@@ -30,44 +30,7 @@
     </button>
 
   
-<<<<<<< HEAD
-        
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    
-                    <!-- /.dropdown-alerts -->
-                </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="logout">
-              <i class="fa fa-fw fa-sign-out"></i>
-              Logout</a>
-          </li>
-        </ul>
 
-
-        
-
-      </nav>
-
-<!--Menu lateral-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-<div class="collapse navbar-collapse" id="navbarResponsive">
-  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-      <center><a><img border="0" alt="Logo" src="resources/img/logo.png" 
-        width="100" height="100">
-    </a></center>
-
-</br>
-
-       <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large">Meu Perfil</button>
-
-
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Estatisticas">
-
-=======
     <div class="collapse navbar-collapse" id="navbarResponsive" >
       <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="padding-top: px;">
           <center><a><img border="0" alt="Logo" src="resources/img/logo.png" 
@@ -80,7 +43,6 @@
             <span class="nav-link-text">Avaliadores Aprovados</span>
           </a>
         </li>
->>>>>>> _Samuel
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
           <a class="nav-link" href="listValuerInactive">
