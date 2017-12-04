@@ -20,7 +20,7 @@
 
 - Lucas Vidor - Desenvolvedor Back-end
 
-- Samuel Monteiro - Desenvolvedor do Banco de Dados
+- Samuel Monteiro - Desenvolvedor sistema gerenciador do banco de dados
 <br/>
 <br/>
 <p>Para entender melhor sobre o propósito do projeto, o idealizador <b><a href="https://br.linkedin.com/in/thiagorondon">Thiago Rondon</a></b>, publicou um texto acompanhado de um video falando sobre o assunto:</p>
