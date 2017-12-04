@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.sp.cacarobos.model.Login;
 import br.sp.cacarobos.model.UserType;
 import br.sp.cacarobos.model.Valuer;
 
@@ -151,7 +152,7 @@ public class DaoValuer implements GenericDao<Valuer> {
 			v.setId(rs.getLong("id"));
 			v.setName(rs.getString("name"));
 			v.setCpf(rs.getString("cpf"));
-			v.getLogin().setId(rs.getLong("loginId"));
+			v.setLogin(retrieveLogin(rs.getLong("loginId")));
 			v.setActiveAccount(rs.getBoolean("activeAccount"));
 			v.setProfilePicture(rs.getBytes("profilePicture"));
 			v.setReason(rs.getString("reason"));
@@ -161,6 +162,24 @@ public class DaoValuer implements GenericDao<Valuer> {
 		}
 	}
 
+	private Login retrieveLogin(Long loginId){
+		try{
+			PreparedStatement command=connection.prepareStatement("SELECT * FROM login WHERE id=?");
+			command.setLong(1, loginId);
+			ResultSet rs=command.executeQuery();
+			Login l=null;
+			if(rs.next()){
+				l=new Login();
+				l.setUsername(rs.getString("username"));
+			}
+			rs.close();
+			command.close();
+			return l;
+		}catch(SQLException e){
+			throw new RuntimeException("Error in DaoValuer(Retrive Login): "+e.getMessage());
+		}
+	}
+	
 	@Override
 	public List<Valuer> listAll() {
 		List<Valuer> list = new ArrayList<>();
@@ -168,14 +187,7 @@ public class DaoValuer implements GenericDao<Valuer> {
 			PreparedStatement command = connection.prepareStatement("SELECT * FROM valuer");
 			ResultSet rs = command.executeQuery();
 			while (rs.next()) {
-				Valuer v = new Valuer();
-				v.setId(rs.getLong("id"));
-				v.setName(rs.getString("name"));
-				v.setCpf(rs.getString("cpf"));
-				v.getLogin().setId(rs.getLong("loginId"));
-				v.setActiveAccount(rs.getBoolean("activeAccount"));
-				v.setProfilePicture(rs.getBytes("profilePicture"));
-				v.setReason(rs.getString("reason"));
+				Valuer v = retriveData(rs);
 				list.add(v);
 			}
 			rs.close();

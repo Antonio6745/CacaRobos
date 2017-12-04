@@ -16,6 +16,9 @@ public enum EmailTamplate {
 			+ "<a href='172.16.12.79/cacarobos/home'></a></html>"),
 	APPROVE_ACCOUNT_EMAIL("<html><h1></h1>Sua conta foi verificada</br><h3>Nossos gestores aprovaram sua conta!</h3></br>"
 			+ "<p>Voce ja pode começar a ajudar aprovando denuncias de usuarios!</p>"
+			+ "<a href=''></a></html>"),
+	REJECT_ACCOUNT("<html><h1>Conta rejeitada</h1></br><h3>Essa poha deu ruim</h3></br>"
+			+ "<p>Fodac meu, que po ha nao deu!</p>"
 			+ "<a href=''></a></html>")
 	/*
 	 * STANDARD_CONSTRAINT_TAMPLATE("<html><h1></h1></br><h3></h3></br>"

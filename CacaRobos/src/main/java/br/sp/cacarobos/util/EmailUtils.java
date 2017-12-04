@@ -114,4 +114,15 @@ public class EmailUtils{
 			throw new RuntimeException("Error in EmailUtils(Send approve account email): "+e.getMessage());
 		}
 	}
+	
+	public void sendRejectAccount(String username){
+		try{
+			email.addTo(username);
+			email.setSubject("Conta rejeitada");
+			email.setHtmlMsg(EmailTamplate.REJECT_ACCOUNT.emailTamplate);
+			email.send();
+		}catch(EmailException e){
+			throw new RuntimeException("Error in EmailUtils(Send reject account): "+e.getMessage());
+		}
+	}
 }
